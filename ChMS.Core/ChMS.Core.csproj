@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\Families\" />
+    <Folder Include="Application\MembFamilyRelation\" />
+    <Folder Include="Application\Groups\" />
+    <Folder Include="Common\Enums\" />
+    <Folder Include="Infrastructure\" />
+  </ItemGroup>
+
 </Project>
