@@ -6,7 +6,26 @@ using System.Threading.Tasks;
 
 namespace ChMS.Core.Application.Members
 {
-    internal class MemberRepository
+    public class MemberRepository : IMemberRepository
     {
+        public Guid Create(Member entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Member Get(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Member entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

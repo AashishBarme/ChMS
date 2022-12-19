@@ -13,5 +13,15 @@ namespace ChMS.Core.Common
         YouthLeader = 3,
         Others = 4
     }
+    public enum ActiveStatus
+    {
+        Active = 1,
+        InActive = 2
+    }
 
+    public enum UserGroup
+    {
+        Admin = 1,
+        Others = 10
+    }
 }
