@@ -70,7 +70,9 @@ namespace ChMS.Core
             services.AddDbContext<ChMSDbContext>(option =>
             {
                 var serverVersion = new Version("8.0.23");
-                option.UseMySql(configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(serverVersion));
+                var cs = "server=localhost;user=admin;password=admin;database=chms_data;CharSet=utf8;";
+                option.UseMySql(cs, new MySqlServerVersion(serverVersion));
+                //option.UseMySql(configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(serverVersion));
                 //option.LogTo(System.Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             }).AddIdentity<ApplicationUser, IdentityRole<long>>(options =>
             {

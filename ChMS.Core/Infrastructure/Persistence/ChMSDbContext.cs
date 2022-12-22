@@ -1,7 +1,9 @@
-﻿using ChMS.Core.Infrastructure.Identity;
+﻿using ChMS.Core.Application.Members;
+using ChMS.Core.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,9 @@ namespace ChMS.Core.Infrastructure.Persistence
         public ChMSDbContext(DbContextOptions<ChMSDbContext> options) : base(options)
         {
         }
+
+        public DbSet<Member> Members { get; set; }
+ 
 
         public Task<int> SaveChangesAsync()
         {
@@ -34,6 +39,18 @@ namespace ChMS.Core.Infrastructure.Persistence
             builder.Entity<IdentityRoleClaim<long>>().ToTable("role_claims");
             builder.Entity<IdentityUserClaim<long>>().ToTable("user_claims");
             builder.Entity<IdentityUserLogin<long>>().ToTable("user_logins");
+        }
+    }
+
+    public class ChMSDbContextFactory : IDesignTimeDbContextFactory<ChMSDbContext>
+    {
+        public ChMSDbContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<ChMSDbContext>();
+            var serverVersion = new Version(10, 1, 47);
+            var cs = "server=localhost;user=admin;password=admin;database=chms_data;CharSet=utf8;";
+            optionsBuilder.UseMySql(cs, new MySqlServerVersion(serverVersion));
+            return new ChMSDbContext(optionsBuilder.Options);
         }
     }
 }

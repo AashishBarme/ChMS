@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChMS.Core.Application.Members
 {
-    public class Member
+    public class Member : BaseModel
     {
         public Guid Id { get; set; }
         public string? FirstName { get; set; }
