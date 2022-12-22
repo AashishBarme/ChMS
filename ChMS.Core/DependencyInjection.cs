@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ChMS.Core.Application.Members;
+using ChMS.Core.Infrastructure.DataAccess;
 using ChMS.Core.Infrastructure.Identity;
 using ChMS.Core.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,7 +21,13 @@ namespace ChMS.Core
         public static IServiceCollection AddCoreLogic(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IMemberRepository, MemberRepository>();
-
+            var settings = new ConnectionSettings
+            {
+                ReadConnection = configuration.GetConnectionString("ReadConnection"),
+                DefaultConnection = configuration.GetConnectionString("DefaultConnection")
+            };
+            services.AddSingleton(settings);
+            services.AddSingleton<DataAccessFactory>();
             return services;
         }
 
