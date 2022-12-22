@@ -121,4 +121,31 @@ CREATE UNIQUE INDEX IF NOT EXISTS `UserNameIndex` ON `users` (`NormalizedUserNam
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('20221221171908_InitialMemberCreate', '6.0.7');
 
+
+CREATE TABLE IF NOT EXISTS `families` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Surname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `MemberHead`  char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PermanentAddress` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `TemporaryAddress` varchar(255) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `groups`(
+    `Id` int(11) NOT NULL AUTO_INCREMENT,
+    `Name` varchar(255) NOT NULL,
+    `Description` text NOT NULL,
+    `FellowshipRoutine` varchar(255) NOT NULL,
+    PRIMARY KEY(`Id`)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `inventory`(
+    `Id` int(11) NOT NULL AUTO_INCREMENT,
+    `Name` varchar(255) NOT NULL,
+    `Code` varchar(50) NOT NULL,
+    `Quantity` int(4) NOT NULL,
+    PRIMARY KEY(`Id`)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
 COMMIT;
