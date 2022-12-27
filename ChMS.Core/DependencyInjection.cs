@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ChMS.Core.Application.Groups;
 using ChMS.Core.Application.Members;
 using ChMS.Core.Infrastructure.DataAccess;
 using ChMS.Core.Infrastructure.Identity;
@@ -21,6 +22,7 @@ namespace ChMS.Core
         public static IServiceCollection AddCoreLogic(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IMemberRepository, MemberRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
             var settings = new ConnectionSettings
             {
                 ReadConnection = configuration.GetConnectionString("ReadConnection"),
@@ -77,10 +79,10 @@ namespace ChMS.Core
             services.AddDbContext<ChMSDbContext>(option =>
             {
                 var serverVersion = new Version("8.0.23");
-                var cs = "server=localhost;user=admin;password=admin;database=chms_data;CharSet=utf8;";
-                option.UseMySql(cs, new MySqlServerVersion(serverVersion));
-                //option.UseMySql(configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(serverVersion));
-                //option.LogTo(System.Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
+               // var cs = "server=localhost;user=admin;password=admin;database=chms_data;CharSet=utf8;";
+               // option.UseMySql(cs, new MySqlServerVersion(serverVersion));
+                option.UseMySql(configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(serverVersion));
+                option.LogTo(System.Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             }).AddIdentity<ApplicationUser, IdentityRole<long>>(options =>
             {
                 options.Password.RequiredLength = 6;

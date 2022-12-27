@@ -36,28 +36,26 @@ CREATE TABLE IF NOT EXISTS `roles` (
     CONSTRAINT `PK_roles` PRIMARY KEY (`Id`)
 ) CHARACTER SET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `users` (
-    `Id` bigint NOT NULL AUTO_INCREMENT,
-    `FirstName` varchar(50) CHARACTER SET utf8mb4 NULL,
-    `MiddleName` varchar(50) CHARACTER SET utf8mb4 NULL,
-    `LastName` varchar(50) CHARACTER SET utf8mb4 NULL,
-    `UserGroup` int NOT NULL,
-    `IsActive` int NOT NULL,
-    `UserName` varchar(256) CHARACTER SET utf8mb4 NULL,
-    `NormalizedUserName` varchar(256) CHARACTER SET utf8mb4 NULL,
-    `Email` varchar(256) CHARACTER SET utf8mb4 NULL,
-    `NormalizedEmail` varchar(256) CHARACTER SET utf8mb4 NULL,
-    `EmailConfirmed` tinyint(1) NOT NULL,
-    `PasswordHash` longtext CHARACTER SET utf8mb4 NULL,
-    `SecurityStamp` longtext CHARACTER SET utf8mb4 NULL,
-    `ConcurrencyStamp` longtext CHARACTER SET utf8mb4 NULL,
-    `PhoneNumber` longtext CHARACTER SET utf8mb4 NULL,
-    `PhoneNumberConfirmed` tinyint(1) NOT NULL,
-    `TwoFactorEnabled` tinyint(1) NOT NULL,
-    `LockoutEnd` datetime(6) NULL,
-    `LockoutEnabled` tinyint(1) NOT NULL,
-    `AccessFailedCount` int NOT NULL,
-    CONSTRAINT `PK_users` PRIMARY KEY (`Id`)
+CREATE TABLE IF NOT EXISTS `members` (
+    `Id` char(36) COLLATE ascii_general_ci NOT NULL,
+    `FirstName` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `LastName` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `Email` VARCHAR(255) CHARACTER SET utf8mb4 NULL,
+    `PhoneNumber` VARCHAR(15) CHARACTER SET utf8mb4 NOT NULL,
+    `SecondaryPhoneNumber` VARCHAR(15) CHARACTER SET utf8mb4 NULL,
+    `BirthDate` VARCHAR(50) CHARACTER SET utf8mb4 NOT NULL,
+    `Sex` VARCHAR(10) CHARACTER SET utf8mb4 NOT NULL,
+    `Occupation` VARCHAR(50) CHARACTER SET utf8mb4 NULL,
+    `Photo` VARCHAR(50) CHARACTER SET utf8mb4 NULL,
+    `PermanentAddress` VARCHAR(100) CHARACTER SET utf8mb4 NULL,
+    `TemporaryAddress` VARCHAR(100) CHARACTER SET utf8mb4 NULL,
+    `GroupId` int NOT NULL,
+    `ChurchRole` int NOT NULL,
+    `CreatedDate` datetime NOT NULL,
+    `UpdateDate` datetime NULL,
+    `CreatedBy` bigint NOT NULL,
+    `UpdateBy` bigint NOT NULL,
+    CONSTRAINT `PK_members` PRIMARY KEY (`Id`)
 ) CHARACTER SET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `role_claims` (

@@ -1,4 +1,5 @@
-﻿using ChMS.Core.Application.Members;
+﻿using ChMS.Core.Application.Groups;
+using ChMS.Core.Application.Members;
 using ChMS.Core.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace ChMS.Core.Infrastructure.Persistence
         }
 
         public DbSet<Member> Members { get; set; }
+        public DbSet<Group> Groups {get; set;}
  
 
         public Task<int> SaveChangesAsync()

@@ -8,9 +8,9 @@ namespace ChMS.Core.Application.Groups
 {
     public class Group
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string FellowshipRoutine { get; set; }
+        public int Id { get; set; } = 0;
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public string? FellowshipRoutine { get; set; }
     }
 }
