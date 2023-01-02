@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
+builder.Services.AddChMSDapper(builder.Configuration);
 builder.Services.AddDbContextAndIdentity(builder.Configuration);
 // builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddCoreLogic(builder.Configuration);

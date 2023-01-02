@@ -74,6 +74,15 @@ namespace ChMS.Core
             return services;
         }
 
+        public static IServiceCollection AddChMSDapper(this IServiceCollection services, IConfiguration configuration)
+        {
+            var defaultConnectionString = new DefaultConnectionString();
+                defaultConnectionString.SetConnectionString(configuration.GetConnectionString("DefaultConnection"));
+                services.AddSingleton<IConnectionString>(defaultConnectionString);
+                services.AddSingleton<BaseRepository>();
+        return services;
+        }
+
         public static void AddDbContextAndIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ChMSDbContext>(option =>

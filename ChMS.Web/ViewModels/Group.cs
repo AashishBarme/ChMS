@@ -6,3 +6,8 @@ public class CreateGroupVM
         public string? Description { get; set; }
         public string? FellowshipRoutine { get; set; }
 }
+
+public class UpdateGroupVm : CreateGroupVM
+{
+        public int Id {get; set;}
+}

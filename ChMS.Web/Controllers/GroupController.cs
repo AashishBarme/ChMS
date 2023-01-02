@@ -26,4 +26,36 @@ public class GroupController : ControllerBase
         });
         return Ok(response);
     }
+
+
+    [HttpPut]
+    public ActionResult Update([FromBody] UpdateGroupVm request)
+    {
+        return Ok(_repository.Update(new Group{
+            Id = request.Id,
+            Name = request.Name,
+            Description = request.Description,
+            FellowshipRoutine = request.FellowshipRoutine
+        }));
+    }
+
+     [HttpDelete("{id}")]
+    public ActionResult Delete(int id)
+    {
+        _repository.Delete(id);
+        return Ok();
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult Get(int id)
+    {
+        return Ok(_repository.Get(id));
+    }
+
+    [HttpGet("list")]
+    public ActionResult List()
+    {
+        return Ok(_repository.List());
+    }
+
 }
