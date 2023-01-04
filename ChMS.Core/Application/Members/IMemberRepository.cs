@@ -8,10 +8,11 @@ namespace ChMS.Core.Application.Members
 {
     public interface IMemberRepository
     {
-        public Guid Create(Member entity);
-        public void Update(Member entity);
+        public Task<Guid> Create(Member entity);
+        public Task Update(Member entity);
         public Member Get(string id);
         public void Delete(string id);
+        public List<MemberListVM> List(); 
 
 
     }

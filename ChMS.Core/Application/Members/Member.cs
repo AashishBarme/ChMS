@@ -26,4 +26,16 @@ namespace ChMS.Core.Application.Members
         public ChurchRole ChurchRole { get; set; }
             
     }
+
+    public class MemberListVM 
+    {
+        public Guid Id { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Email { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? Sex { get; set;}
+        public int GroupId { get; set; } 
+        public ChurchRole ChurchRole { get; set; }
+    }
 }

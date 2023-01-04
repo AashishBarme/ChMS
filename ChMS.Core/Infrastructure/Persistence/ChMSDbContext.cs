@@ -1,5 +1,7 @@
-﻿using ChMS.Core.Application.Groups;
+﻿using ChMS.Core.Application.Families;
+using ChMS.Core.Application.Groups;
 using ChMS.Core.Application.Members;
+using ChMS.Core.Application.MembFamilyRelation;
 using ChMS.Core.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -22,6 +24,9 @@ namespace ChMS.Core.Infrastructure.Persistence
 
         public DbSet<Member> Members { get; set; }
         public DbSet<Group> Groups {get; set;}
+        public DbSet<Family> Families {get; set;}
+        public DbSet<MemberFamilyRelation> MemberFamilyRelations {get; set;}
+        // public DbSet<Inventory> Inventories {get; set;}
  
 
         public Task<int> SaveChangesAsync()
