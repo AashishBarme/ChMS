@@ -1,12 +1,8 @@
 ﻿using ChMS.Core.Application.Families;
 using ChMS.Core.Application.Members;
+using ChMS.Core.Application.MembFamilyRelation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChMS.Core.Infrastructure.Persistence.Configurations
 {
@@ -44,6 +40,24 @@ namespace ChMS.Core.Infrastructure.Persistence.Configurations
             builder.Property(t => t.TemporaryAddress).HasColumnType("varchar");
         }
     }
+
+    public class MemberFamilyRelationConfiguration: IEntityTypeConfiguration<MemberFamilyRelation>
+    {
+        public void Configure(EntityTypeBuilder<MemberFamilyRelation> builder)
+        {
+            builder.HasKey(t=> t.Id);
+            builder.ToTable("memberfamilyrelations");
+        }
+    }
+
+    // public class GroupsConfiguration : IEntityTypeConfiguration<Family>
+    // {
+    //     public void Configure(EntityTypeBuilder<Family> builder)
+    //     {
+    //         builder.HasKey(t => t.Id);
+    //         builder.ToTable("")
+    //     }
+    // }
 
 
 }

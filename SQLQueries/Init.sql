@@ -10,15 +10,15 @@ CREATE TABLE IF NOT EXISTS `members` (
     `Id` char(36) COLLATE ascii_general_ci NOT NULL,
     `FirstName` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
     `LastName` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-    `Email` varchar CHARACTER SET utf8mb4 NULL,
-    `PhoneNumber` varchar CHARACTER SET utf8mb4 NOT NULL,
-    `SecondaryPhoneNumber` varchar CHARACTER SET utf8mb4 NULL,
-    `BirthDate` varchar CHARACTER SET utf8mb4 NOT NULL,
+    `Email` varchar(50) CHARACTER SET utf8mb4 NULL,
+    `PhoneNumber` varchar(15) CHARACTER SET utf8mb4 NOT NULL,
+    `SecondaryPhoneNumber` varchar(15) CHARACTER SET utf8mb4 NULL,
+    `BirthDate` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
     `Sex` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
-    `Occupation` varchar CHARACTER SET utf8mb4 NULL,
-    `Photo` varchar CHARACTER SET utf8mb4 NULL,
-    `PermanentAddress` varchar CHARACTER SET utf8mb4 NULL,
-    `TemporaryAddress` varchar CHARACTER SET utf8mb4 NULL,
+    `Occupation` varchar(50) CHARACTER SET utf8mb4 NULL,
+    `Photo` varchar(50) CHARACTER SET utf8mb4 NULL,
+    `PermanentAddress` varchar(50) CHARACTER SET utf8mb4 NULL,
+    `TemporaryAddress` varchar(50) CHARACTER SET utf8mb4 NULL,
     `GroupId` int NOT NULL,
     `ChurchRole` int NOT NULL,
     `CreatedDate` datetime NOT NULL,
@@ -123,7 +123,7 @@ VALUES ('20221221171908_InitialMemberCreate', '6.0.7');
 CREATE TABLE IF NOT EXISTS `families` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Surname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `MemberHead`  char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `FamilyHeadId`  char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `PermanentAddress` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `TemporaryAddress` varchar(255) NOT NULL,
   PRIMARY KEY (`Id`)
@@ -145,5 +145,25 @@ CREATE TABLE IF NOT EXISTS `inventory`(
     PRIMARY KEY(`Id`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+
+CREATE TABLE IF NOT EXISTS `memberfamilyrelations` (
+    `Id` int NOT NULL AUTO_INCREMENT,
+    `MemberId` char(36) COLLATE ascii_general_ci NOT NULL,
+    `FamilyId` int NOT NULL,
+    `Relation` int NOT NULL,
+    CONSTRAINT `PK_memberfamilyrelations` PRIMARY KEY (`Id`),
+    CONSTRAINT `FK_memberfamilyrelations_families_FamilyId` FOREIGN KEY (`FamilyId`) REFERENCES `families` (`Id`) ON DELETE CASCADE,
+    CONSTRAINT `FK_memberfamilyrelations_members_MemberId` FOREIGN KEY (`MemberId`) REFERENCES `members` (`Id`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+
+CREATE INDEX IF NOT EXISTS `IX_families_FamilyHeadId` ON `families` (`FamilyHeadId`);
+
+CREATE INDEX IF NOT EXISTS `IX_memberfamilyrelations_FamilyId` ON `memberfamilyrelations` (`FamilyId`);
+
+CREATE INDEX IF NOT EXISTS `IX_memberfamilyrelations_MemberId` ON `memberfamilyrelations` (`MemberId`);
+
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20230104131648_MemberFamilyRelationConfig', '6.0.7');
 
 COMMIT;
