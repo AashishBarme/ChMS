@@ -1,4 +1,4 @@
-﻿using Kpo.Domain.Common.Enums;
+﻿using Chms.Domain.Common.Enums;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 

@@ -1,4 +1,4 @@
-using Kpo.Domain.Entities;
+using Chms.Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;

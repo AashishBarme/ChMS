@@ -1,10 +1,11 @@
-﻿using Kpo.Application.Common.Exceptions;
-using Kpo.Application.Common.Interface;
-using Kpo.Domain.Common.Enums;
-using Kpo.Domain.Entities;
-using Kpo.Domain.ViewModels.Users;
+﻿using Chms.Application.Common.Exceptions;
+using Chms.Application.Common.Interface;
+using Chms.Domain.Common.Enums;
+using Chms.Domain.Entities;
+using Chms.Domain.ViewModels.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,6 @@ namespace Chms.Infrastructure.Identity
                     FirstName = entity.FirstName,
                     MiddleName = entity.MiddleName,
                     LastName = entity.LastName,
-                     UserImage = entity.UserImage,
                     IsActive = entity.IsActive
 
                 };
@@ -72,11 +72,10 @@ namespace Chms.Infrastructure.Identity
                     FirstName = entity.FirstName,
                     MiddleName = entity.MiddleName,
                     LastName = entity.LastName,
-                    IsActive = entity.IsActive,
-                    UserImage = entity.UserImage
+                    IsActive = entity.IsActive
 
                 };
-                if (entity.Id > 0)
+                if (entity.Id != null)
                 {
                     user.Id = entity.Id;
                 }
@@ -176,7 +175,6 @@ namespace Chms.Infrastructure.Identity
                 entity.MiddleName = user.MiddleName;
                 entity.LastName = user.LastName;
                 entity.IsActive = user.IsActive;
-                entity.UserImage = user.UserImage;
 
             }
             return await Task.FromResult<User>(entity);
@@ -227,7 +225,6 @@ namespace Chms.Infrastructure.Identity
             user.MiddleName = entity.MiddleName;
             user.LastName = entity.LastName;
             user.IsActive = entity.IsActive;
-            user.UserImage = entity.UserImage;
 
             IdentityResult result = await _userManager.UpdateAsync(user);
             if (!result.Succeeded)
