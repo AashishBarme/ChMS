@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `members` (
     `CreatedDate` datetime NOT NULL,
     `UpdateDate` datetime NULL,
     `CreatedBy` bigint NOT NULL,
-    `UpdateBy` bigint NOT NULL,
+    `UpdatedBy` bigint NOT NULL,
     CONSTRAINT `PK_members` PRIMARY KEY (`Id`)
 ) CHARACTER SET=utf8mb4;
 
@@ -36,27 +36,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
     CONSTRAINT `PK_roles` PRIMARY KEY (`Id`)
 ) CHARACTER SET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `members` (
-    `Id` char(36) COLLATE ascii_general_ci NOT NULL,
-    `FirstName` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-    `LastName` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-    `Email` VARCHAR(255) CHARACTER SET utf8mb4 NULL,
-    `PhoneNumber` VARCHAR(15) CHARACTER SET utf8mb4 NOT NULL,
-    `SecondaryPhoneNumber` VARCHAR(15) CHARACTER SET utf8mb4 NULL,
-    `BirthDate` VARCHAR(50) CHARACTER SET utf8mb4 NOT NULL,
-    `Sex` VARCHAR(10) CHARACTER SET utf8mb4 NOT NULL,
-    `Occupation` VARCHAR(50) CHARACTER SET utf8mb4 NULL,
-    `Photo` VARCHAR(50) CHARACTER SET utf8mb4 NULL,
-    `PermanentAddress` VARCHAR(100) CHARACTER SET utf8mb4 NULL,
-    `TemporaryAddress` VARCHAR(100) CHARACTER SET utf8mb4 NULL,
-    `GroupId` int NOT NULL,
-    `ChurchRole` int NOT NULL,
-    `CreatedDate` datetime NOT NULL,
-    `UpdateDate` datetime NULL,
-    `CreatedBy` bigint NOT NULL,
-    `UpdateBy` bigint NOT NULL,
-    CONSTRAINT `PK_members` PRIMARY KEY (`Id`)
-) CHARACTER SET=utf8mb4;
+
 
 CREATE TABLE IF NOT EXISTS `role_claims` (
     `Id` int NOT NULL AUTO_INCREMENT,
@@ -137,12 +117,17 @@ CREATE TABLE IF NOT EXISTS `groups`(
     PRIMARY KEY(`Id`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `inventory`(
+CREATE TABLE IF NOT EXISTS `inventories`(
     `Id` int(11) NOT NULL AUTO_INCREMENT,
     `Name` varchar(255) NOT NULL,
     `Code` varchar(50) NOT NULL,
     `Quantity` int(4) NOT NULL,
-    PRIMARY KEY(`Id`)
+    `Description` text NOT NULL,
+    `CreatedDate` varchar(50) NOT NULL,
+    `UpdatedDate` varchar(50),
+    `CreatedBy` int(11) NOT NULL,
+    `UpdatedBy` int(11)
+    PRIMARY KEY(`Id`),
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
