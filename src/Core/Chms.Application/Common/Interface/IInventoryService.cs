@@ -4,10 +4,10 @@ namespace Chms.Application.Common.Interface;
 
  public interface IInventoryService
     {
-        public Task<Guid> Create(Inventory entity);
+        public Task<int> Create(Inventory entity);
         public Task Update(Inventory entity);
-        public Inventory Get(string id);
-        public void Delete(string id);
+        public Inventory GetAsync(int id);
+        public void Delete(int id);
         public List<Inventory> List(); 
 
 

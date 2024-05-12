@@ -1,31 +1,39 @@
 using Chms.Application.Common.Interface;
+using Chms.Application.Common.Interface.Repositories;
 using Chms.Domain.Entities;
 
 namespace Chms.Application.Services;
 public class InventoryService : IInventoryService
 {
-    public Task<Guid> Create(Inventory entity)
+    public readonly IInventoryCommandRepository _commandRepo;
+    public readonly IInventoryQueryRepository _queryRepo;
+    public InventoryService(IInventoryCommandRepository commandRepository, IInventoryQueryRepository quereyRepository)
     {
-        throw new NotImplementedException();
+        _commandRepo = commandRepository;
+        _queryRepo = quereyRepository;
+    }
+    public async Task<int> Create(Inventory entity)
+    {
+        return await _commandRepo.Create(entity);
     }
 
-    public void Delete(string id)
+    public void Delete(int id)
     {
-        throw new NotImplementedException();
+        _commandRepo.Delete(id);
     }
 
-    public Inventory Get(string id)
+    public Inventory GetAsync(int id)
     {
-        throw new NotImplementedException();
+        return  _queryRepo.Get(id);
     }
 
     public List<Inventory> List()
     {
-        throw new NotImplementedException();
+        return _queryRepo.List();
     }
 
     public Task Update(Inventory entity)
     {
-        throw new NotImplementedException();
+        return _commandRepo.Update(entity);
     }
 }
