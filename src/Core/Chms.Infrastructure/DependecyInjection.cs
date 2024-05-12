@@ -23,13 +23,22 @@ public static class DependecyInjection
         services.AddScoped<IInventoryQueryRepository, InventoryQueryRepository>();
         
         var settings = new ConnectionSettings{
-            ReadConnection = configuration.GetConnectionString("ReadConnection"),
+            ReadConnection = configuration.GetConnectionString("DefaultConnection"),
             DefaultConnection = configuration.GetConnectionString("DefaultConnection")
         };
         services.AddSingleton(settings);
         services.AddSingleton<DataAccessFactory>();
         return services;
     }
+
+        public static IServiceCollection AddChMSDapper(this IServiceCollection services, IConfiguration configuration)
+        {
+            var defaultConnectionString = new DefaultConnectionString();
+                defaultConnectionString.SetConnectionString(configuration.GetConnectionString("DefaultConnection"));
+                services.AddSingleton<IConnectionString>(defaultConnectionString);
+                services.AddSingleton<BaseRepository>();
+        return services;
+        }
 
      public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {

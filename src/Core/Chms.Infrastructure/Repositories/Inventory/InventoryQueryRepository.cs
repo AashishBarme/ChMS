@@ -8,7 +8,7 @@ namespace Chms.Infrastructure;
 public class InventoryQueryRepository : IInventoryQueryRepository
 {
     public readonly BaseRepository _baseRepository;
-    public const string TABLE_NAME = "inventory";
+    public const string TABLE_NAME = "inventories";
     public InventoryQueryRepository(BaseRepository baseRepository)
     {
         _baseRepository = baseRepository;

@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Chms.Application;
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddApplicationLogic(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddScoped<IMemberService, MemberService>();

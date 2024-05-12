@@ -23,7 +23,7 @@ public class InventoryCommandRepository : IInventoryCommandRepository
 
     public void Delete(int id)
     {
-        string sql = "delete from `inventory` where Id = @Id";
+        string sql = "delete from `inventories` where Id = @Id";
         _baseRepository.LoadData<string, object>(sql, new { Id = id }).GetAwaiter().GetResult();
     }
 

@@ -19,7 +19,7 @@ namespace Chms.Infrastructure.Repositories.Member
         {
             _baseRepository = baseRepository;
         }
-        public Domain.Entities.Member Get(Guid id)
+        public Domain.Entities.Member Get(int id)
         {
             string sql = $"select * from {TABLE_NAME} where Id = @Id";
             return _baseRepository.LoadSingleData<Domain.Entities.Member, object>(sql, new { Id = id })

@@ -6,7 +6,7 @@ namespace Chms.Application.Common.Interface;
     {
         public Task<int> Create(Inventory entity);
         public Task Update(Inventory entity);
-        public Inventory GetAsync(int id);
+        public Inventory Get(int id);
         public void Delete(int id);
         public List<Inventory> List(); 
 

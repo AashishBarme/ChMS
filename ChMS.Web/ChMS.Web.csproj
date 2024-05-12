@@ -12,7 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChMS.Core\ChMS.Core.csproj" />
+    <ProjectReference Include="..\src\Core\Chms.Application\Chms.Application.csproj" />
+    <ProjectReference Include="..\src\Core\Chms.Infrastructure\Chms.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

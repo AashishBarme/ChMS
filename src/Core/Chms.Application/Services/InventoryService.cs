@@ -22,7 +22,7 @@ public class InventoryService : IInventoryService
         _commandRepo.Delete(id);
     }
 
-    public Inventory GetAsync(int id)
+    public Inventory Get(int id)
     {
         return  _queryRepo.Get(id);
     }

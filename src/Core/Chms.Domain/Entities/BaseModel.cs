@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Chms.Domain.Entities;
     public class BaseModel
     {
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdateDate { get; set; } = null;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime? UpdatedDate { get; set; } = null;
         public long CreatedBy { get; set; }
-        public long UpdateBy { get; set; }
+        public long UpdatedBy { get; set; }
 
     }

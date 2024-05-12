@@ -18,7 +18,7 @@ namespace Chms.Infrastructure.Persistence.Configurations
             builder.Property(t => t.PhoneNumber).HasMaxLength(50).IsRequired();
             builder.Property(t => t.CreatedBy).IsRequired();
             builder.Property(t => t.CreatedDate).HasColumnType("datetime");
-            builder.Property(t => t.UpdateDate).HasColumnType("datetime");
+            builder.Property(t => t.UpdatedDate).HasColumnType("datetime");
             builder.Property(t => t.Email).HasColumnType("varchar");
             builder.Property(t => t.SecondaryPhoneNumber).HasColumnType("varchar");
             builder.Property(t => t.Occupation).HasColumnType("varchar");
