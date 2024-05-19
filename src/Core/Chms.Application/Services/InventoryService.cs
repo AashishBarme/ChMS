@@ -5,35 +5,35 @@ using Chms.Domain.Entities;
 namespace Chms.Application.Services;
 public class InventoryService : IInventoryService
 {
-    public readonly IInventoryCommandRepository _commandRepo;
-    public readonly IInventoryQueryRepository _queryRepo;
+    public readonly IInventoryCommandRepository _command;
+    public readonly IInventoryQueryRepository _query;
     public InventoryService(IInventoryCommandRepository commandRepository, IInventoryQueryRepository quereyRepository)
     {
-        _commandRepo = commandRepository;
-        _queryRepo = quereyRepository;
+        _command = commandRepository;
+        _query = quereyRepository;
     }
     public async Task<int> Create(Inventory entity)
     {
-        return await _commandRepo.Create(entity);
+        return await _command.Create(entity);
     }
 
     public void Delete(int id)
     {
-        _commandRepo.Delete(id);
+        _command.Delete(id);
     }
 
     public Inventory Get(int id)
     {
-        return  _queryRepo.Get(id);
+        return  _query.Get(id);
     }
 
     public List<Inventory> List()
     {
-        return _queryRepo.List();
+        return _query.List();
     }
 
     public Task Update(Inventory entity)
     {
-        return _commandRepo.Update(entity);
+        return _command.Update(entity);
     }
 }
