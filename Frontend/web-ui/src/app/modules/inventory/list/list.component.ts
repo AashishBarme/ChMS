@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class ListComponent implements OnInit {
 
   constructor() { }
-
+  pageParentLink = 'Inventory';
+  pageTitle = 'List Item';
   ngOnInit(): void {
   }
 

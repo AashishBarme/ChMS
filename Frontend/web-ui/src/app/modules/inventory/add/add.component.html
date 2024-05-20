@@ -16,12 +16,177 @@
                     <div class="d-flex flex-column flex-column-fluid">
                       <!--begin::Toolbar-->
                       <!--breadcrumb here-->
-                      <app-breadcrumb></app-breadcrumb>
+                      <app-breadcrumb [title]="pageTitle" [breadcrumbLinks]="pageParentLink"></app-breadcrumb>
                       <!--end-->
                       <!--begin::Content-->
                       <div id="kt_app_content" class="app-content  flex-column-fluid " >
                         <!--begin::Content container-->
                         <div id="kt_app_content_container" class="app-container  container-fluid ">
+                          <form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework" >
+                            <!--begin::Aside column-->
+                            <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+                                <!--begin::Thumbnail settings-->
+                        <div class="card card-flush py-4">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>Thumbnail</h2>
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+
+                            <!--begin::Card body-->
+                            <div class="card-body text-center pt-0">
+                                <!--begin::Image input-->
+                                            <!--begin::Image input placeholder-->
+                                    <style>
+                                        .image-input-placeholder {
+                                            background-image: url('../../../assets/media/svg/files/blank-image.svg');
+                                        }
+
+                                        [data-bs-theme="dark"] .image-input-placeholder {
+                                            background-image: url('../../../assets/media/svg/files/blank-image-dark.svg');
+                                        }
+                                    </style>
+                                    <!--end::Image input placeholder-->
+
+                                <!--begin::Image input-->
+                                <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
+                                    <!--begin::Preview existing avatar-->
+                                                    <div class="image-input-wrapper w-150px h-150px"></div>
+                                                <!--end::Preview existing avatar-->
+
+                                    <!--begin::Label-->
+                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized="1">
+                                        <!--begin::Icon-->
+                                        <i class="ki-duotone ki-pencil fs-7"><span class="path1"></span><span class="path2"></span></i>                <!--end::Icon-->
+
+                                        <!--begin::Inputs-->
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg">
+                                        <input type="hidden" name="avatar_remove">
+                                        <!--end::Inputs-->
+                                    </label>
+                                    <!--end::Label-->
+
+                                    <!--begin::Cancel-->
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar" data-bs-original-title="Cancel avatar" data-kt-initialized="1">
+                                        <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>            </span>
+                                    <!--end::Cancel-->
+
+                                    <!--begin::Remove-->
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar" data-bs-original-title="Remove avatar" data-kt-initialized="1">
+                                        <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i>            </span>
+                                    <!--end::Remove-->
+                                </div>
+                                <!--end::Image input-->
+
+                                <!--begin::Description-->
+                                <div class="text-muted fs-7">Set the category thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+                                <!--end::Description-->
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Thumbnail settings-->
+
+                        <!--end::Template settings-->
+                        </div>
+                            <!--end::Aside column-->
+
+                            <!--begin::Main column-->
+                            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+                                <!--begin::General options-->
+                        <div class="card card-flush py-4">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h2>General</h2>
+                                </div>
+                            </div>
+                            <!--end::Card header-->
+
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0 row">
+                                <!--begin::Input group-->
+                                <div class="mb-10 fv-row fv-plugins-icon-container col-12">
+                                    <!--begin::Label-->
+                                    <label class="required form-label">Name</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                                <input type="text" name="category_name" class="form-control mb-2" placeholder="Product name" value="">
+                                    <!--end::Input-->
+
+                                    <!--begin::Description-->
+                                    <div class="text-muted fs-7">A category name is required and recommended to be unique.</div>
+                                    <!--end::Description-->
+                                </div>
+                                <!--end::Input group-->
+                                 <!--begin::Input group-->
+                                <div class="mb-10 fv-row fv-plugins-icon-container col-6">
+                                    <!--begin::Label-->
+                                    <label class="required form-label">Unique Code (SKU)</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                                <input type="text" name="category_name" class="form-control mb-2" placeholder="Product name" value="">
+                                    <!--end::Input-->
+
+                                    <!--begin::Description-->
+                                    <div class="text-muted fs-7">This field is recommended to be unique.</div>
+                                    <!--end::Description-->
+                                </div>
+                                <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                <div class="mb-10 fv-row fv-plugins-icon-container col-6">
+                                    <!--begin::Label-->
+                                    <label class="required form-label">Quantity</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                                <input type="text" name="category_name" class="form-control mb-2" placeholder="Product name" value="">
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+
+                                <!--begin::Input group-->
+                                <div>
+                                    <!--begin::Label-->
+                                    <label class="form-label">Description</label>
+                                    <!--end::Label-->
+
+                                    <!--begin::Editor-->
+                                    <textarea class="form-control mb-2"></textarea>
+                                    <!--end::Editor-->
+
+                                    <!--begin::Description-->
+                                    <div class="text-muted fs-7">Set a description to the category for better visibility.</div>
+                                    <!--end::Description-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Card header-->
+                        </div>
+                        <!--end::General options-->
+                                <div class="d-flex justify-content-end">
+                                     <!--begin::Button-->
+                                     <a href="products.html" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">
+                                        Cancel
+                                    </a>
+                                    <!--end::Button-->
+
+                                    <!--begin::Button-->
+                                    <button type="submit" id="kt_ecommerce_add_category_submit" class="btn btn-primary">
+                                        <span class="indicator-label">
+                                            Save Changes
+                                        </span>
+                                        <span class="indicator-progress">
+                                            Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                        </span>
+                                    </button>
+                                    <!--end::Button-->
+                                </div>
+                            </div>
+                            <!--end::Main column-->
+                        </form>
                         </div>
                       </div>
                     </div>
