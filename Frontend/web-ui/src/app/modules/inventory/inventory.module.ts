@@ -5,6 +5,7 @@ import { InventoryRoutingModule } from './inventory-routing.module';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
+import { LayoutModule } from '../layout/layout.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ListComponent } from './list/list.component';
   ],
   imports: [
     CommonModule,
-    InventoryRoutingModule
+    InventoryRoutingModule,
+    LayoutModule
   ]
 })
 export class InventoryModule { }
