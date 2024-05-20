@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add.component.css']
 })
 export class AddComponent implements OnInit {
-
+  pageParentLink = 'Member';
+  pageTitle = 'Add Member';
   constructor() { }
 
   ngOnInit(): void {

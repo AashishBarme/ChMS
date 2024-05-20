@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-
+  pageParentLink = 'Member';
+  pageTitle = 'Edit Member';
   constructor() { }
 
   ngOnInit(): void {
