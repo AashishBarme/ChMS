@@ -7,6 +7,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { InventoryModule } from './modules/inventory/inventory.module';
 import { MemberModule } from './modules/member/member.module';
 import { LayoutModule } from './modules/layout/layout.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 
 
 
@@ -20,7 +21,8 @@ import { LayoutModule } from './modules/layout/layout.module';
     AuthModule,
     InventoryModule,
     MemberModule,
-    LayoutModule
+    LayoutModule,
+    DashboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
