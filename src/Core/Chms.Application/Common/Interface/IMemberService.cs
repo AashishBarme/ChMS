@@ -6,8 +6,8 @@ namespace Chms.Application.Common.Interface;
     {
         public Task<Guid> Create(Member entity);
         public Task Update(Member entity);
-        public Member Get(int id);
-        public void Delete(int id);
+        public Member Get(Guid id);
+        public void Delete(Guid id);
         public List<MemberListVM> List(); 
 
 

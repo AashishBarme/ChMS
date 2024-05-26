@@ -14,12 +14,12 @@ namespace Chms.Infrastructure.Repositories.Member
     public class MemberQueryRepository : IMemberQueryRepository
     {
         private readonly BaseRepository _baseRepository;
-        public const string TABLE_NAME = "member";
+        public const string TABLE_NAME = "members";
         public MemberQueryRepository(BaseRepository baseRepository)
         {
             _baseRepository = baseRepository;
         }
-        public Domain.Entities.Member Get(int id)
+        public Domain.Entities.Member Get(Guid id)
         {
             string sql = $"select * from {TABLE_NAME} where Id = @Id";
             return _baseRepository.LoadSingleData<Domain.Entities.Member, object>(sql, new { Id = id })

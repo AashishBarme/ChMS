@@ -9,7 +9,7 @@ public class MemberCommandRepository : IMemberCommandRepository
 {
     public readonly ChMSDbContext _dbContext;
     public readonly BaseRepository _baseRepo;
-    public const string TABLE_NAME = "member";
+    public const string TABLE_NAME = "members";
     public MemberCommandRepository(ChMSDbContext dbContext, BaseRepository baseRepo)
     {
         _dbContext = dbContext;
@@ -22,7 +22,7 @@ public class MemberCommandRepository : IMemberCommandRepository
         return entity.Id;
     }
 
-    public void Delete(int id)
+    public void Delete(Guid id)
     {
         string sql = $"delete from {TABLE_NAME} where Id = @Id";
         _baseRepo.LoadData<string, object>(sql, new { Id = id }).GetAwaiter().GetResult();

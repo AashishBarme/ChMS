@@ -18,12 +18,12 @@ public class MemberService : IMemberService
         return await _command.Create(entity);
     }
 
-    public void Delete(int id)
+    public void Delete(Guid id)
     {
         _command.Delete(id);
     }
 
-    public Member Get(int id)
+    public Member Get(Guid id)
     {
         return _query.Get(id);
     }
