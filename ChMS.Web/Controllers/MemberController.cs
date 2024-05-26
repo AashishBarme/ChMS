@@ -33,14 +33,14 @@ namespace ChMS.Web.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Guid id)
         {
             _service.Delete(id);
             return Ok();
         }
 
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public ActionResult Get(Guid id)
         {
             return Ok(_service.Get(id));
         }
