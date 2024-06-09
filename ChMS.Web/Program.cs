@@ -3,6 +3,13 @@ using Chms.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure appsettings.json
+builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+          .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+    config.AddEnvironmentVariables();
+});
 
 builder.Services.AddCors(options =>
             {

@@ -15,5 +15,14 @@
     <ProjectReference Include="..\src\Core\Chms.Application\Chms.Application.csproj" />
     <ProjectReference Include="..\src\Core\Chms.Infrastructure\Chms.Infrastructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+  <None Update="appsettings.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+  <None Update="appsettings.Development.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
+
 
 </Project>
