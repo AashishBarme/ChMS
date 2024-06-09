@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Inventory } from '../inventory.model';
 import { InventoryService } from '../inventory.service';
 import { stringify } from 'querystring';
@@ -13,9 +13,9 @@ import { Router } from '@angular/router';
 export class AddComponent implements OnInit {
   pageParentLink = 'Inventory';
   pageTitle = 'Add Item';
-  inventoryForm!: FormGroup;
+  inventoryForm!: UntypedFormGroup;
 
-  constructor(private fb: FormBuilder, private inventoryService: InventoryService, private _router: Router) {}
+  constructor(private fb: UntypedFormBuilder, private inventoryService: InventoryService, private _router: Router) {}
 
   ngOnInit(): void {
     this.inventoryForm = this.fb.group({

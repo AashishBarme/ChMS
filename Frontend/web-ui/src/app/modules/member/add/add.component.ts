@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MemberService } from '../member.service';
 import { Member } from '../member.model';
 import { Router } from '@angular/router';
@@ -12,12 +12,12 @@ import { Router } from '@angular/router';
 export class AddComponent implements OnInit {
   pageParentLink = 'Member';
   pageTitle = 'Add Member';
-  memberForm: FormGroup;
+  memberForm: UntypedFormGroup;
   ngOnInit(): void {
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private memberService: MemberService,
     private _router: Router ) {
     this.memberForm = this.fb.group({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Member } from '../member.model';
 import { MemberService } from '../member.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,11 +12,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EditComponent implements OnInit {
   pageParentLink = 'Member';
   pageTitle = 'Edit Member';
-  editMemberForm!: FormGroup;
+  editMemberForm!: UntypedFormGroup;
   member!: Member; // added ! to make ensure about it it not undefined
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private memberService: MemberService,
     private route: ActivatedRoute,
     private router: Router

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Inventory } from '../inventory.model';
 import { InventoryService } from '../inventory.service';
@@ -13,11 +13,11 @@ export class EditComponent implements OnInit {
 
   pageParentLink = 'Inventory';
   pageTitle = 'Edit Item';
-  inventoryForm: FormGroup;
+  inventoryForm: UntypedFormGroup;
   inventoryId: number | null = null;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private inventoryService: InventoryService,
     private route: ActivatedRoute,
     private router: Router
