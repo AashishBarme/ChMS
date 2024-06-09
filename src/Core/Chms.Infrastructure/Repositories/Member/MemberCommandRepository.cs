@@ -30,6 +30,7 @@ public class MemberCommandRepository : IMemberCommandRepository
 
     public async Task<Guid> Update(Domain.Entities.Member entity)
     {
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(entity));
         _dbContext.Members.Update(entity);
         await _dbContext.SaveChangesAsync();
         return entity.Id;

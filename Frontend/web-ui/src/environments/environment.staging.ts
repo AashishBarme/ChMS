@@ -1,9 +1,9 @@
 // export const environment = {
-//     production: false,
-//     ApiUrl:"http://celebseek.com",
-//     MainUrl:"http://celebseek.com",
-//     MediaUploadUrl : "http://test.com"
-//     };
+//   production: true,
+//   ApiUrl:"http://api.feedlily.com/api",
+//   MainUrl:"http://feedlily.com",
+//   MediaUploadUrl:"http://api.feedlily.com/uploads"
+// };
 
 import { DynamicEnvironment } from './dynamic-environment';
 class Environment extends DynamicEnvironment {
@@ -12,7 +12,6 @@ class Environment extends DynamicEnvironment {
   constructor() {
     super();
     this.production = true;
-
   }
 }
 

@@ -4,6 +4,14 @@ using Chms.Application;
 var builder = WebApplication.CreateBuilder(args);
 
 
+builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("ChmsCorsPolicy", builder =>
+                 builder.WithOrigins(new string[] { "*" })
+                 .AllowAnyHeader()
+                 .AllowAnyMethod());
+            });
+
 // Add services to the container.
 builder.Services.AddChMSDapper(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -25,8 +33,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
+app.UseCors("ChmsCorsPolicy");
 
 app.UseAuthorization();
 

@@ -6,6 +6,8 @@ import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
 import { LayoutModule } from '../layout/layout.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 // import { HeaderComponent } from 'src/app/components/shared/header/header.component';
 // import { SidebarComponent } from 'src/app/components/shared/sidebar/sidebar.component';
 // import { BreadcrumbComponent } from 'src/app/components/shared/breadcrumb/breadcrumb.component';
@@ -19,9 +21,11 @@ import { LayoutModule } from '../layout/layout.module';
     ListComponent
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
     MemberRoutingModule,
-    LayoutModule
+    LayoutModule,
+    ReactiveFormsModule
   ]
 })
 export class MemberModule { }

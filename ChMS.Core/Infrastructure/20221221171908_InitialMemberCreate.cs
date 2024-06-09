@@ -30,7 +30,7 @@ namespace ChMS.Core.Infrastructure
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     BirthDate = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Sex = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
+                    Gender= table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Occupation = table.Column<string>(type: "varchar", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),

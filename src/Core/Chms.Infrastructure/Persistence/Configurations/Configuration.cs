@@ -13,7 +13,7 @@ namespace Chms.Infrastructure.Persistence.Configurations
             builder.ToTable("members");
             builder.Property(t => t.FirstName).HasMaxLength(255).IsRequired();
             builder.Property(t => t.LastName).HasMaxLength(255).IsRequired();
-            builder.Property(t => t.Sex).HasMaxLength(10).IsRequired();
+            builder.Property(t => t.Gender).HasMaxLength(10).IsRequired();
             builder.Property(t => t.BirthDate).HasMaxLength(50).IsRequired();
             builder.Property(t => t.PhoneNumber).HasMaxLength(50).IsRequired();
             builder.Property(t => t.CreatedBy).IsRequired();

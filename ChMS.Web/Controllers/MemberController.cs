@@ -6,7 +6,7 @@ using Chms.Domain.Entities;
 
 namespace ChMS.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class MemberController : ControllerBase
     {
