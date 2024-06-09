@@ -6,6 +6,7 @@ import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
 import { LayoutModule } from '../layout/layout.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { LayoutModule } from '../layout/layout.module';
   imports: [
     CommonModule,
     InventoryRoutingModule,
-    LayoutModule
+    LayoutModule,
+    ReactiveFormsModule
   ]
 })
 export class InventoryModule { }
