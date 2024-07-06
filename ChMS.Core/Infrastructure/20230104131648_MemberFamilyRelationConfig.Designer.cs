@@ -119,7 +119,7 @@ namespace ChMS.Core.Infrastructure
                     b.Property<string>("SecondaryPhoneNumber")
                         .HasColumnType("varchar");
 
-                    b.Property<string>("Sex")
+                    b.Property<string>("Gender")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar(10)");

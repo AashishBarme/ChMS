@@ -85,9 +85,9 @@ public static class DependecyInjection
         {
             services.AddDbContext<ChMSDbContext>(option =>
             {
-                var serverVersion = new Version("8.0.23");
-                option.UseMySql(configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(serverVersion));
-                //option.LogTo(System.Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
+                // var serverVersion = new Version("8.0.23");
+                option.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                option.LogTo(System.Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             }).AddIdentity<ApplicationUser, IdentityRole<long>>(options =>
             {
                 options.Password.RequiredLength = 6;

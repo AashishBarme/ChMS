@@ -1,154 +1,233 @@
-CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
-    `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
-    `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
-    CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
-) CHARACTER SET=utf8mb4;
+-- Check if the table __EFMigrationsHistory exists, if not create it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[__EFMigrationsHistory]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] NVARCHAR(150) NOT NULL,
+        [ProductVersion] NVARCHAR(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
 
-ALTER DATABASE CHARACTER SET utf8mb4;
+-- Check if the table members exists, if not create it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[members]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [members] (
+        [Id] UNIQUEIDENTIFIER NOT NULL,
+        [FirstName] NVARCHAR(255) NOT NULL,
+        [LastName] NVARCHAR(255) NOT NULL,
+        [Gender] NVARCHAR(10) NOT NULL,
+        [Email] NVARCHAR(50) NULL,
+        [PhoneNumber] NVARCHAR(15) NOT NULL,
+        [SecondaryPhoneNumber] NVARCHAR(15) NULL,
+        [BirthDate] NVARCHAR(10) NOT NULL,
+        [Occupation] NVARCHAR(50) NULL,
+        [Photo] NVARCHAR(50) NULL,
+        [PermanentAddress] NVARCHAR(50) NULL,
+        [TemporaryAddress] NVARCHAR(50) NULL,
+        [GroupId] INT NOT NULL,
+        [ChurchRole] INT NOT NULL,
+        [CreatedDate] DATETIME NOT NULL,
+        [UpdatedDate] DATETIME NULL,
+        [CreatedBy] BIGINT NOT NULL,
+        [UpdatedBy] BIGINT NOT NULL,
+        CONSTRAINT [PK_members] PRIMARY KEY ([Id])
+    );
+END;
 
-CREATE TABLE IF NOT EXISTS `members` (
-    `Id` char(36) COLLATE ascii_general_ci NOT NULL,
-    `FirstName` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-    `LastName` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-    `Email` varchar(50) CHARACTER SET utf8mb4 NULL,
-    `PhoneNumber` varchar(15) CHARACTER SET utf8mb4 NOT NULL,
-    `SecondaryPhoneNumber` varchar(15) CHARACTER SET utf8mb4 NULL,
-    `BirthDate` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
-    `Sex` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
-    `Occupation` varchar(50) CHARACTER SET utf8mb4 NULL,
-    `Photo` varchar(50) CHARACTER SET utf8mb4 NULL,
-    `PermanentAddress` varchar(50) CHARACTER SET utf8mb4 NULL,
-    `TemporaryAddress` varchar(50) CHARACTER SET utf8mb4 NULL,
-    `GroupId` int NOT NULL,
-    `ChurchRole` int NOT NULL,
-    `CreatedDate` datetime NOT NULL,
-    `UpdateDate` datetime NULL,
-    `CreatedBy` bigint NOT NULL,
-    `UpdatedBy` bigint NOT NULL,
-    CONSTRAINT `PK_members` PRIMARY KEY (`Id`)
-) CHARACTER SET=utf8mb4;
+-- Check if the table roles exists, if not create it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[roles]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [roles] (
+        [Id] BIGINT NOT NULL IDENTITY(1,1),
+        [Name] NVARCHAR(256) NULL,
+        [NormalizedName] NVARCHAR(256) NULL,
+        [ConcurrencyStamp] NVARCHAR(MAX) NULL,
+        CONSTRAINT [PK_roles] PRIMARY KEY ([Id])
+    );
+END;
 
-CREATE TABLE IF NOT EXISTS `roles` (
-    `Id` bigint NOT NULL AUTO_INCREMENT,
-    `Name` varchar(256) CHARACTER SET utf8mb4 NULL,
-    `NormalizedName` varchar(256) CHARACTER SET utf8mb4 NULL,
-    `ConcurrencyStamp` longtext CHARACTER SET utf8mb4 NULL,
-    CONSTRAINT `PK_roles` PRIMARY KEY (`Id`)
-) CHARACTER SET=utf8mb4;
+-- Check if the table role_claims exists, if not create it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[role_claims]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [role_claims] (
+        [Id] INT NOT NULL IDENTITY(1,1),
+        [RoleId] BIGINT NOT NULL,
+        [ClaimType] NVARCHAR(MAX) NULL,
+        [ClaimValue] NVARCHAR(MAX) NULL,
+        CONSTRAINT [PK_role_claims] PRIMARY KEY ([Id]),
+        CONSTRAINT [FK_role_claims_roles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [roles] ([Id]) ON DELETE CASCADE
+    );
+END;
 
+-- Check if the table user_claims exists, if not create it
+--IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[user_claims]') AND type in (N'U'))
+--BEGIN
+--    CREATE TABLE [user_claims] (
+--        [Id] INT NOT NULL IDENTITY(1,1),
+--        [UserId] BIGINT NOT NULL,
+--        [ClaimType] NVARCHAR(MAX) NULL,
+--        [ClaimValue] NVARCHAR(MAX) NULL,
+--        CONSTRAINT [PK_user_claims] PRIMARY KEY ([Id]),
+--        CONSTRAINT [FK_user_claims_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [users] ([Id]) ON DELETE CASCADE
+--    );
+--END;
 
+-- Check if the table user_logins exists, if not create it
+--IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[user_logins]') AND type in (N'U'))
+--BEGIN
+--    CREATE TABLE [user_logins] (
+--        [LoginProvider] NVARCHAR(255) NOT NULL,
+--        [ProviderKey] NVARCHAR(255) NOT NULL,
+--        [ProviderDisplayName] NVARCHAR(MAX) NULL,
+--        [UserId] BIGINT NOT NULL,
+--        CONSTRAINT [PK_user_logins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
+--        CONSTRAINT [FK_user_logins_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [users] ([Id]) ON DELETE CASCADE
+--    );
+--END;
 
-CREATE TABLE IF NOT EXISTS `role_claims` (
-    `Id` int NOT NULL AUTO_INCREMENT,
-    `RoleId` bigint NOT NULL,
-    `ClaimType` longtext CHARACTER SET utf8mb4 NULL,
-    `ClaimValue` longtext CHARACTER SET utf8mb4 NULL,
-    CONSTRAINT `PK_role_claims` PRIMARY KEY (`Id`),
-    CONSTRAINT `FK_role_claims_roles_RoleId` FOREIGN KEY (`RoleId`) REFERENCES `roles` (`Id`) ON DELETE CASCADE
-) CHARACTER SET=utf8mb4;
+-- Check if the table user_roles exists, if not create it
+--IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[user_roles]') AND type in (N'U'))
+--BEGIN
+--    CREATE TABLE [user_roles] (
+--        [UserId] BIGINT NOT NULL,
+--        [RoleId] BIGINT NOT NULL,
+--        CONSTRAINT [PK_user_roles] PRIMARY KEY ([UserId], [RoleId]),
+--        CONSTRAINT [FK_user_roles_roles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [roles] ([Id]) ON DELETE CASCADE,
+--        CONSTRAINT [FK_user_roles_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [users] ([Id]) ON DELETE CASCADE
+--    );
+--END;
 
-CREATE TABLE IF NOT EXISTS `user_claims` (
-    `Id` int NOT NULL AUTO_INCREMENT,
-    `UserId` bigint NOT NULL,
-    `ClaimType` longtext CHARACTER SET utf8mb4 NULL,
-    `ClaimValue` longtext CHARACTER SET utf8mb4 NULL,
-    CONSTRAINT `PK_user_claims` PRIMARY KEY (`Id`),
-    CONSTRAINT `FK_user_claims_users_UserId` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE
-) CHARACTER SET=utf8mb4;
+-- Check if the table user_tokens exists, if not create it
+--IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[user_tokens]') AND type in (N'U'))
+--BEGIN
+--    CREATE TABLE [user_tokens] (
+--        [UserId] BIGINT NOT NULL,
+--        [LoginProvider] NVARCHAR(255) NOT NULL,
+--        [Name] NVARCHAR(255) NOT NULL,
+--        [Value] NVARCHAR(MAX) NULL,
+--        CONSTRAINT [PK_user_tokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
+--        CONSTRAINT [FK_user_tokens_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [users] ([Id]) ON DELETE CASCADE
+--    );
+--END;
 
-CREATE TABLE IF NOT EXISTS `user_logins` (
-    `LoginProvider` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-    `ProviderKey` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-    `ProviderDisplayName` longtext CHARACTER SET utf8mb4 NULL,
-    `UserId` bigint NOT NULL,
-    CONSTRAINT `PK_user_logins` PRIMARY KEY (`LoginProvider`, `ProviderKey`),
-    CONSTRAINT `FK_user_logins_users_UserId` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE
-) CHARACTER SET=utf8mb4;
+-- Create indexes if they do not exist
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'IX_role_claims_RoleId' AND object_id = OBJECT_ID(N'[role_claims]'))
+BEGIN
+    CREATE INDEX [IX_role_claims_RoleId] ON [role_claims] ([RoleId]);
+END;
 
-CREATE TABLE IF NOT EXISTS `user_roles` (
-    `UserId` bigint NOT NULL,
-    `RoleId` bigint NOT NULL,
-    CONSTRAINT `PK_user_roles` PRIMARY KEY (`UserId`, `RoleId`),
-    CONSTRAINT `FK_user_roles_roles_RoleId` FOREIGN KEY (`RoleId`) REFERENCES `roles` (`Id`) ON DELETE CASCADE,
-    CONSTRAINT `FK_user_roles_users_UserId` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE
-) CHARACTER SET=utf8mb4;
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'RoleNameIndex' AND object_id = OBJECT_ID(N'[roles]'))
+BEGIN
+    CREATE UNIQUE INDEX [RoleNameIndex] ON [roles] ([NormalizedName]);
+END;
 
-CREATE TABLE  IF NOT EXISTS `user_tokens` (
-    `UserId` bigint NOT NULL,
-    `LoginProvider` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-    `Name` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-    `Value` longtext CHARACTER SET utf8mb4 NULL,
-    CONSTRAINT `PK_user_tokens` PRIMARY KEY (`UserId`, `LoginProvider`, `Name`),
-    CONSTRAINT `FK_user_tokens_users_UserId` FOREIGN KEY (`UserId`) REFERENCES `users` (`Id`) ON DELETE CASCADE
-) CHARACTER SET=utf8mb4;
+--IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'IX_user_claims_UserId' AND object_id = OBJECT_ID(N'[user_claims]'))
+--BEGIN
+--    CREATE INDEX [IX_user_claims_UserId] ON [user_claims] ([UserId]);
+--END;
 
-CREATE INDEX IF NOT EXISTS `IX_role_claims_RoleId` ON `role_claims` (`RoleId`);
+--IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'IX_user_logins_UserId' AND object_id = OBJECT_ID(N'[user_logins]'))
+--BEGIN
+--    CREATE INDEX [IX_user_logins_UserId] ON [user_logins] ([UserId]);
+--END;
 
-CREATE UNIQUE INDEX IF NOT EXISTS `RoleNameIndex` ON `roles` (`NormalizedName`);
+--IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'IX_user_roles_RoleId' AND object_id = OBJECT_ID(N'[user_roles]'))
+--BEGIN
+--    CREATE INDEX [IX_user_roles_RoleId] ON [user_roles] ([RoleId]);
+--END;
 
-CREATE INDEX IF NOT EXISTS `IX_user_claims_UserId` ON `user_claims` (`UserId`);
+--IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'EmailIndex' AND object_id = OBJECT_ID(N'[users]'))
+--BEGIN
+--    CREATE INDEX [EmailIndex] ON [users] ([NormalizedEmail]);
+--END;
 
-CREATE INDEX IF NOT EXISTS `IX_user_logins_UserId` ON `user_logins` (`UserId`);
+--IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'UserNameIndex' AND object_id = OBJECT_ID(N'[users]'))
+--BEGIN
+--    CREATE UNIQUE INDEX [UserNameIndex] ON [users] ([NormalizedUserName]);
+--END;
 
-CREATE INDEX IF NOT EXISTS `IX_user_roles_RoleId` ON `user_roles` (`RoleId`);
+-- Insert into __EFMigrationsHistory if not exists
+IF NOT EXISTS (SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = '20221221171908_InitialMemberCreate')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES ('20221221171908_InitialMemberCreate', '6.0.7');
+END;
 
-CREATE INDEX IF NOT EXISTS `EmailIndex` ON `users` (`NormalizedEmail`);
+-- Check if the table families exists, if not create it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[families]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [families] (
+        [Id] INT NOT NULL IDENTITY(1,1),
+        [Surname] NVARCHAR(255) NOT NULL,
+        [FamilyHeadId] UNIQUEIDENTIFIER NULL,
+        [PermanentAddress] NVARCHAR(255) NULL,
+        [TemporaryAddress] NVARCHAR(255) NOT NULL,
+        PRIMARY KEY ([Id])
+    );
+END;
 
-CREATE UNIQUE INDEX IF NOT EXISTS `UserNameIndex` ON `users` (`NormalizedUserName`);
+-- Check if the table groups exists, if not create it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[groups]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [groups] (
+        [Id] INT NOT NULL IDENTITY(1,1),
+        [Name] NVARCHAR(255) NOT NULL,
+        [Description] NVARCHAR(MAX) NOT NULL,
+        [FellowshipRoutine] NVARCHAR(255) NOT NULL,
+        PRIMARY KEY ([Id])
+    );
+END;
 
-INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20221221171908_InitialMemberCreate', '6.0.7');
+-- Check if the table inventories exists, if not create it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[inventories]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [inventories] (
+        [Id] INT NOT NULL IDENTITY(1,1),
+        [Name] NVARCHAR(255) NOT NULL,
+        [Code] NVARCHAR(50) NOT NULL,
+        [Quantity] INT NOT NULL,
+        [Description] NVARCHAR(MAX) NOT NULL,
+        [CreatedDate] NVARCHAR(50) NOT NULL,
+        [UpdatedDate] NVARCHAR(50),
+        [CreatedBy] INT NOT NULL,
+        [UpdatedBy] INT,
+        PRIMARY KEY ([Id])
+    );
+END;
 
+-- Check if the table memberfamilyrelations exists, if not create it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[memberfamilyrelations]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [memberfamilyrelations] (
+        [Id] INT NOT NULL IDENTITY(1,1),
+        [MemberId] UNIQUEIDENTIFIER NOT NULL,
+        [FamilyId] INT NOT NULL,
+        [Relation] INT NOT NULL,
+        CONSTRAINT [PK_memberfamilyrelations] PRIMARY KEY ([Id]),
+        CONSTRAINT [FK_memberfamilyrelations_families_FamilyId] FOREIGN KEY ([FamilyId]) REFERENCES [families] ([Id]) ON DELETE CASCADE,
+        CONSTRAINT [FK_memberfamilyrelations_members_MemberId] FOREIGN KEY ([MemberId]) REFERENCES [members] ([Id]) ON DELETE CASCADE
+    );
+END;
 
-CREATE TABLE IF NOT EXISTS `families` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Surname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `FamilyHeadId`  char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `PermanentAddress` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `TemporaryAddress` varchar(255) NOT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- Create indexes for families and memberfamilyrelations
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'IX_families_FamilyHeadId' AND object_id = OBJECT_ID(N'[families]'))
+BEGIN
+    CREATE INDEX [IX_families_FamilyHeadId] ON [families] ([FamilyHeadId]);
+END;
 
-CREATE TABLE IF NOT EXISTS `groups`(
-    `Id` int(11) NOT NULL AUTO_INCREMENT,
-    `Name` varchar(255) NOT NULL,
-    `Description` text NOT NULL,
-    `FellowshipRoutine` varchar(255) NOT NULL,
-    PRIMARY KEY(`Id`)
-)ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'IX_memberfamilyrelations_FamilyId' AND object_id = OBJECT_ID(N'[memberfamilyrelations]'))
+BEGIN
+    CREATE INDEX [IX_memberfamilyrelations_FamilyId] ON [memberfamilyrelations] ([FamilyId]);
+END;
 
-CREATE TABLE IF NOT EXISTS `inventories`(
-    `Id` int(11) NOT NULL AUTO_INCREMENT,
-    `Name` varchar(255) NOT NULL,
-    `Code` varchar(50) NOT NULL,
-    `Quantity` int(4) NOT NULL,
-    `Description` text NOT NULL,
-    `CreatedDate` varchar(50) NOT NULL,
-    `UpdatedDate` varchar(50),
-    `CreatedBy` int(11) NOT NULL,
-    `UpdatedBy` int(11)
-    PRIMARY KEY(`Id`),
-)ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'IX_memberfamilyrelations_MemberId' AND object_id = OBJECT_ID(N'[memberfamilyrelations]'))
+BEGIN
+    CREATE INDEX [IX_memberfamilyrelations_MemberId] ON [memberfamilyrelations] ([MemberId]);
+END;
 
-
-
-CREATE TABLE IF NOT EXISTS `memberfamilyrelations` (
-    `Id` int NOT NULL AUTO_INCREMENT,
-    `MemberId` char(36) COLLATE ascii_general_ci NOT NULL,
-    `FamilyId` int NOT NULL,
-    `Relation` int NOT NULL,
-    CONSTRAINT `PK_memberfamilyrelations` PRIMARY KEY (`Id`),
-    CONSTRAINT `FK_memberfamilyrelations_families_FamilyId` FOREIGN KEY (`FamilyId`) REFERENCES `families` (`Id`) ON DELETE CASCADE,
-    CONSTRAINT `FK_memberfamilyrelations_members_MemberId` FOREIGN KEY (`MemberId`) REFERENCES `members` (`Id`) ON DELETE CASCADE
-) CHARACTER SET=utf8mb4;
-
-CREATE INDEX IF NOT EXISTS `IX_families_FamilyHeadId` ON `families` (`FamilyHeadId`);
-
-CREATE INDEX IF NOT EXISTS `IX_memberfamilyrelations_FamilyId` ON `memberfamilyrelations` (`FamilyId`);
-
-CREATE INDEX IF NOT EXISTS `IX_memberfamilyrelations_MemberId` ON `memberfamilyrelations` (`MemberId`);
-
-INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20230104131648_MemberFamilyRelationConfig', '6.0.7');
-
-COMMIT;
+-- Insert into __EFMigrationsHistory if not exists
+IF NOT EXISTS (SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = '20230104131648_MemberFamilyRelationConfig')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES ('20230104131648_MemberFamilyRelationConfig', '6.0.7');
+END;

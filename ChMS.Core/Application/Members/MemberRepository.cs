@@ -50,7 +50,7 @@ namespace ChMS.Core.Application.Members
 
         public List<MemberListVM> List()
         {
-            string sql = $"select Id, FirstName, LastName, Email, PhoneNumber, Sex, GroupId, ChurchRole from {tableName} order by CreatedDate DESC";
+            string sql = $"select Id, FirstName, LastName, Email, PhoneNumber, Gender, GroupId, ChurchRole from {tableName} order by CreatedDate DESC";
             return _baseRepo.LoadData<MemberListVM, object>(sql, new{}).GetAwaiter().GetResult();
         }
     }

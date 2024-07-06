@@ -46,16 +46,4 @@ namespace Chms.Infrastructure.Persistence
             builder.Entity<IdentityUserLogin<long>>().ToTable("user_logins");
         }
     }
-
-    public class ChMSDbContextFactory : IDesignTimeDbContextFactory<ChMSDbContext>
-    {
-        public ChMSDbContext CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<ChMSDbContext>();
-            var serverVersion = new Version(10, 1, 47);
-            var cs = "server=localhost;user=admin;password=admin;database=chms_data;CharSet=utf8;";
-            optionsBuilder.UseMySql(cs, new MySqlServerVersion(serverVersion));
-            return new ChMSDbContext(optionsBuilder.Options);
-        }
-    }
 }

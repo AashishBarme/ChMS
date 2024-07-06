@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using MySql.Data.MySqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace Chms.Infrastructure.DataAccess
 {
@@ -13,66 +13,59 @@ namespace Chms.Infrastructure.DataAccess
         public BaseRepository(IConnectionString connectionString)
         {
             _connectionString = connectionString;
-
         }
+
         public async Task<List<T>> LoadData<T>(string sql)
         {
-            using (IDbConnection connection = new MySqlConnection(_connectionString.GetConnectionString()))
+            using (IDbConnection connection = new SqlConnection(_connectionString.GetConnectionString()))
             {
                 var rows = await connection.QueryAsync<T>(sql);
                 return rows.ToList();
             }
-
         }
 
-        public async Task<List<T>> LoadData<T,U>(string sql, U parameters)
+        public async Task<List<T>> LoadData<T, U>(string sql, U parameters)
         {
-            using (IDbConnection connection = new MySqlConnection(_connectionString.GetConnectionString()))
+            using (IDbConnection connection = new SqlConnection(_connectionString.GetConnectionString()))
             {
                 var rows = await connection.QueryAsync<T>(sql, parameters);
                 return rows.ToList();
             }
-
         }
 
         public async Task<T> LoadSingleData<T, U>(string sql, U parameters)
         {
-            using (IDbConnection connection = new MySqlConnection(_connectionString.GetConnectionString()))
+            using (IDbConnection connection = new SqlConnection(_connectionString.GetConnectionString()))
             {
                 var rows = await connection.QuerySingleOrDefaultAsync<T>(sql, parameters);
                 return rows;
             }
-
         }
 
         public Task SaveData<T>(string sql, T parameters)
         {
-            using (IDbConnection connection = new MySqlConnection(_connectionString.GetConnectionString()))
+            using (IDbConnection connection = new SqlConnection(_connectionString.GetConnectionString()))
             {
-            
-                return connection.ExecuteAsync(sql,parameters);
-
+                return connection.ExecuteAsync(sql, parameters);
             }
-
         }
 
-        public Task<int> SaveMany<T>(string sql, List<T> parameters)
+        public async Task<int> SaveMany<T>(string sql, List<T> parameters)
         {
-             using (IDbConnection connection = new MySqlConnection(_connectionString.GetConnectionString()))
+            using (IDbConnection connection = new SqlConnection(_connectionString.GetConnectionString()))
             {
                 connection.Open();
                 var trans = connection.BeginTransaction();
-                var returned= connection.ExecuteAsync(sql,parameters,transaction:trans);
+                var returned = await connection.ExecuteAsync(sql, parameters, transaction: trans);
                 trans.Commit();
                 connection.Close();
                 return returned;
             }
-
         }
 
         public Task<T> GetLastInsertId<T>()
         {
-            return LoadSingleData<T,object>("select last_insert_id()",new{});
+            return LoadSingleData<T, object>("SELECT SCOPE_IDENTITY()", new { });
         }
     }
 }
