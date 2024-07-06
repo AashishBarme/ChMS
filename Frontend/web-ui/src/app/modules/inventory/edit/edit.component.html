@@ -24,7 +24,7 @@
               </div>
               <div class="mb-3 col-6">
                 <label class="required form-label">Unique Code (SKU)</label>
-                <input type="text" formControlName="code" attr-disabled="true" class="form-control mb-2" placeholder="Unique Code (SKU)">
+                <input type="text" formControlName="code"  class="form-control mb-2" placeholder="Unique Code (SKU)">
                 <div *ngIf="inventoryForm.controls['code'].invalid && inventoryForm.controls['code'].touched" class="text-danger">
                   SKU is required.
                 </div>

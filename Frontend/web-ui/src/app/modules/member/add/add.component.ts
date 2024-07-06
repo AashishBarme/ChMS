@@ -44,7 +44,7 @@ export class AddComponent implements OnInit {
       this.memberService.create(member).subscribe({
         next: (data) => {
           console.log('Member created successfully', data);
-          this._router.navigate([`/member/list`]);
+          this._router.navigate([`/member`]);
         },
         error: (err) => {
           console.error('Error creating member', err);

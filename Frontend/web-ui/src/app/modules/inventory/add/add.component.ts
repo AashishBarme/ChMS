@@ -34,7 +34,7 @@ export class AddComponent implements OnInit {
       this.inventoryService.create(inventory).subscribe({
         next: (response) => {
           console.log('Category created successfully', response);
-          this._router.navigate([`/inventory/list`]);
+          this._router.navigate([`/inventory`]);
         },
         error: (error) => {
           console.error('There was an error creating the category', error);

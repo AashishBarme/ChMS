@@ -64,7 +64,7 @@ export class EditComponent implements OnInit {
     if (this.inventoryId) {
       this.inventoryService.update(inventoryData).subscribe({
         next: () => {
-          this.router.navigate(['/inventory/list']);
+          this.router.navigate(['/inventory']);
         },
         error: (error) => {
           console.error('Error updating inventory', error);

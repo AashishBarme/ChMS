@@ -60,7 +60,7 @@ export class EditComponent implements OnInit {
   onSubmit(): void {
     if (this.editMemberForm.valid) {
       this.memberService.update(this.member.id, this.editMemberForm.value).subscribe(() => {
-        this.router.navigate(['/member/list']);
+        this.router.navigate(['/member']);
       });
     }
   }

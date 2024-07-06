@@ -15,14 +15,14 @@ export class ListComponent implements OnInit {
   data: Inventory[] = [];
   sortDirection = true;
 
-  constructor(private inventoryService: InventoryService, private _router: Router) {}
+  constructor(private _service: InventoryService, private _router: Router) {}
 
   ngOnInit(): void {
     this.loadData();
   }
 
   loadData(): void {
-    this.inventoryService.list().subscribe({
+    this._service.list().subscribe({
       next: (data) => {
         this.data = data;
       },
@@ -46,16 +46,21 @@ export class ListComponent implements OnInit {
     this._router.navigate([`/inventory/edit/${id}`]);
   }
 
-  deleteItem(id: number): void {
-    if (confirm('Are you sure you want to delete this item?')) {
-      this.inventoryService.delete(id).subscribe({
-        next: () => {
-          this.data = this.data.filter(i => i.id !== id);
-        },
-        error: (error) => {
-          console.error('Error deleting item', error);
-        }
+  delete(id: number, index: number): void {
+    let res = confirm("Do you really want to delete this member?");
+    if(res){
+      this._service.delete(id).subscribe(() => {
+        this.data = this.data.filter(member => member.id !== id);
       });
+      this.deleteLine(index);
+    }
+  }
+
+  deleteLine(index : number)
+  {
+    if(index !== -1)
+    {
+      this.data.splice(index, 1);
     }
   }
 

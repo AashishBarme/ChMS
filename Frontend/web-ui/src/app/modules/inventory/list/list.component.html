@@ -19,27 +19,24 @@
         <table class="mb-0 table my-table" >
           <thead>
             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0" role="row">
-              <th class="min-w-125px" (click)="sortTable('name')">Name</th>
-              <th class="min-w-250px">SKU Code</th>
-              <th class="min-w-250px">Quantity</th>
-              <th class="min-w-125px" (click)="sortTable('createdDate')">Created Date</th>
-              <th class="text-end min-w-100px">Actions</th>
+              <th>SN</th>
+              <th  (click)="sortTable('name')">Name</th>
+              <th >SKU Code</th>
+              <th >Quantity</th>
+              <th  (click)="sortTable('createdDate')">Created Date</th>
+              <th >Actions</th>
             </tr>
           </thead>
           <tbody class="fw-semibold text-gray-600">
-            <tr *ngFor="let item of data">
+            <tr *ngFor="let item of data; let i = index">
+              <td>{{ i + 1 }}</td>
               <td>{{ item.name }}</td>
               <td>{{ item.code }}</td>
               <td>{{ item.quantity }}</td>
               <td>{{ item.createdDate | date: 'dd MMM yyyy, h:mm a' }}</td>
-              <td class="text-end">
-                <a class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" routerLink="/inventory/edit/{{item.id}}" title="Edit">
-
-                  <i class="ki-duotone ki-setting-3 fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
-                </a>
-              <a class="btn btn-icon btn-active-light-primary w-30px h-30px" title="Delete"  (click)="deleteItem(item.id)">
-                  <i class="ki-duotone ki-trash fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
-              </a>
+              <td class="table-action">
+                <a routerLink="/inventory/edit/{{item.id}}" title="Edit" class="btn mr-2" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 align-middle"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a>
+                <a (click)="delete(item.id, i)" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash align-middle"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
               </td>
             </tr>
           </tbody>
