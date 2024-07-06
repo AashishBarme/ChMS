@@ -8,8 +8,8 @@ const routes: Routes = [{
   "path" : "member",
   "children" :
   [
+      {"path" : "" , component:ListComponent},
       {"path" : "add" , component:AddComponent},
-      {"path" : "list" , component:ListComponent},
       {"path" : "edit/:id" , component:EditComponent}
   ]
 }];

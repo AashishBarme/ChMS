@@ -1,375 +1,61 @@
-<!--begin::Sidebar-->
-<div id="kt_app_sidebar" class="app-sidebar  flex-column " data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
-	<!--begin::Logo-->
-	<div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
-		<!--begin::Logo image-->
-		<a href="/" >
-      <p class="h-25px app-sidebar-logo-default">Logo Here</p>
-			<!-- <img alt="Logo" src="assets/media/logos/default-dark.svg" class="h-25px app-sidebar-logo-default"/>
-			<img alt="Logo" src="assets/media/logos/default-small.svg" class="h-20px app-sidebar-logo-minimize"/> -->
-		</a>
-		<!--end::Logo image-->
-		<!--begin::Sidebar toggle-->
-		<!--begin::Minimized sidebar setup:
-          if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_state"] === "on") {
-              1. "src/js/layout/sidebar.js" adds "sidebar_minimize_state" cookie value to save the sidebar minimize state.
-              2. Set data-kt-app-sidebar-minimize="on" attribute for body tag.
-              3. Set data-kt-toggle-state="active" attribute to the toggle element with "kt_app_sidebar_toggle" id.
-              4. Add "active" class to to sidebar toggle element with "kt_app_sidebar_toggle" id.
-          }
-      -->
-		<div id="kt_app_sidebar_toggle" class="app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary h-30px w-30px position-absolute top-50 start-100 translate-middle rotate " data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="app-sidebar-minimize">
-			<i class="ki-duotone ki-black-left-line fs-3 rotate-180">
-				<span class="path1"></span>
-				<span class="path2"></span>
-			</i>
-		</div>
-		<!--end::Sidebar toggle-->
-	</div>
-	<!--end::Logo-->
-	<!--begin::sidebar menu-->
-	<div class="app-sidebar-menu overflow-hidden flex-column-fluid">
-		<!--begin::Menu wrapper-->
-		<div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper">
-			<!--begin::Scroll wrapper-->
-			<div id="kt_app_sidebar_menu_scroll" class="scroll-y my-5 mx-3" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
-				<!--begin::Menu-->
-				<div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
-					<!--begin:Menu item-->
-					<div class="menu-item pt-5">
-						<!--begin:Menu content-->
-						<div class="menu-content">
-							<span class="menu-heading fw-bold text-uppercase fs-7">Pages</span>
-						</div>
-						<!--end:Menu content-->
-					</div>
-					<!--end:Menu item-->
-					<!--begin:Menu item-->
-					<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-						<!--begin:Menu link-->
-						<span class="menu-link">
-							<span class="menu-icon">
-								<i class="ki-duotone ki-address-book fs-2">
-									<span class="path1"></span>
-									<span class="path2"></span>
-									<span class="path3"></span>
-								</i>
-							</span>
-							<span class="menu-title">Member</span>
-							<span class="menu-arrow"></span>
-						</span>
-						<!--end:Menu link-->
-						<!--begin:Menu sub-->
-						<div class="menu-sub menu-sub-accordion">
-							<!--begin:Menu item-->
-							<div class="menu-item">
-								<!--begin:Menu link-->
-								<a class="menu-link" href="member/list">
-									<span class="menu-bullet">
-										<span class="bullet bullet-dot"></span>
-									</span>
-									<span class="menu-title">List</span>
-								</a>
-								<!--end:Menu link-->
-							</div>
-							<!--end:Menu item-->
-							<!--begin:Menu item-->
-							<div class="menu-item">
-								<!--begin:Menu link-->
-								<a class="menu-link" href="member/add">
-									<span class="menu-bullet">
-										<span class="bullet bullet-dot"></span>
-									</span>
-									<span class="menu-title">Add</span>
-								</a>
-								<!--end:Menu link-->
-							</div>
-							<!--end:Menu item-->
-						</div>
-						<!--end:Menu sub-->
-					</div>
-					<!--end:Menu item-->
-					<!--begin:Menu item-->
-					<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-						<!--begin:Menu link-->
-						<span class="menu-link">
-							<span class="menu-icon">
-								<i class="ki-duotone ki-element-plus fs-2">
-									<span class="path1"></span>
-									<span class="path2"></span>
-									<span class="path3"></span>
-									<span class="path4"></span>
-									<span class="path5"></span>
-								</i>
-							</span>
-							<span class="menu-title">Inventory</span>
-							<span class="menu-arrow"></span>
-						</span>
-						<!--end:Menu link-->
-						<!--begin:Menu sub-->
-						<div class="menu-sub menu-sub-accordion">
-							<!--begin:Menu item-->
-							<div class="menu-item">
-								<!--begin:Menu link-->
-								<a class="menu-link" href="/inventory/list">
-									<span class="menu-bullet">
-										<span class="bullet bullet-dot"></span>
-									</span>
-									<span class="menu-title">List</span>
-								</a>
-								<!--end:Menu link-->
-							</div>
-							<!--end:Menu item-->
-							<!--begin:Menu item-->
-							<div class="menu-item">
-								<!--begin:Menu link-->
-								<a class="menu-link" href="/inventory/add">
-									<span class="menu-bullet">
-										<span class="bullet bullet-dot"></span>
-									</span>
-									<span class="menu-title">Add</span>
-								</a>
-								<!--end:Menu link-->
-							</div>
-							<!--end:Menu item-->
-
-						</div>
-						<!--end:Menu sub-->
-					</div>
-					<!--end:Menu item-->
-
-
-					<!--begin:Menu item-->
-					<div class="menu-item pt-5">
-						<!--begin:Menu content-->
-						<div class="menu-content">
-							<span class="menu-heading fw-bold text-uppercase fs-7">Apps</span>
-						</div>
-						<!--end:Menu content-->
-					</div>
-					<!--end:Menu item-->
-					<!--begin:Menu item-->
-					<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-						<!--begin:Menu link-->
-						<span class="menu-link">
-							<span class="menu-icon">
-								<i class="ki-duotone ki-abstract-28 fs-2">
-									<span class="path1"></span>
-									<span class="path2"></span>
-								</i>
-							</span>
-							<span class="menu-title">User Management</span>
-							<span class="menu-arrow"></span>
-						</span>
-						<!--end:Menu link-->
-						<!--begin:Menu sub-->
-						<div class="menu-sub menu-sub-accordion">
-							<!--begin:Menu item-->
-							<div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
-								<!--begin:Menu link-->
-								<span class="menu-link">
-									<span class="menu-bullet">
-										<span class="bullet bullet-dot"></span>
-									</span>
-									<span class="menu-title">Users</span>
-									<span class="menu-arrow"></span>
-								</span>
-								<!--end:Menu link-->
-								<!--begin:Menu sub-->
-								<div class="menu-sub menu-sub-accordion">
-									<!--begin:Menu item-->
-									<div class="menu-item">
-										<!--begin:Menu link-->
-										<a class="menu-link" href="apps/user-management/users/list.html">
-											<span class="menu-bullet">
-												<span class="bullet bullet-dot"></span>
-											</span>
-											<span class="menu-title">Users List</span>
-										</a>
-										<!--end:Menu link-->
-									</div>
-									<!--end:Menu item-->
-									<!--begin:Menu item-->
-									<div class="menu-item">
-										<!--begin:Menu link-->
-										<a class="menu-link" href="apps/user-management/users/view.html">
-											<span class="menu-bullet">
-												<span class="bullet bullet-dot"></span>
-											</span>
-											<span class="menu-title">View User</span>
-										</a>
-										<!--end:Menu link-->
-									</div>
-									<!--end:Menu item-->
-								</div>
-								<!--end:Menu sub-->
-							</div>
-							<!--end:Menu item-->
-							<!--begin:Menu item-->
-							<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-								<!--begin:Menu link-->
-								<span class="menu-link">
-									<span class="menu-bullet">
-										<span class="bullet bullet-dot"></span>
-									</span>
-									<span class="menu-title">Roles</span>
-									<span class="menu-arrow"></span>
-								</span>
-								<!--end:Menu link-->
-								<!--begin:Menu sub-->
-								<div class="menu-sub menu-sub-accordion">
-									<!--begin:Menu item-->
-									<div class="menu-item">
-										<!--begin:Menu link-->
-										<a class="menu-link" href="apps/user-management/roles/list.html">
-											<span class="menu-bullet">
-												<span class="bullet bullet-dot"></span>
-											</span>
-											<span class="menu-title">Roles List</span>
-										</a>
-										<!--end:Menu link-->
-									</div>
-									<!--end:Menu item-->
-									<!--begin:Menu item-->
-									<div class="menu-item">
-										<!--begin:Menu link-->
-										<a class="menu-link" href="apps/user-management/roles/view.html">
-											<span class="menu-bullet">
-												<span class="bullet bullet-dot"></span>
-											</span>
-											<span class="menu-title">View Role</span>
-										</a>
-										<!--end:Menu link-->
-									</div>
-									<!--end:Menu item-->
-								</div>
-								<!--end:Menu sub-->
-							</div>
-							<!--end:Menu item-->
-							<!--begin:Menu item-->
-							<div class="menu-item">
-								<!--begin:Menu link-->
-								<a class="menu-link" href="apps/user-management/permissions.html">
-									<span class="menu-bullet">
-										<span class="bullet bullet-dot"></span>
-									</span>
-									<span class="menu-title">Permissions</span>
-								</a>
-								<!--end:Menu link-->
-							</div>
-							<!--end:Menu item-->
-						</div>
-						<!--end:Menu sub-->
-					</div>
-					<!--end:Menu item-->
-
-					<!--begin:Menu item-->
-					<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-						<!--begin:Menu link-->
-						<span class="menu-link">
-							<span class="menu-icon">
-								<i class="ki-duotone ki-switch fs-2">
-									<span class="path1"></span>
-									<span class="path2"></span>
-								</i>
-							</span>
-							<span class="menu-title">File Manager</span>
-							<span class="menu-arrow"></span>
-						</span>
-						<!--end:Menu link-->
-						<!--begin:Menu sub-->
-						<div class="menu-sub menu-sub-accordion">
-							<!--begin:Menu item-->
-							<div class="menu-item">
-								<!--begin:Menu link-->
-								<a class="menu-link" href="apps/file-manager/folders.html">
-									<span class="menu-bullet">
-										<span class="bullet bullet-dot"></span>
-									</span>
-									<span class="menu-title">Folders</span>
-								</a>
-								<!--end:Menu link-->
-							</div>
-							<!--end:Menu item-->
-							<!--begin:Menu item-->
-							<div class="menu-item">
-								<!--begin:Menu link-->
-								<a class="menu-link" href="apps/file-manager/files.html">
-									<span class="menu-bullet">
-										<span class="bullet bullet-dot"></span>
-									</span>
-									<span class="menu-title">Files</span>
-								</a>
-								<!--end:Menu link-->
-							</div>
-							<!--end:Menu item-->
-							<!--begin:Menu item-->
-							<div class="menu-item">
-								<!--begin:Menu link-->
-								<a class="menu-link" href="apps/file-manager/blank.html">
-									<span class="menu-bullet">
-										<span class="bullet bullet-dot"></span>
-									</span>
-									<span class="menu-title">Blank Directory</span>
-								</a>
-								<!--end:Menu link-->
-							</div>
-							<!--end:Menu item-->
-							<!--begin:Menu item-->
-							<div class="menu-item">
-								<!--begin:Menu link-->
-								<a class="menu-link" href="apps/file-manager/settings.html">
-									<span class="menu-bullet">
-										<span class="bullet bullet-dot"></span>
-									</span>
-									<span class="menu-title">Settings</span>
-								</a>
-								<!--end:Menu link-->
-							</div>
-							<!--end:Menu item-->
-						</div>
-						<!--end:Menu sub-->
-					</div>
-					<!--end:Menu item-->
-					<!--begin:Menu item-->
-					<div class="menu-item">
-						<!--begin:Menu link-->
-						<a class="menu-link" href="apps/calendar.html">
-							<span class="menu-icon">
-								<i class="ki-duotone ki-calendar-8 fs-2">
-									<span class="path1"></span>
-									<span class="path2"></span>
-									<span class="path3"></span>
-									<span class="path4"></span>
-									<span class="path5"></span>
-									<span class="path6"></span>
-								</i>
-							</span>
-							<span class="menu-title">Calendar</span>
-						</a>
-						<!--end:Menu link-->
-					</div>
-					<!--end:Menu item-->
-				</div>
-				<!--end::Menu-->
-			</div>
-			<!--end::Scroll wrapper-->
-		</div>
-		<!--end::Menu wrapper-->
-	</div>
-	<!--end::sidebar menu-->
-	<!--begin::Footer-->
-	<div class="app-sidebar-footer flex-column-auto pt-2 pb-6 px-6" id="kt_app_sidebar_footer">
-		<a href="https://preview.keenthemes.com/html/metronic/docs" class="btn btn-flex flex-center btn-custom btn-primary overflow-hidden text-nowrap px-0 h-40px w-100" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click" title="200+ in-house components and 3rd-party plugins">
-			<span class="btn-label">
-          Docs & Components
+<nav class="sidebar js-sidebar">
+  <div class="sidebar-content js-simplebar" data-simplebar="init">
+    <div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
+    <a class="sidebar-brand" href="/">
+      <span class="sidebar-brand-text align-middle">
+       ChMS
+        <sup><small class="badge bg-primary text-uppercase">Beta</small></sup>
       </span>
-			<i class="ki-duotone ki-document btn-icon fs-2 m-0">
-				<span class="path1"></span>
-				<span class="path2"></span>
-			</i>
-		</a>
-	</div>
-	<!--end::Footer-->
-</div>
-<!--end::Sidebar-->
+    </a>
+
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-header">
+        Pages
+      </li>
+      <li class="sidebar-item">
+        <a  class="sidebar-link" href="/">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders align-middle"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+          <span class="align-middle">Dashboard</span>
+        </a>
+      </li>
+
+      <li class="sidebar-item">
+        <a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link collapsed">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users align-middle me-2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <span class="align-middle">Members</span>
+        </a>
+        <ul id="dashboards" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+          <li class="sidebar-item"><a class="sidebar-link" href="/member">List</a></li>
+          <li class="sidebar-item"><a class="sidebar-link" href="/member/add">Add</a></li>
+        </ul>
+      </li>
+
+      <li class="sidebar-item">
+        <a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link collapsed">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag align-middle me-2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+           <span class="align-middle">Inventories</span>
+        </a>
+        <ul id="pages" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+          <li class="sidebar-item"><a class="sidebar-link" href="/inventory">List</a></li>
+          <li class="sidebar-item"><a class="sidebar-link" href="/inventory/add">Add </a></li>
+        </ul>
+      </li>
+
+
+    </ul>
+
+    <div class="sidebar-cta">
+      <div class="sidebar-cta-content">
+        <strong class="d-inline-block mb-2">Weekly Sales Report</strong>
+        <div class="mb-3 text-sm">
+          Your weekly sales report is ready for download!
+        </div>
+
+        <div class="d-grid">
+          <a href="https://adminkit.io/" class="btn btn-outline-primary" target="_blank">Download</a>
+        </div>
+      </div>
+    </div>
+  </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 1334px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar simplebar-visible" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar simplebar-visible" style="height: 56px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
+</nav>
