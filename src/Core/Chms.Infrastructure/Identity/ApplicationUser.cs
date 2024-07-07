@@ -14,7 +14,6 @@ namespace Chms.Infrastructure.Identity
         public string LastName { get; set; }
         public UserGroup UserGroup { get; set; }
         public ActiveStatus IsActive { get; set; }
-        public string UserImage {get; set;} = null;
 
     }
 }

@@ -14,6 +14,7 @@ public static class DependencyInjection
         services.AddScoped<IMemberService, MemberService>();
         services.AddScoped<IFamilyService, FamilyService>();
         services.AddScoped<IInventoryService, InventoryService>();
+        //services.AddScoped(IUsersService, UserService)();
         return services;
     }
 }

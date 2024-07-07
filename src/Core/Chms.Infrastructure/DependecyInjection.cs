@@ -3,6 +3,7 @@ using Chms.Infrastructure.DataAccess;
 using Chms.Infrastructure.Identity;
 using Chms.Infrastructure.Persistence;
 using Chms.Infrastructure.Repositories.Member;
+using Chms.Infrastructure.Repositories.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,10 @@ public static class DependecyInjection
 
         services.AddScoped<IInventoryCommandRepository, InventoryCommandRepository>();
         services.AddScoped<IInventoryQueryRepository, InventoryQueryRepository>();
-        
+
+        services.AddScoped<IUserCommandRepository, UserCommandRepository>();
+        services.AddScoped<IUserQueryRepository, UserQueryRepository>();
+
         var settings = new ConnectionSettings{
             ReadConnection = configuration.GetConnectionString("DefaultConnection"),
             DefaultConnection = configuration.GetConnectionString("DefaultConnection")
