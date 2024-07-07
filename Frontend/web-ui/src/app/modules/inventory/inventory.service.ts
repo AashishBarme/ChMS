@@ -9,7 +9,7 @@ import { Inventory } from './inventory.model';
 })
 export class InventoryService {
 
-  private baseUrl = `http://localhost:5000/inventory`; // replace with your API base URL
+  private baseUrl = `${environment.ApiUrl}/inventory`; // replace with your API base URL
 
   constructor(private http: HttpClient) { }
 

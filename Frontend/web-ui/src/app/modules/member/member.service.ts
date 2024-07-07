@@ -9,7 +9,7 @@ import { ListMember, Member } from './member.model';
 })
 export class MemberService {
 
-  private baseUrl = `http://localhost:5000/member`; // replace with your API base URL
+  private baseUrl = `${environment.ApiUrl}/member`; // replace with your API base URL
 
   constructor(private http: HttpClient) { }
 
