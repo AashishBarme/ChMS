@@ -24,6 +24,8 @@ BEGIN
         [Photo] NVARCHAR(50) NULL,
         [PermanentAddress] NVARCHAR(50) NULL,
         [TemporaryAddress] NVARCHAR(50) NULL,
+        [BaptizedDate] NVARCHAR(10) NULL,
+        [MembershipDate] NVARCHAR(10) NULL,
         [GroupId] INT NOT NULL,
         [ChurchRole] INT NOT NULL,
         [CreatedDate] DATETIME NOT NULL,
@@ -33,6 +35,9 @@ BEGIN
         CONSTRAINT [PK_members] PRIMARY KEY ([Id])
     );
 END;
+
+
+
 
 -- Check if the table roles exists, if not create it
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[roles]') AND type in (N'U'))
@@ -59,56 +64,88 @@ BEGIN
     );
 END;
 
+
+-- Check if the table users exists, if not create it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[users]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[users] (
+    [Id] BIGINT IDENTITY(1,1) NOT NULL,
+    [FirstName] NVARCHAR(50) NOT NULL,
+    [MiddleName] NVARCHAR(50) NULL,
+    [LastName] NVARCHAR(50) NOT NULL,
+    [UserGroup] INT NOT NULL,
+    [IsActive] INT NOT NULL,
+    [CreatedAt] DATETIME2(6) NOT NULL,
+    [UpdatedAt] DATETIME2(6) NOT NULL,
+    [UserName] NVARCHAR(256) NULL,
+    [NormalizedUserName] NVARCHAR(256) NULL,
+    [Email] NVARCHAR(256) NULL,
+    [NormalizedEmail] NVARCHAR(256) NULL,
+    [EmailConfirmed] BIT NOT NULL,
+    [PasswordHash] NVARCHAR(MAX) NULL,
+    [SecurityStamp] NVARCHAR(MAX) NULL,
+    [ConcurrencyStamp] NVARCHAR(MAX) NULL,
+    [PhoneNumber] NVARCHAR(MAX) NULL,
+    [PhoneNumberConfirmed] BIT NOT NULL,
+    [TwoFactorEnabled] BIT NOT NULL,
+    [LockoutEnd] DATETIME2(6) NULL,
+    [LockoutEnabled] BIT NOT NULL,
+    [AccessFailedCount] INT NOT NULL,
+    CONSTRAINT [PK_users] PRIMARY KEY ([Id])
+);
+END;
+
+
 -- Check if the table user_claims exists, if not create it
---IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[user_claims]') AND type in (N'U'))
---BEGIN
---    CREATE TABLE [user_claims] (
---        [Id] INT NOT NULL IDENTITY(1,1),
---        [UserId] BIGINT NOT NULL,
---        [ClaimType] NVARCHAR(MAX) NULL,
---        [ClaimValue] NVARCHAR(MAX) NULL,
---        CONSTRAINT [PK_user_claims] PRIMARY KEY ([Id]),
---        CONSTRAINT [FK_user_claims_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [users] ([Id]) ON DELETE CASCADE
---    );
---END;
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[user_claims]') AND type in (N'U'))
+BEGIN
+   CREATE TABLE [user_claims] (
+       [Id] INT NOT NULL IDENTITY(1,1),
+       [UserId] BIGINT NOT NULL,
+       [ClaimType] NVARCHAR(MAX) NULL,
+       [ClaimValue] NVARCHAR(MAX) NULL,
+       CONSTRAINT [PK_user_claims] PRIMARY KEY ([Id]),
+       CONSTRAINT [FK_user_claims_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [users] ([Id]) ON DELETE CASCADE
+   );
+END;
 
 -- Check if the table user_logins exists, if not create it
---IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[user_logins]') AND type in (N'U'))
---BEGIN
---    CREATE TABLE [user_logins] (
---        [LoginProvider] NVARCHAR(255) NOT NULL,
---        [ProviderKey] NVARCHAR(255) NOT NULL,
---        [ProviderDisplayName] NVARCHAR(MAX) NULL,
---        [UserId] BIGINT NOT NULL,
---        CONSTRAINT [PK_user_logins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
---        CONSTRAINT [FK_user_logins_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [users] ([Id]) ON DELETE CASCADE
---    );
---END;
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[user_logins]') AND type in (N'U'))
+BEGIN
+   CREATE TABLE [user_logins] (
+       [LoginProvider] NVARCHAR(255) NOT NULL,
+       [ProviderKey] NVARCHAR(255) NOT NULL,
+       [ProviderDisplayName] NVARCHAR(MAX) NULL,
+       [UserId] BIGINT NOT NULL,
+       CONSTRAINT [PK_user_logins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
+       CONSTRAINT [FK_user_logins_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [users] ([Id]) ON DELETE CASCADE
+   );
+END;
 
 -- Check if the table user_roles exists, if not create it
---IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[user_roles]') AND type in (N'U'))
---BEGIN
---    CREATE TABLE [user_roles] (
---        [UserId] BIGINT NOT NULL,
---        [RoleId] BIGINT NOT NULL,
---        CONSTRAINT [PK_user_roles] PRIMARY KEY ([UserId], [RoleId]),
---        CONSTRAINT [FK_user_roles_roles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [roles] ([Id]) ON DELETE CASCADE,
---        CONSTRAINT [FK_user_roles_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [users] ([Id]) ON DELETE CASCADE
---    );
---END;
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[user_roles]') AND type in (N'U'))
+BEGIN
+   CREATE TABLE [user_roles] (
+       [UserId] BIGINT NOT NULL,
+       [RoleId] BIGINT NOT NULL,
+       CONSTRAINT [PK_user_roles] PRIMARY KEY ([UserId], [RoleId]),
+       CONSTRAINT [FK_user_roles_roles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [roles] ([Id]) ON DELETE CASCADE,
+       CONSTRAINT [FK_user_roles_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [users] ([Id]) ON DELETE CASCADE
+   );
+END;
 
 -- Check if the table user_tokens exists, if not create it
---IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[user_tokens]') AND type in (N'U'))
---BEGIN
---    CREATE TABLE [user_tokens] (
---        [UserId] BIGINT NOT NULL,
---        [LoginProvider] NVARCHAR(255) NOT NULL,
---        [Name] NVARCHAR(255) NOT NULL,
---        [Value] NVARCHAR(MAX) NULL,
---        CONSTRAINT [PK_user_tokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
---        CONSTRAINT [FK_user_tokens_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [users] ([Id]) ON DELETE CASCADE
---    );
---END;
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[user_tokens]') AND type in (N'U'))
+BEGIN
+   CREATE TABLE [user_tokens] (
+       [UserId] BIGINT NOT NULL,
+       [LoginProvider] NVARCHAR(255) NOT NULL,
+       [Name] NVARCHAR(255) NOT NULL,
+       [Value] NVARCHAR(MAX) NULL,
+       CONSTRAINT [PK_user_tokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
+       CONSTRAINT [FK_user_tokens_users_UserId] FOREIGN KEY ([UserId]) REFERENCES [users] ([Id]) ON DELETE CASCADE
+   );
+END;
 
 -- Create indexes if they do not exist
 IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = N'IX_role_claims_RoleId' AND object_id = OBJECT_ID(N'[role_claims]'))

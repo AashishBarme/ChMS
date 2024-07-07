@@ -6,6 +6,7 @@ namespace Chms.Domain.Entities;
     {
         public Guid Id { get; set; }
         public string? FirstName { get; set; }
+        public string? MiddleName {get; set;}
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
@@ -18,6 +19,9 @@ namespace Chms.Domain.Entities;
         public string? TemporaryAddress { get; set; }
         public int GroupId { get; set; } 
         public ChurchRole ChurchRole { get; set; }
+
+        public string? MembershipDate {get; set;}
+        public string? BaptizedDate {get; set;}
             
     }
 
