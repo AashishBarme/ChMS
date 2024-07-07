@@ -14,6 +14,7 @@ BEGIN
     CREATE TABLE [members] (
         [Id] UNIQUEIDENTIFIER NOT NULL,
         [FirstName] NVARCHAR(255) NOT NULL,
+		[MiddleName] NVARCHAR(255) NOT NULL,
         [LastName] NVARCHAR(255) NOT NULL,
         [Gender] NVARCHAR(10) NOT NULL,
         [Email] NVARCHAR(50) NULL,
@@ -268,3 +269,50 @@ BEGIN
     INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
     VALUES ('20230104131648_MemberFamilyRelationConfig', '6.0.7');
 END;
+
+
+
+
+USE [chms]
+GO
+
+INSERT INTO [dbo].[users]
+           ([FirstName]
+           ,[MiddleName]
+           ,[LastName]
+           ,[UserGroup]
+           ,[IsActive]
+           ,[CreatedAt]
+           ,[UpdatedAt]
+           ,[UserName]
+           ,[NormalizedUserName]
+           ,[Email]
+           ,[NormalizedEmail]
+           ,[EmailConfirmed]
+           ,[PasswordHash]
+           ,[SecurityStamp]
+           ,[ConcurrencyStamp]
+           ,[PhoneNumber]
+           ,[PhoneNumberConfirmed]
+           ,[TwoFactorEnabled]
+           ,[LockoutEnd]
+           ,[LockoutEnabled]
+           ,[AccessFailedCount])
+     VALUES
+           ('admin'
+           ,'admin'
+           ,'admin'
+           ,10
+           ,1
+           ,GETDATE()
+           ,GETDATE()
+           ,'admin'
+           ,'ADMIN'
+           ,'aashish.barme9@gmail.com'
+           ,'AASHISH.BARME9@GMAIL.COM'
+           ,0
+           ,'AQAAAAEAACcQAAAAEDnj6Fn8otqL5TLJO+qRAmUvXpA8CbjJWy/SSz5gianRUbXGX/CCgMyIr29zL7k/SQ=='
+           ,'AMG7DXQCSZPFQ76H52DM2DEJ6EDJYH55','c5a18703-fe75-4ee7-8785-72590b11fb9d',NULL,0,0,NULL,0,0);
+GO
+
+
