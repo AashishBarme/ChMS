@@ -1,5 +1,6 @@
 ﻿using Chms.Application.Common.Interface.Repositories;
 using Chms.Domain.Entities;
+using Chms.Infrastructure.DataAccess;
 using Chms.Infrastructure.Identity;
 using Chms.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
@@ -15,15 +16,19 @@ namespace Chms.Infrastructure.Repositories.User
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ChMSDbContext _context;
+        private readonly BaseRepository _baseRepository;
+        public const string TABLE_NAME = "users";
 
-        public UserQueryRepository(ChMSDbContext context, UserManager<ApplicationUser> userManager)
+        public UserQueryRepository(ChMSDbContext context, UserManager<ApplicationUser> userManager, BaseRepository baseRepository)
         {
             _context = context;
             _userManager = userManager;
+            _baseRepository = baseRepository;
         }
 
         public Domain.Entities.User Get(Guid id)
         {
+
             throw new NotImplementedException();
         }
 
@@ -46,9 +51,12 @@ namespace Chms.Infrastructure.Repositories.User
             throw new Exception();
         }
 
-        public List<MemberListVM> List()
+        public List<Domain.Entities.User> List()
         {
-            throw new NotImplementedException();
+             var sql = @$"select Username, Email,Status,UserType,Id from `{TABLE_NAME}`";
+            var where = new { };
+            var result = _baseRepository.LoadData<Domain.Entities.User, object>(sql, where).GetAwaiter().GetResult();
+            return result;
         }
     }
 }

@@ -1,11 +1,13 @@
 using Chms.Application.Common.Interface;
 using Chms.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChMS.Web.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class InventoryController : ControllerBase
 {
     public readonly IInventoryService _service;

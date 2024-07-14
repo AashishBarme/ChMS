@@ -12,6 +12,7 @@ namespace Chms.Application.Common.Interface.Repositories
         public Task<Guid> Create(User entity);
         public Task<Guid> Update(User entity);
         public void Delete(Guid id);
+        public Task<bool> UpdatePassword(long id, string password);
 
     }
 
@@ -19,6 +20,6 @@ namespace Chms.Application.Common.Interface.Repositories
     {
         public Task<User> GetByUserName(string userName);
         public User Get(Guid id);
-        public List<MemberListVM> List();
+        public List<User> List();
     }
 }

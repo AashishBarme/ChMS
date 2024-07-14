@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Chms.Application.Common.Interface;
 using Chms.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,6 +9,7 @@ namespace ChMS.Web.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class MemberController : ControllerBase
     {
         public readonly IMemberService _service;

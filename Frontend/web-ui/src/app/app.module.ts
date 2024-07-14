@@ -9,6 +9,9 @@ import { MemberModule } from './modules/member/member.module';
 import { LayoutModule } from './modules/layout/layout.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { AppConfigInitService } from './appconfig.init';
+import { JwtInterceptor } from './JwtInterceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 
 export function init_app(appLoadService: AppConfigInitService) {
@@ -28,13 +31,16 @@ export function init_app(appLoadService: AppConfigInitService) {
     DashboardModule
   ],
   providers: [
-    // AppConfigInitService,
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: init_app,
-    //   deps: [AppConfigInitService],
-    //   multi: true
-    // },
+    AppConfigInitService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: init_app,
+      deps: [AppConfigInitService],
+      multi: true
+    },
+    {
+      provide : HTTP_INTERCEPTORS, useClass : JwtInterceptor, multi : true
+    }
   ],
   bootstrap: [AppComponent]
 })
