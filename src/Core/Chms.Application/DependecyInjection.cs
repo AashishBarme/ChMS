@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Chms.Application.Common.Interface;
+using Chms.Application.Common.Services;
 using Chms.Application.Services;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ public static class DependencyInjection
         services.AddScoped<IMemberService, MemberService>();
         services.AddScoped<IFamilyService, FamilyService>();
         services.AddScoped<IInventoryService, InventoryService>();
+        services.AddScoped<IFileUploadService, FileUploadService>();
         //services.AddScoped(IUsersService, UserService)();
         return services;
     }

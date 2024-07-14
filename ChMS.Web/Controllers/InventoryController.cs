@@ -9,7 +9,7 @@ namespace ChMS.Web.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-//[Authorize]
+[Authorize]
 public class InventoryController : ControllerBase
 {
     public readonly IInventoryService _service;

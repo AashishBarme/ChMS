@@ -224,6 +224,7 @@ BEGIN
         [Name] NVARCHAR(255) NOT NULL,
         [Code] NVARCHAR(50) NOT NULL,
         [Quantity] INT NOT NULL,
+        [Image] NVARCHAR(255) NULL,
         [Description] NVARCHAR(MAX) NOT NULL,
         [CreatedDate] NVARCHAR(50) NOT NULL,
         [UpdatedDate] NVARCHAR(50),
