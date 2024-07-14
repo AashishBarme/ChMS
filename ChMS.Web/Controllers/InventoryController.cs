@@ -1,44 +1,62 @@
 using Chms.Application.Common.Interface;
 using Chms.Domain.Entities;
+using ChMS.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static Dapper.SqlMapper;
 
 namespace ChMS.Web.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
+//[Authorize]
 public class InventoryController : ControllerBase
 {
     public readonly IInventoryService _service;
-    public InventoryController(IInventoryService service)
+    private readonly IFileUploadService _fileUploadService;
+    public InventoryController(IInventoryService service, IFileUploadService fileUploadService)
     {
         _service = service;
+        _fileUploadService = fileUploadService;
     }
 
     [HttpPost]
-    public async Task<ActionResult<int>> Create([FromBody] Inventory request)
+    public async Task<ActionResult<int>> Create([FromForm] CreateInventoryVM request)
     {
-        var response = await _service.Create(new Inventory{
+        var entity = new Inventory
+        {
             Name = request.Name,
             Description = request.Description,
             Code = request.Code,
             Quantity = request.Quantity
-        });
+        };
+        if (request.ImageFile!= null)
+        {
+            entity.Image = await _fileUploadService.UploadFile(request.ImageFile);
+        }
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(entity));
+        var response = await _service.Create(entity);
         return Ok(response);
     }
 
 
     [HttpPut]
-    public async Task<ActionResult> Update([FromBody] Inventory request)
+    public async Task<ActionResult> Update([FromForm] EditInventoryVM request)
     {
-        await _service.Update(new Inventory{
+        var entity = new Inventory
+        {
             Id = request.Id,
             Name = request.Name,
             Description = request.Description,
             Code = request.Code,
-            Quantity = request.Quantity
-        });
+            Quantity = request.Quantity,
+            Image = request.Image
+        };
+        if (request.ImageFile != null)
+        {
+            entity.Image = await _fileUploadService.UploadFile(request.ImageFile);
+        }
+        await _service.Update(entity);
         return Ok();
     }
 
