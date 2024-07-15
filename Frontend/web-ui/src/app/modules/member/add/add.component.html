@@ -145,7 +145,7 @@
       </div>
       <div class="card-body pt-0">
         <div class="fv-row mb-2">
-          <input type="file" name="image" class="form-control" />
+          <input type="file" (change)="onFileChange($event)" />
         </div>
         <div class="text-muted fs-7">Set the member photo.</div>
       </div>

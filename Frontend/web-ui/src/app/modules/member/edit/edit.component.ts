@@ -14,7 +14,7 @@ export class EditComponent implements OnInit {
   pageTitle = 'Edit Member';
   editMemberForm!: UntypedFormGroup;
   member!: Member; // added ! to make ensure about it it not undefined
-
+  selectedFile: File | null = null;
   constructor(
     private fb: UntypedFormBuilder,
     private memberService: MemberService,
@@ -49,8 +49,19 @@ export class EditComponent implements OnInit {
       temporaryAddress: ['', Validators.required],
       baptizedDate: ['', Validators.required],
       membershipDate: [''],
-      id: [id]
+      id: [id],
+      photo : ['']
     });
+  }
+
+  onFileChange(event: any): void {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.selectedFile = file;
+      this.editMemberForm.patchValue({
+        photoFile: file
+      });
+    }
   }
 
   populateForm(): void {
@@ -59,7 +70,28 @@ export class EditComponent implements OnInit {
 
   onSubmit(): void {
     if (this.editMemberForm.valid) {
-      this.memberService.update(this.member.id, this.editMemberForm.value).subscribe(() => {
+      const member: Member = this.editMemberForm.value;
+      const formData: FormData = new FormData();
+      formData.append('firstName', member.firstName);
+      formData.append('middleName', member.middleName || '');
+      formData.append('lastName', member.lastName);
+      formData.append('email', member.email);
+      formData.append('phoneNumber', member.phoneNumber || '');
+      formData.append('secondaryPhoneNumber', member.secondaryPhoneNumber || '');
+      formData.append('birthDate', member.birthDate);
+      formData.append('gender', member.gender);
+      formData.append('occupation', member.occupation);
+      formData.append('permanentAddress', member.permanentAddress);
+      formData.append('temporaryAddress', member.temporaryAddress);
+      formData.append('baptizedDate', member.baptizedDate);
+      formData.append('membershipDate', member.membershipDate || '');
+      formData.append('id', member.id)
+      formData.append('photo', member.photo || '')
+      if (this.selectedFile) {
+        formData.append('photoFile', this.selectedFile);
+      }
+
+      this.memberService.update(this.member.id, formData).subscribe(() => {
         this.router.navigate(['/member']);
       });
     }

@@ -14,7 +14,7 @@ export interface Member {
   temporaryAddress: string;
   baptizedDate: string;
   membershipDate?: string;
-  photoUrl?: string;
+  photo?: string;
 }
 
 // member.model.ts

@@ -14,7 +14,7 @@ export class MemberService {
   constructor(private http: HttpClient) { }
 
   // Create
-  create(member: Member): Observable<Member> {
+  create(member: FormData): Observable<Member> {
     return this.http.post<Member>(this.baseUrl, member).pipe(
       catchError(this.handleError)
     );
@@ -36,7 +36,7 @@ export class MemberService {
   }
 
   // Update
-  update(id: string, member: Member): Observable<Member> {
+  update(id: string, member: FormData): Observable<Member> {
     const url = `${this.baseUrl}`;
     return this.http.put<Member>(url, member).pipe(
       catchError(this.handleError)
