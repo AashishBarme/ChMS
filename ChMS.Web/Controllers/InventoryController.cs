@@ -23,6 +23,7 @@ public class InventoryController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<int>> Create([FromForm] CreateInventoryVM request)
     {
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(request));
         var entity = new Inventory
         {
             Name = request.Name,

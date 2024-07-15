@@ -14,7 +14,7 @@ export class InventoryService {
   constructor(private http: HttpClient) { }
 
   // Create
-  create(model: Inventory): Observable<Inventory> {
+  create(model: FormData): Observable<Inventory> {
     return this.http.post<Inventory>(this.baseUrl, model).pipe(
       catchError(this.handleError)
     );
@@ -36,7 +36,7 @@ export class InventoryService {
   }
 
   // Update
-  update(model: Inventory): Observable<Inventory> {
+  update(model: FormData): Observable<Inventory> {
     const url = `${this.baseUrl}`;
     return this.http.put<Inventory>(url, model).pipe(
       catchError(this.handleError)

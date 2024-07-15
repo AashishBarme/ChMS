@@ -14,6 +14,7 @@ export class AddComponent implements OnInit {
   pageParentLink = 'Inventory';
   pageTitle = 'Add Item';
   inventoryForm!: UntypedFormGroup;
+  selectedFile: File | null = null;
 
   constructor(private fb: UntypedFormBuilder, private inventoryService: InventoryService, private _router: Router) {}
 
@@ -23,21 +24,40 @@ export class AddComponent implements OnInit {
       code: ['', Validators.required],
       quantity: ['', [Validators.required, Validators.min(1)]],
       description: [''],
-      thumbnail: ['']
+      imageFile: [null]
     });
+  }
+
+  onFileChange(event: any): void {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.selectedFile = file;
+      this.inventoryForm.patchValue({
+        imageFile: file
+      });
+    }
   }
 
   onSubmit(): void {
     if (this.inventoryForm.valid) {
       const inventory: Inventory = this.inventoryForm.value;
       inventory.quantity = (inventory.quantity).toString();
-      this.inventoryService.create(inventory).subscribe({
+      const formData: FormData = new FormData();
+      formData.append('name', inventory.name);
+      formData.append('code', inventory.code);
+      formData.append('description', inventory.description || '');
+      formData.append('quantity', inventory.quantity);
+      if (this.selectedFile) {
+        formData.append('imageFile', this.selectedFile);
+      }
+
+      this.inventoryService.create(formData).subscribe({
         next: (response) => {
-          console.log('Category created successfully', response);
+          console.log('Inventory created successfully', response);
           this._router.navigate([`/inventory`]);
         },
         error: (error) => {
-          console.error('There was an error creating the category', error);
+          console.error('There was an error creating the inventory', error);
         }
       });
     } else {

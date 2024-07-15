@@ -15,7 +15,7 @@ export class EditComponent implements OnInit {
   pageTitle = 'Edit Item';
   inventoryForm: UntypedFormGroup;
   inventoryId: number | null = null;
-
+  selectedFile: File | null = null;
   constructor(
     private fb: UntypedFormBuilder,
     private inventoryService: InventoryService,
@@ -27,8 +27,9 @@ export class EditComponent implements OnInit {
       code: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(1)]],
       description: [''],
-      thumbnail: [''],
-      id: [0]
+      id: [0],
+      image: [''],
+      imageFile: [null]
     });
   }
 
@@ -39,6 +40,16 @@ export class EditComponent implements OnInit {
         this.loadInventory();
       }
     });
+  }
+
+  onFileChange(event: any): void {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.selectedFile = file;
+      this.inventoryForm.patchValue({
+        imageFile: file
+      });
+    }
   }
 
   loadInventory(): void {
@@ -58,11 +69,21 @@ export class EditComponent implements OnInit {
     if (this.inventoryForm.invalid) {
       return;
     }
+    const inventory: Inventory = this.inventoryForm.value;
+    inventory.quantity = (inventory.quantity).toString();
+      const formData: FormData = new FormData();
+      formData.append('name', inventory.name);
+      formData.append('code', inventory.code);
+      formData.append('description', inventory.description || '');
+      formData.append('image', inventory.image || '');
+      formData.append('quantity', inventory.quantity);
+      formData.append('id', inventory.id.toString());
+      if (this.selectedFile) {
+        formData.append('imageFile', this.selectedFile);
+      }
 
-    const inventoryData: Inventory = this.inventoryForm.value;
-    inventoryData.quantity = inventoryData.quantity.toString();
     if (this.inventoryId) {
-      this.inventoryService.update(inventoryData).subscribe({
+      this.inventoryService.update(formData).subscribe({
         next: () => {
           this.router.navigate(['/inventory']);
         },

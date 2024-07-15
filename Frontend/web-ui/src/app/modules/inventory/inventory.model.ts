@@ -5,6 +5,6 @@ export interface Inventory {
   code: string;
   quantity: string;
   description?: string;
-  thumbnail?: string;
+  image?: string;
   createdDate?: string;
 }
