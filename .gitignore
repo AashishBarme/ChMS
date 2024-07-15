@@ -338,7 +338,7 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
-wwwroot/uploads/
+ChMS.Web/wwwroot/uploads
 bin
 packages
 obj
