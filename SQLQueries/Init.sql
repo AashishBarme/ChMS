@@ -276,7 +276,8 @@ END;
 
 USE [chms]
 GO
-
+If NOT EXISTS (SELECT null from users where UserName='admin')
+BEGIN
 INSERT INTO [dbo].[users]
            ([FirstName]
            ,[MiddleName]
@@ -314,6 +315,7 @@ INSERT INTO [dbo].[users]
            ,0
            ,'AQAAAAEAACcQAAAAEDnj6Fn8otqL5TLJO+qRAmUvXpA8CbjJWy/SSz5gianRUbXGX/CCgMyIr29zL7k/SQ=='
            ,'AMG7DXQCSZPFQ76H52DM2DEJ6EDJYH55','c5a18703-fe75-4ee7-8785-72590b11fb9d',NULL,0,0,NULL,0,0);
+END
 GO
 
 
