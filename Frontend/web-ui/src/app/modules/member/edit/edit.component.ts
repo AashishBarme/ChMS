@@ -4,7 +4,7 @@ import { Member } from '../member.model';
 import { MemberService } from '../member.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -23,7 +23,8 @@ export class EditComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private memberService: MemberService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -108,8 +109,17 @@ export class EditComponent implements OnInit {
         formData.append('photoFile', this.selectedFile);
       }
 
-      this.memberService.update(this.member.id, formData).subscribe(() => {
-        this.router.navigate(['/member']);
+      this.memberService.update(this.member.id, formData).subscribe({
+        next: () => {
+          this.toastr.success('Data Updated Successfully');
+          this.router.navigate(['/member']);
+        },
+        error: (error) => {
+          this.toastr.error('Something went wrong');
+          console.error('Error updating inventory', error);
+          this.isButtonLoading = false;
+        }
+        // this.router.navigate(['/member']);
       });
 
     }

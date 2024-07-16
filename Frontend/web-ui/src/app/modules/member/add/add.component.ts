@@ -3,6 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { MemberService } from '../member.service';
 import { Member } from '../member.model';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add',
@@ -20,7 +21,8 @@ export class AddComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private memberService: MemberService,
-    private _router: Router
+    private _router: Router,
+    private toastr: ToastrService
   ) {
     this.memberForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -82,10 +84,11 @@ export class AddComponent implements OnInit {
 
       this.memberService.create(formData).subscribe({
         next: (data) => {
-          console.log('Member created successfully', data);
+          this.toastr.success('Member Created Successfully');
           this._router.navigate(['/member']);
         },
         error: (err) => {
+          this.toastr.error('Something went wrong');
           console.error('Error creating member', err);
           this.isLoading = false;
         }

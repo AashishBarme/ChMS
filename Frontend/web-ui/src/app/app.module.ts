@@ -11,6 +11,9 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { AppConfigInitService } from './appconfig.init';
 import { JwtInterceptor } from './JwtInterceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -28,7 +31,9 @@ export function init_app(appLoadService: AppConfigInitService) {
     InventoryModule,
     MemberModule,
     LayoutModule,
-    DashboardModule
+    DashboardModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [
     AppConfigInitService,

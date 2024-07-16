@@ -3,6 +3,7 @@ import { Inventory } from '../inventory.model';
 import { InventoryService } from '../inventory.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list',
@@ -18,7 +19,11 @@ export class ListComponent implements OnInit {
   imageUrl : string | null  = '';
   isLoading: Boolean = false;
 
-  constructor(private _service: InventoryService, private _router: Router) {}
+  constructor(
+    private _service: InventoryService,
+    private _router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -35,6 +40,7 @@ export class ListComponent implements OnInit {
         this.isLoading = false
       },
       error: (error) => {
+        this.toastr.error('Something went wrong');
         console.error('Error loading inventory data', error);
         this.isLoading = false
       }

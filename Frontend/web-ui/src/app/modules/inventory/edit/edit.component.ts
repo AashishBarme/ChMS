@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Inventory } from '../inventory.model';
 import { InventoryService } from '../inventory.service';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit',
@@ -25,7 +26,8 @@ export class EditComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private inventoryService: InventoryService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.inventoryForm = this.fb.group({
       name: ['', Validators.required],
@@ -104,9 +106,11 @@ export class EditComponent implements OnInit {
     if (this.inventoryId) {
       this.inventoryService.update(formData).subscribe({
         next: () => {
+          this.toastr.success('Data updated successfully');
           this.router.navigate(['/inventory']);
         },
         error: (error) => {
+          this.toastr.error('Something went wrong');
           console.error('Error updating inventory', error);
           this.isButtonLoading = false;
         }

@@ -4,6 +4,7 @@ import { Inventory } from '../inventory.model';
 import { InventoryService } from '../inventory.service';
 import { stringify } from 'querystring';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add',
@@ -18,7 +19,11 @@ export class AddComponent implements OnInit {
   imageUrl : string | null | ArrayBuffer = '';
   isLoading: boolean = false
 
-  constructor(private fb: UntypedFormBuilder, private inventoryService: InventoryService, private _router: Router) {}
+  constructor(
+    private fb: UntypedFormBuilder,
+    private inventoryService: InventoryService,
+    private _router: Router,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.inventoryForm = this.fb.group({
@@ -62,11 +67,12 @@ export class AddComponent implements OnInit {
 
       this.inventoryService.create(formData).subscribe({
         next: (response) => {
-          console.log('Inventory created successfully', response);
+          this.toastr.success('Item added successfully');
           this._router.navigate([`/inventory`]);
         },
         error: (error) => {
           this.isLoading = false
+          this.toastr.error('Something went wrong');
           console.error('There was an error creating the inventory', error);
         }
       });

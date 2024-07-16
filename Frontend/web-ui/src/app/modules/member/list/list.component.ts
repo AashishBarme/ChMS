@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MemberService } from '../member.service';
 import { ListMember } from '../member.model';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list',
@@ -10,7 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ListComponent implements OnInit {
 
-  constructor(private _service: MemberService) { }
+  constructor(private _service: MemberService, private toastr: ToastrService) { }
   pageParentLink = 'Member';
   pageTitle = 'List Member';
   items: any[] = [];
@@ -30,6 +31,7 @@ export class ListComponent implements OnInit {
         this.isLoading = false
       },
       error: (error) => {
+        this.toastr.error('Something went wrong');
         console.error('Error loading inventory data', error);
         this.isLoading = false
       }
