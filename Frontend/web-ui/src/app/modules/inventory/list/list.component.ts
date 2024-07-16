@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Inventory } from '../inventory.model';
 import { InventoryService } from '../inventory.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list',
@@ -14,6 +15,7 @@ export class ListComponent implements OnInit {
   pageTitle = 'List Item';
   data: Inventory[] = [];
   sortDirection = true;
+  imageUrl : string | null  = '';
 
   constructor(private _service: InventoryService, private _router: Router) {}
 
@@ -25,6 +27,9 @@ export class ListComponent implements OnInit {
     this._service.list().subscribe({
       next: (data) => {
         this.data = data;
+        this.data.forEach((item)=> {
+          item.image = environment.MediaUploadUrl + item.image;
+        })
       },
       error: (error) => {
         console.error('Error loading inventory data', error);

@@ -24,7 +24,7 @@
 }
 
 .image {
-    height: 35px;
+    height: 100px;
 }
 
 .search-form-display {
@@ -33,4 +33,11 @@
 
 .search-form-default {
     display: none;
+}
+
+.table-image{
+  height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
 }

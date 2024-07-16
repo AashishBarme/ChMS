@@ -15,6 +15,7 @@ export class AddComponent implements OnInit {
   pageTitle = 'Add Item';
   inventoryForm!: UntypedFormGroup;
   selectedFile: File | null = null;
+  imageUrl : string | null | ArrayBuffer = '';
 
   constructor(private fb: UntypedFormBuilder, private inventoryService: InventoryService, private _router: Router) {}
 
@@ -35,6 +36,12 @@ export class AddComponent implements OnInit {
       this.inventoryForm.patchValue({
         imageFile: file
       });
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        if(event.target)
+        this.imageUrl = event.target.result;
+      }
     }
   }
 

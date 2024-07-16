@@ -20,6 +20,7 @@
           <thead>
             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0" role="row">
               <th>SN</th>
+              <th>Image</th>
               <th  (click)="sortTable('name')">Name</th>
               <th >SKU Code</th>
               <th >Quantity</th>
@@ -30,6 +31,7 @@
           <tbody class="fw-semibold text-gray-600">
             <tr *ngFor="let item of data; let i = index">
               <td>{{ i + 1 }}</td>
+              <td><img src="{{item.image}}" class="table-image"></td>
               <td>{{ item.name }}</td>
               <td>{{ item.code }}</td>
               <td>{{ item.quantity }}</td>

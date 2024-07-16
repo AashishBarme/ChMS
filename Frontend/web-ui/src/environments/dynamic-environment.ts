@@ -5,7 +5,6 @@ export class DynamicEnvironment {
         return window.config.environment;
     }
     public get ApiUrl(){
-      console.log(window)
       return window.config.ApiUrl;
     }
     public get MainUrl(){

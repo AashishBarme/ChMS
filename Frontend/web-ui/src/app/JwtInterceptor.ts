@@ -12,7 +12,6 @@ export class JwtInterceptor implements HttpInterceptor {
         // const isLoggedIn = account?.token;
         // const isApiUrl = request.url.startsWith(environment.ApiUrl);
         let token = StorageHelper.getToken();
-        console.log(token);
         if (token) {
             var re = /"/gi;
             let newtoken = token.replace(re, "");

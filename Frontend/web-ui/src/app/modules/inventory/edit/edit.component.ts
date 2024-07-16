@@ -3,6 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { ActivatedRoute, Router } from '@angular/router';
 import { Inventory } from '../inventory.model';
 import { InventoryService } from '../inventory.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit',
@@ -16,6 +17,7 @@ export class EditComponent implements OnInit {
   inventoryForm: UntypedFormGroup;
   inventoryId: number | null = null;
   selectedFile: File | null = null;
+  imageUrl : string | null | ArrayBuffer = '';
   constructor(
     private fb: UntypedFormBuilder,
     private inventoryService: InventoryService,
@@ -49,6 +51,12 @@ export class EditComponent implements OnInit {
       this.inventoryForm.patchValue({
         imageFile: file
       });
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        if(event.target)
+        this.imageUrl = event.target.result;
+      }
     }
   }
 
@@ -56,6 +64,10 @@ export class EditComponent implements OnInit {
     if (this.inventoryId) {
       this.inventoryService.get(this.inventoryId).subscribe({
         next: (inventory) => {
+           if(inventory.image)
+           {
+             this.imageUrl = environment.MediaUploadUrl + inventory.image;
+           }
           this.inventoryForm.patchValue(inventory);
         },
         error: (error) => {
