@@ -10,7 +10,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+ isLoading: boolean = false;
   form: UntypedFormGroup;
   model: UserLoginRequestModel = {
     username : "",
@@ -28,8 +28,10 @@ export class LoginComponent implements OnInit {
   }
   onSubmit(): void{
     if (this.form.valid) {
+      this.isLoading = true;
       this.model  = this.form.value;
       this.authService.authenticate(this.model);
+      this.isLoading = false;
     }
   }
 

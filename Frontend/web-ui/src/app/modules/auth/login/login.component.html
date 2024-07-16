@@ -21,7 +21,7 @@
                             <form [formGroup]="form" (ngSubmit)="onSubmit()" >
                                   <div class="mb-3">
                                       <label class="form-label">Username</label>
-                                      <input required="required"  formControlName="username" placeholder="Username" type="text" class="form-control  form-control-lg">
+                                      <input required="required"  formControlName="username" placeholder="Enter your username" type="text" class="form-control  form-control-lg">
                                       <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                         <div *ngIf="form.get('username')?.invalid && (form.get('username')?.dirty || form.get('username')?.touched)">
                                           <div *ngIf="form.get('username')?.errors?.required">Username is required.</div>
@@ -31,7 +31,7 @@
                                   <div class="mb-3">
                                       <label class="form-label">Password</label>
                                       <input type = "password" required="required" formControlName = "password"
-                                      placeholder="password" class="form-control">
+                                      placeholder="Enter your password" class="form-control">
                                       <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                         <div *ngIf="form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)">
                                           <div *ngIf="form.get('password')?.errors?.required">Password is required.</div>
@@ -42,7 +42,7 @@
                                   <div>
                                   </div>
                                   <div class="text-center mt-3">
-                                      <button type="submit"
+                                      <button type="submit" [disabled]="isLoading"
                                               class="btn btn-lg btn-primary">
                                           Login
                                       </button>
