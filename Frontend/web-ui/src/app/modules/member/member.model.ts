@@ -27,4 +27,5 @@ export interface ListMember {
   phoneNumber: string;
   createdDate: Date;
   updatedDate: Date;
+  photo?: string;
 }

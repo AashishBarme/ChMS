@@ -4,6 +4,7 @@ import { HeaderComponent } from 'src/app/components/shared/header/header.compone
 import { FooterComponent } from 'src/app/components/shared/footer/footer.component';
 import { BreadcrumbComponent } from 'src/app/components/shared/breadcrumb/breadcrumb.component';
 import { SidebarComponent } from 'src/app/components/shared/sidebar/sidebar.component';
+import { LoaderComponent } from 'src/app/components/shared/loader/loader.component';
 
 
 
@@ -12,16 +13,18 @@ import { SidebarComponent } from 'src/app/components/shared/sidebar/sidebar.comp
     HeaderComponent,
     FooterComponent,
     BreadcrumbComponent,
-    SidebarComponent
+    SidebarComponent,
+    LoaderComponent
   ],
   exports:[
     HeaderComponent,
     FooterComponent,
     BreadcrumbComponent,
-    SidebarComponent
+    SidebarComponent,
+    LoaderComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ]
 })
 export class LayoutModule { }

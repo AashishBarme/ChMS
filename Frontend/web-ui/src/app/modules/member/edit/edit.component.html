@@ -1,7 +1,8 @@
 <div class="mb-3">
   <h1 class="h3 d-inline align-middle">Edit Member</h1>
 </div>
-<form [formGroup]="editMemberForm" (ngSubmit)="onSubmit()"  class="form">
+<app-loader class="loader-outer" *ngIf="isLoading"></app-loader>
+<form *ngIf="!isLoading" [formGroup]="editMemberForm" (ngSubmit)="onSubmit()"  class="form">
   <div class="gap-12 gap-lg-12">
     <!--begin::General options-->
     <div class="card card-flush py-4">
@@ -145,7 +146,8 @@
       </div>
       <div class="card-body pt-0">
         <div class="fv-row mb-2">
-          <input type="file" (change)="onFileChange($event)" />
+          <img src="{{this.imageUrl}}" class="image"/>
+          <input type="file" (change)="onFileChange($event)" class="form-control"/>
         </div>
         <div class="text-muted fs-7">Set the member photo.</div>
       </div>
@@ -185,7 +187,7 @@
     <!--end::Church Administration Data-->
 
     <div class="d-flex justify-content-end">
-      <button type="submit" class="btn btn-primary">
+      <button type="submit" class="btn btn-primary" [disabled]="isLoading">
         <span class="indicator-label">
           Save Changes
         </span>

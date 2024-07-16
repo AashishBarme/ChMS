@@ -34,6 +34,7 @@ namespace Chms.Domain.Entities;
         public string? PhoneNumber { get; set; }
         public string? Gender{ get; set;}
         public int GroupId { get; set; } 
+        public string? Photo {get; set;}
         public ChurchRole ChurchRole { get; set; }
     }
 

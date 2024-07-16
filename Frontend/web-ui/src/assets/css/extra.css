@@ -41,3 +41,8 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+.loader-outer{
+  display:grid;
+  justify-content: center;
+}

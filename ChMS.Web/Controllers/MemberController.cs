@@ -55,7 +55,6 @@ namespace ChMS.Web.Controllers
         [HttpPut]
         public async Task<ActionResult> Update([FromForm] EditMemberVm request)
         {
-             Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(request));
             var entity = new Member
             {
                 Id = request.Id,
@@ -79,7 +78,6 @@ namespace ChMS.Web.Controllers
             {
                 entity.Photo = await _uploadService.UploadFile(request.PhotoFile);
             }
-             Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(entity));
             await _service.Update(entity);
             return Ok();
         }

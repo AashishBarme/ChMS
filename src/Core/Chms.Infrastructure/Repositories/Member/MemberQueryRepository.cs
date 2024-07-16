@@ -28,7 +28,7 @@ namespace Chms.Infrastructure.Repositories.Member
 
         public List<MemberListVM> List()
         {
-            string sql = $"select Id, FirstName, LastName, Email, PhoneNumber, Gender, GroupId, ChurchRole, CreatedDate, UpdatedDate from {TABLE_NAME} order by CreatedDate DESC";
+            string sql = $"select Id, FirstName, LastName, Email, PhoneNumber, Gender, GroupId, ChurchRole, CreatedDate, UpdatedDate, Photo from {TABLE_NAME} order by CreatedDate DESC";
             return _baseRepository.LoadData<MemberListVM, object>(sql, new { }).GetAwaiter().GetResult();
         }
     }

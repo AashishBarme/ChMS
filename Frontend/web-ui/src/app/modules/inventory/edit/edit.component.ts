@@ -18,6 +18,9 @@ export class EditComponent implements OnInit {
   inventoryId: number | null = null;
   selectedFile: File | null = null;
   imageUrl : string | null | ArrayBuffer = '';
+  isLoading: boolean = false;
+  isButtonLoading: boolean = false;
+
   constructor(
     private fb: UntypedFormBuilder,
     private inventoryService: InventoryService,
@@ -61,6 +64,7 @@ export class EditComponent implements OnInit {
   }
 
   loadInventory(): void {
+    this.isLoading = true;
     if (this.inventoryId) {
       this.inventoryService.get(this.inventoryId).subscribe({
         next: (inventory) => {
@@ -69,9 +73,11 @@ export class EditComponent implements OnInit {
              this.imageUrl = environment.MediaUploadUrl + inventory.image;
            }
           this.inventoryForm.patchValue(inventory);
+          this.isLoading = false;
         },
         error: (error) => {
           console.error('Error loading inventory data', error);
+          this.isLoading = false;
         }
       });
     }
@@ -81,6 +87,7 @@ export class EditComponent implements OnInit {
     if (this.inventoryForm.invalid) {
       return;
     }
+    this.isButtonLoading = true;
     const inventory: Inventory = this.inventoryForm.value;
     inventory.quantity = (inventory.quantity).toString();
       const formData: FormData = new FormData();
@@ -101,6 +108,7 @@ export class EditComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error updating inventory', error);
+          this.isButtonLoading = false;
         }
       });
     }

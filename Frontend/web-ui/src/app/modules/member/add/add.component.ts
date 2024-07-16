@@ -14,6 +14,8 @@ export class AddComponent implements OnInit {
   pageTitle = 'Add Member';
   memberForm: UntypedFormGroup;
   selectedFile: File | null = null;
+  imageUrl : string | null | ArrayBuffer = '';
+  isLoading: boolean = false;
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -47,11 +49,18 @@ export class AddComponent implements OnInit {
       this.memberForm.patchValue({
         photoFile: file
       });
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        if(event.target)
+        this.imageUrl = event.target.result;
+      }
     }
   }
 
   onSubmit(): void {
     if (this.memberForm.valid) {
+      this.isLoading = true;
       const member: Member = this.memberForm.value;
       const formData: FormData = new FormData();
       formData.append('firstName', member.firstName);
@@ -78,10 +87,12 @@ export class AddComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error creating member', err);
+          this.isLoading = false;
         }
       });
     } else {
       this.memberForm.markAllAsTouched();
+      this.isLoading = false;
     }
   }
 }

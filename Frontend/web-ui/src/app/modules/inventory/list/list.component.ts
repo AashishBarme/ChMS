@@ -16,6 +16,7 @@ export class ListComponent implements OnInit {
   data: Inventory[] = [];
   sortDirection = true;
   imageUrl : string | null  = '';
+  isLoading: Boolean = false;
 
   constructor(private _service: InventoryService, private _router: Router) {}
 
@@ -24,15 +25,18 @@ export class ListComponent implements OnInit {
   }
 
   loadData(): void {
+    this.isLoading = true;
     this._service.list().subscribe({
       next: (data) => {
         this.data = data;
         this.data.forEach((item)=> {
           item.image = environment.MediaUploadUrl + item.image;
         })
+        this.isLoading = false
       },
       error: (error) => {
         console.error('Error loading inventory data', error);
+        this.isLoading = false
       }
     });
   }

@@ -16,6 +16,7 @@ export class AddComponent implements OnInit {
   inventoryForm!: UntypedFormGroup;
   selectedFile: File | null = null;
   imageUrl : string | null | ArrayBuffer = '';
+  isLoading: boolean = false
 
   constructor(private fb: UntypedFormBuilder, private inventoryService: InventoryService, private _router: Router) {}
 
@@ -47,6 +48,7 @@ export class AddComponent implements OnInit {
 
   onSubmit(): void {
     if (this.inventoryForm.valid) {
+      this.isLoading = true;
       const inventory: Inventory = this.inventoryForm.value;
       inventory.quantity = (inventory.quantity).toString();
       const formData: FormData = new FormData();
@@ -64,10 +66,12 @@ export class AddComponent implements OnInit {
           this._router.navigate([`/inventory`]);
         },
         error: (error) => {
+          this.isLoading = false
           console.error('There was an error creating the inventory', error);
         }
       });
     } else {
+      this.isLoading = false
       this.inventoryForm.markAllAsTouched();
     }
   }

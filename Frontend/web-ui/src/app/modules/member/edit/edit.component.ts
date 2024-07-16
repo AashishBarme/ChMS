@@ -3,6 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { Member } from '../member.model';
 import { MemberService } from '../member.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit',
@@ -15,6 +16,9 @@ export class EditComponent implements OnInit {
   editMemberForm!: UntypedFormGroup;
   member!: Member; // added ! to make ensure about it it not undefined
   selectedFile: File | null = null;
+  imageUrl : string | null | ArrayBuffer = '';
+  isLoading: boolean = false;
+  isButtonLoading: boolean = false;
   constructor(
     private fb: UntypedFormBuilder,
     private memberService: MemberService,
@@ -23,13 +27,14 @@ export class EditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     const memberId = this.route.snapshot.paramMap.get('id');
     if(memberId){
+      this.isLoading = true;
       this.createForm(memberId);
       this.memberService.get(memberId).subscribe((data: Member) => {
         this.member = data;
         this.populateForm();
+        this.isLoading  = false;
       });
     }
   }
@@ -61,15 +66,27 @@ export class EditComponent implements OnInit {
       this.editMemberForm.patchValue({
         photoFile: file
       });
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        if(event.target)
+        this.imageUrl = event.target.result;
+      }
     }
   }
 
   populateForm(): void {
+
     this.editMemberForm.patchValue(this.member);
+    if(this.member.photo)
+      {
+        this.imageUrl = environment.MediaUploadUrl + this.member.photo;
+      }
   }
 
   onSubmit(): void {
     if (this.editMemberForm.valid) {
+      this.isButtonLoading = true;
       const member: Member = this.editMemberForm.value;
       const formData: FormData = new FormData();
       formData.append('firstName', member.firstName);
@@ -94,6 +111,7 @@ export class EditComponent implements OnInit {
       this.memberService.update(this.member.id, formData).subscribe(() => {
         this.router.navigate(['/member']);
       });
+
     }
   }
 
