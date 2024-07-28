@@ -4,6 +4,7 @@ using ChMS.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Dapper.SqlMapper;
+using Chms.Domain.ViewModels.Inventories;
 
 namespace ChMS.Web.Controllers;
 
@@ -23,7 +24,6 @@ public class InventoryController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<int>> Create([FromForm] CreateInventoryVM request)
     {
-        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(request));
         var entity = new Inventory
         {
             Name = request.Name,
@@ -75,9 +75,20 @@ public class InventoryController : ControllerBase
     }
 
     [HttpGet("list")]
-    public ActionResult List()
+    public ActionResult List([FromQuery] FilterQueryVm filterQuery)
     {
-        return Ok(_service.List());
-    }
+        FilterVm filterVm = new FilterVm(){
+            Name = filterQuery.Name,
+            Code = filterQuery.Code,
+            Offset = filterQuery.Offset,
+            Limit = filterQuery.Limit,
+        };
 
+
+        InventoryListResponseVm response = new(){
+            Items = _service.List(filterVm),
+            TotalDataCount = _service.TotalDataCount(filterVm)
+        };
+        return Ok(response);
+    }
 }

@@ -1,6 +1,7 @@
 using Chms.Application.Common.Interface;
 using Chms.Application.Common.Interface.Repositories;
 using Chms.Domain.Entities;
+using Chms.Domain.ViewModels.Inventories;
 
 namespace Chms.Application.Services;
 public class InventoryService : IInventoryService
@@ -27,9 +28,14 @@ public class InventoryService : IInventoryService
         return  _query.Get(id);
     }
 
-    public List<Inventory> List()
+    public List<Inventory> List(FilterVm query)
     {
-        return _query.List();
+        return _query.List(query);
+    }
+
+    public int TotalDataCount(FilterVm query)
+    {
+        return _query.TotalDataCount(query);
     }
 
     public Task Update(Inventory entity)
