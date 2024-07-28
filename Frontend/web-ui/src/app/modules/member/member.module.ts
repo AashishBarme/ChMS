@@ -8,6 +8,7 @@ import { ListComponent } from './list/list.component';
 import { LayoutModule } from '../layout/layout.module';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FilterComponent } from './list/filter/filter.component';
 // import { HeaderComponent } from 'src/app/components/shared/header/header.component';
 // import { SidebarComponent } from 'src/app/components/shared/sidebar/sidebar.component';
 // import { BreadcrumbComponent } from 'src/app/components/shared/breadcrumb/breadcrumb.component';
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({ declarations: [
         AddComponent,
         EditComponent,
-        ListComponent
+        ListComponent,
+        FilterComponent
     ], imports: [CommonModule,
         MemberRoutingModule,
         LayoutModule,

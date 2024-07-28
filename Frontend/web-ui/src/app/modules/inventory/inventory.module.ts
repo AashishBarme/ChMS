@@ -7,13 +7,15 @@ import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
 import { LayoutModule } from '../layout/layout.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FilterComponent } from './list/filter/filter.component';
 
 
 @NgModule({
   declarations: [
     AddComponent,
     EditComponent,
-    ListComponent
+    ListComponent,
+    FilterComponent
   ],
   imports: [
     CommonModule,

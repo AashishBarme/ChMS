@@ -3,7 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Inventory } from './inventory.model';
+import { FilterVm, Inventory } from './inventory.model';
+import { Helpers } from 'src/app/helpers/Helpers';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,8 +22,9 @@ export class InventoryService {
   }
 
   // Read
-  list(): Observable<Inventory[]> {
-    const url = `${this.baseUrl}/list`;
+  list(filter: FilterVm): Observable<Inventory[]> {
+    let searchQuery = Helpers.ParseFilterVmToUrl(filter);
+    const url = `${this.baseUrl}/list/${searchQuery}`;
     return this.http.get<Inventory[]>(url).pipe(
       catchError(this.handleError)
     );

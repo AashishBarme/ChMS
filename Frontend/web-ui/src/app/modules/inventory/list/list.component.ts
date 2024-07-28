@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Inventory } from '../inventory.model';
+import { FilterVm, Inventory } from '../inventory.model';
 import { InventoryService } from '../inventory.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -18,6 +18,10 @@ export class ListComponent implements OnInit {
   sortDirection = true;
   imageUrl : string | null  = '';
   isLoading: Boolean = false;
+  currentPage: number = 1;
+  filterModel = new FilterVm();
+  totalData: number = 0;
+  SearchFormDisplay = "";
 
   constructor(
     private _service: InventoryService,
@@ -29,9 +33,9 @@ export class ListComponent implements OnInit {
     this.loadData();
   }
 
-  loadData(): void {
+  loadData(offset:number = 0): void {
     this.isLoading = true;
-    this._service.list().subscribe({
+    this._service.list(this.filterModel).subscribe({
       next: (data) => {
         this.data = data;
         this.data.forEach((item)=> {
@@ -78,5 +82,41 @@ export class ListComponent implements OnInit {
       this.data.splice(index, 1);
     }
   }
+
+
+  onPageChange(page : number)
+  {
+    this.isLoading = true;
+    this.currentPage = page;
+    let intvalue = page - 1;
+    if(intvalue > -1)
+    {
+      this.loadData(intvalue);
+      this.isLoading = false;
+    }
+  }
+
+
+  get totalPages(): number {
+    return Math.ceil(this.totalData / this.filterModel.limit);
+  }
+
+  getPages(): number[] {
+    const totalPages = this.totalPages;
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+
+  updateFilter(data: any)
+  {
+    this.filterModel = data;
+    this.loadData();
+  }
+
+  searchFormToggle()
+  {
+    this.SearchFormDisplay = (this.SearchFormDisplay == "search-form-display") ? "" : "search-form-display";
+  }
+
+
 
 }

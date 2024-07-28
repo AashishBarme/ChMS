@@ -46,3 +46,15 @@
   display:grid;
   justify-content: center;
 }
+
+.mr-2{
+  margin-right: 2px;
+}
+
+.filter-label{
+  font-size: 11px;
+}
+
+.filter-button{
+  margin-top: 20px;
+}

@@ -8,3 +8,10 @@ export interface Inventory {
   image?: string;
   createdDate?: string;
 }
+
+export class FilterVm {
+  limit: number = 20;
+  offset: number = 0;
+  name: string | null = "";
+  code: string | null = "";
+}

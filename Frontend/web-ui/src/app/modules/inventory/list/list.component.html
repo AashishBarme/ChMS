@@ -4,15 +4,19 @@
   </div>
 
   <div class="col-auto ms-auto text-end mt-n1">
+    <button type="button" (click)="searchFormToggle()"
+    class="btn-shadow btn btn-info mr-2">
+     Filter
+   </button>
     <a href="/inventory/add" class="btn btn-primary">Add Inventory</a>
   </div>
 </div>
-<app-loader class="loader-outer"  *ngIf="isLoading"></app-loader>
+<app-loader class="loader-outer"  *ngIf="isLoading" ></app-loader>
 <div class="row"  *ngIf="!isLoading">
+  <app-filter (filterModelData) = 'updateFilter($event)' [iSearchFormDisplay]="SearchFormDisplay"></app-filter>
   <div class="col-lg-12">
     <div class="main-card mb-3 card">
       <div class="card-body">
-        <!-- <app-filter-list (filerModelData) = 'updateFilter($event)'></app-filter-list> -->
         <div *ngIf="data == undefined; else listTable">
           <p><em>Loading...</em></p>
         </div>
@@ -47,6 +51,25 @@
         <p>No Data Found</p>
       </ng-template>
     </table>
+    <div class="pagination mt-2">
+      <!-- <span>
+        Pagination:  <input class="col-4 pagination-input" #textInput (input)="Pagination(textInput.value)"
+        (change)="value" ng-init="1" name="offset" type="number" min="1">
+        Total Page: {{model.totalPages}}
+      </span> -->
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item"><a class="page-link"
+            (click)="onPageChange(currentPage - 1)"
+            >Previous</a></li>
+          <li class="page-item" *ngFor="let page of getPages()">
+            <a class="page-link" (click)="onPageChange(page)">{{page}}</a>
+          </li>
+            <li class="page-item"><a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a></li>
+
+        </ul>
+      </nav>
+  </div>
     <!-- <div class="pagination">
       <span>
         Pagination:  <input class="col-4 pagination-input" #textInput (input)="Pagination(textInput.value)"
