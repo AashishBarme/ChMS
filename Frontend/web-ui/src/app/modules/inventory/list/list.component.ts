@@ -33,14 +33,16 @@ export class ListComponent implements OnInit {
     this.loadData();
   }
 
-  loadData(offset:number = 0): void {
+  loadData(page: number = 0): void {
     this.isLoading = true;
+    this.filterModel.offset = page * this.filterModel.limit;
     this._service.list(this.filterModel).subscribe({
-      next: (data) => {
-        this.data = data;
+      next: (res:any) => {
+        this.data = res.items;
         this.data.forEach((item)=> {
           item.image = environment.MediaUploadUrl + item.image;
         })
+        this.totalData = res.totalDataCount;
         this.isLoading = false
       },
       error: (error) => {
@@ -92,6 +94,10 @@ export class ListComponent implements OnInit {
     if(intvalue > -1)
     {
       this.loadData(intvalue);
+      this.isLoading = false;
+    }
+    if(intvalue < 0)
+    {
       this.isLoading = false;
     }
   }

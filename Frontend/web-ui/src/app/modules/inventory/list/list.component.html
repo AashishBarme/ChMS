@@ -21,6 +21,7 @@
           <p><em>Loading...</em></p>
         </div>
       <ng-template #listTable>
+        <div class="table-page"><p><span>{{currentPage}}</span> of {{totalPages}} page(s)</p></div>
         <table class="mb-0 table my-table" >
           <thead>
             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0" role="row">
@@ -59,13 +60,13 @@
       </span> -->
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-          <li class="page-item"><a class="page-link"
+          <li class="page-item" *ngIf="(currentPage - 1 > totalPages)"><a class="page-link"
             (click)="onPageChange(currentPage - 1)"
             >Previous</a></li>
           <li class="page-item" *ngFor="let page of getPages()">
             <a class="page-link" (click)="onPageChange(page)">{{page}}</a>
           </li>
-            <li class="page-item"><a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a></li>
+            <li class="page-item" *ngIf="(currentPage + 1 < totalPages)"><a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a></li>
 
         </ul>
       </nav>
