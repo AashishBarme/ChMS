@@ -32,11 +32,8 @@ public class InventoryQueryRepository : IInventoryQueryRepository
             sql += $" order by CreatedDate desc OFFSET {query.Offset} ROWS FETCH NEXT {query.Limit} ROWS ONLY";
             object where = new
             {
-            name = $"%{query.Name}%",
-            code = $"%{query.Code}%",
-            Limit = query.Limit,
-            Offset = query.Offset
-
+                name = $"%{query.Name}%",
+                code = $"%{query.Code}%"
             };
             return _baseRepository.LoadData<Inventory, object>(sql, where).GetAwaiter().GetResult();
     }

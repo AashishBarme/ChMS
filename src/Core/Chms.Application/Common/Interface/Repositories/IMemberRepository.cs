@@ -1,4 +1,5 @@
 using Chms.Domain.Entities;
+using Chms.Domain.ViewModels.Members;
 
 namespace Chms.Application.Common.Interface.Repositories;
    
@@ -13,5 +14,6 @@ public interface IMemberCommandRepository
 public interface IMemberQueryRepository
 {
     public Member Get(Guid id);
-    public List<MemberListVM> List(); 
+    public List<MemberListVM> List(FilterVm filterQuery);
+    public int TotalDataCount(FilterVm filterQuery);
 }

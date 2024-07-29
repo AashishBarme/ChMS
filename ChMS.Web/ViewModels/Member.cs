@@ -1,4 +1,5 @@
 ﻿using Chms.Domain.Common.Enums;
+using Chms.Domain.Entities;
 
 namespace ChMS.Web.ViewModels
 {
@@ -26,4 +27,21 @@ namespace ChMS.Web.ViewModels
         public string? Photo { get; set; }
 
     }
+
+    public class MemberListResponseVm 
+    {
+        public List<MemberListVM> Items {get; set;} = new();
+        public int TotalDataCount {get; set;} = 0;
+    }
+
+    public class MembFilterQueryVm 
+    {
+        public string? Name {get; set;}
+        public string? PhoneNumber {get; set;}
+        public string? Gender {get; set;}
+        public int Limit { get; set; } = 20;
+        public int Offset { get; set; } = 0;
+    }
 }
+
+

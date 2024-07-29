@@ -1,4 +1,5 @@
 using Chms.Domain.Entities;
+using Chms.Domain.ViewModels.Members;
 
 namespace Chms.Application.Common.Interface;
 
@@ -8,7 +9,8 @@ namespace Chms.Application.Common.Interface;
         public Task Update(Member entity);
         public Member Get(Guid id);
         public void Delete(Guid id);
-        public List<MemberListVM> List(); 
+        public List<MemberListVM> List(FilterVm query); 
+        public int TotalDataCount(FilterVm query);
 
 
     }

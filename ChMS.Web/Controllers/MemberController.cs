@@ -3,6 +3,7 @@ using Chms.Application.Common.Interface;
 using Chms.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using ChMS.Web.ViewModels;
+using Chms.Domain.ViewModels.Members;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -96,9 +97,21 @@ namespace ChMS.Web.Controllers
         }
 
         [HttpGet("list")]
-        public ActionResult List()
+        public ActionResult List([FromQuery] MembFilterQueryVm filterQuery)
         {
-            return Ok(_service.List());
+            FilterVm filterVm = new(){
+                Name = filterQuery.Name,
+                PhoneNumber = filterQuery.PhoneNumber,
+                Gender = filterQuery.Gender,
+                Offset = filterQuery.Offset,
+                Limit = filterQuery.Limit,
+            };
+
+            MemberListResponseVm response = new(){
+                Items = _service.List(filterVm),
+                TotalDataCount = _service.TotalDataCount(filterVm)
+            };
+            return Ok(response);
         }
     }
 }
