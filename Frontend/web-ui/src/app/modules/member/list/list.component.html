@@ -64,6 +64,18 @@
         <p>No Data Found</p>
       </ng-template>
     </table>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" *ngIf="(currentPage - 1 > totalPages)"><a class="page-link"
+          (click)="onPageChange(currentPage - 1)"
+          >Previous</a></li>
+        <li class="page-item" *ngFor="let page of getPages()">
+          <a class="page-link" (click)="onPageChange(page)">{{page}}</a>
+        </li>
+          <li class="page-item" *ngIf="(currentPage + 1 < totalPages)"><a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a></li>
+
+      </ul>
+    </nav>
     <!-- <div class="pagination">
       <span>
         Pagination:  <input class="col-4 pagination-input" #textInput (input)="Pagination(textInput.value)"

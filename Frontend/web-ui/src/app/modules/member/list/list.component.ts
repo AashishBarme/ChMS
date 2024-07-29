@@ -32,11 +32,12 @@ export class ListComponent implements OnInit {
     this.isLoading = true;
     this.filterModel.offset = page * this.filterModel.limit;
     this._service.list(this.filterModel).subscribe({
-      next: (data) => {
-        this.members = data;
+      next: (res: any) => {
+        this.members = res.items;
         this.members.forEach((item)=> {
           item.photo = environment.MediaUploadUrl + item.photo;
         })
+        this.totalData = res.totalDataCount;
         this.isLoading = false
       },
       error: (error) => {
@@ -85,6 +86,22 @@ export class ListComponent implements OnInit {
   searchFormToggle()
   {
     this.SearchFormDisplay = (this.SearchFormDisplay == "search-form-display") ? "" : "search-form-display";
+  }
+
+  onPageChange(page : number)
+  {
+    this.isLoading = true;
+    this.currentPage = page;
+    let intvalue = page - 1;
+    if(intvalue > -1)
+    {
+      this.loadData(intvalue);
+      this.isLoading = false;
+    }
+    if(intvalue < 0)
+    {
+      this.isLoading = false;
+    }
   }
 
 
