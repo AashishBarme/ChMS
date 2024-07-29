@@ -29,7 +29,7 @@ namespace Chms.Infrastructure.Repositories.Member
 
         public List<MemberListVM> List(FilterVm query)
         {
-            string sql = $"select Id, FirstName, LastName, Email, PhoneNumber, Gender, GroupId, ChurchRole, CreatedDate, UpdatedDate, Photo from {TABLE_NAME} ";
+            string sql = $"select Id, FirstName, LastName, Email, PhoneNumber, Gender, GroupId, ChurchRole, CreatedDate, UpdatedDate, Photo from {TABLE_NAME} where 1=1 ";
             var whereSql = (!String.IsNullOrEmpty(query.Name)) ? $" and CONCAT(FirstName, MiddleName, LastName) like @name" : string.Empty;
             whereSql += (!String.IsNullOrEmpty(query.PhoneNumber)) ? $" and PhoneNumber like @phoneNumber" : string.Empty;
             whereSql += (!String.IsNullOrEmpty(query.Gender)) ? $" and Gender = @gender" : string.Empty;
