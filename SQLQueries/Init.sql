@@ -319,3 +319,19 @@ END
 GO
 
 
+-- Check if the table roles exists, if not create it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[documents]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [documents] (
+        [Id] UNIQUEIDENTIFIER NOT NULL,
+        [Name] NVARCHAR(256) NULL,
+        [Type] NVARCHAR(256) NULL,
+        [Size] NVARCHAR(50) NULL,
+        [Description] NVARCHAR(MAX) NULL,
+        [CreatedDate] NVARCHAR(50) NOT NULL,
+        [UpdatedDate] NVARCHAR(50),
+        [CreatedBy] INT NOT NULL,
+        [UpdatedBy] INT,
+        CONSTRAINT [PK_documents] PRIMARY KEY ([Id])
+    );
+END;
