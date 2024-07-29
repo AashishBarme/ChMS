@@ -3,7 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { ListMember, Member } from './member.model';
+import { FilterVm, ListMember, Member } from './member.model';
+import { Helpers } from 'src/app/helpers/Helpers';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,8 +22,9 @@ export class MemberService {
   }
 
   // Read
-  list(): Observable<ListMember[]> {
-    const url = `${this.baseUrl}/list`;
+  list(filter: FilterVm): Observable<ListMember[]> {
+    let searchQuery = Helpers.ParseFilterVmToUrl(filter);
+    const url = `${this.baseUrl}/list/${searchQuery}`;
     return this.http.get<ListMember[]>(url).pipe(
       catchError(this.handleError)
     );

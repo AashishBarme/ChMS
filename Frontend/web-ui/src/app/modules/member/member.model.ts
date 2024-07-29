@@ -29,3 +29,12 @@ export interface ListMember {
   updatedDate: Date;
   photo?: string;
 }
+
+export class FilterVm {
+  limit: number = 20;
+  offset: number = 0;
+  name: string | null = "";
+  phoneNumber: string | null = "";
+  gender : string | null = "";
+}
+

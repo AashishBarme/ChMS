@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MemberService } from '../member.service';
-import { ListMember } from '../member.model';
+import { FilterVm, ListMember } from '../member.model';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 
@@ -19,10 +19,19 @@ export class ListComponent implements OnInit {
   imageUrl : string | null  = '';
   isLoading: Boolean = false;
   members: ListMember[] = [];
+  currentPage: number = 1;
+  filterModel = new FilterVm();
+  totalData: number = 0;
+  SearchFormDisplay = "";
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData(page: number = 0): void {
     this.isLoading = true;
-    this._service.list().subscribe({
+    this.filterModel.offset = page * this.filterModel.limit;
+    this._service.list(this.filterModel).subscribe({
       next: (data) => {
         this.members = data;
         this.members.forEach((item)=> {
@@ -55,6 +64,29 @@ export class ListComponent implements OnInit {
       this.members.splice(index, 1);
     }
   }
+
+
+
+  get totalPages(): number {
+    return Math.ceil(this.totalData / this.filterModel.limit);
+  }
+
+  getPages(): number[] {
+    const totalPages = this.totalPages;
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+
+  updateFilter(data: any)
+  {
+    this.filterModel = data;
+    this.loadData();
+  }
+
+  searchFormToggle()
+  {
+    this.SearchFormDisplay = (this.SearchFormDisplay == "search-form-display") ? "" : "search-form-display";
+  }
+
 
 
 }

@@ -20,7 +20,8 @@ import { FilterComponent } from './list/filter/filter.component';
         EditComponent,
         ListComponent,
         FilterComponent
-    ], imports: [CommonModule,
+    ],
+    imports: [CommonModule,
         MemberRoutingModule,
         LayoutModule,
         ReactiveFormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
