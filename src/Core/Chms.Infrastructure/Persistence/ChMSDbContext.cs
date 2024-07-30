@@ -26,6 +26,7 @@ namespace Chms.Infrastructure.Persistence
         public DbSet<Family> Families {get; set;}
         public DbSet<MemberFamilyRelation> MemberFamilyRelations {get; set;}
         public DbSet<Inventory> Inventories {get; set;}
+        public DbSet<Document> Documents {get; set;}
  
 
         public Task<int> SaveChangesAsync()

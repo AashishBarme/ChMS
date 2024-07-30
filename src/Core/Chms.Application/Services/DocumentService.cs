@@ -1,38 +1,48 @@
 using Chms.Application.Common.Interface;
+using Chms.Application.Common.Interface.Repositories;
 using Chms.Domain.Entities;
+using Chms.Domain.ViewModels.Documents;
 
 namespace Chms.Application.Services
 {
     public class DocumentService : IDocumentService
     {
-        public Task<Guid> Create(Document entity)
+        public readonly IDocumentCommandRepository _command;
+        public readonly IDocumentQueryRepository _query;
+        public DocumentService(IDocumentCommandRepository command, IDocumentQueryRepository query)
         {
-            throw new NotImplementedException();
+            _command = command;
+            _query = query;
+        }
+
+        public async Task<Guid> Create(Document entity)
+        {
+            return await _command.Create(entity);
         }
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+             _command.Delete(id);
         }
 
         public Document Get(string id)
         {
-            throw new NotImplementedException();
+            return _query.Get(id);
         }
 
-        public int GetTotalData()
+        public int TotalDataCount(FilterVm filterVm)
         {
-            throw new NotImplementedException();
+            return _query.GetTotalData(filterVm);   
         }
 
-        public List<Document> List()
+        public List<Document> List(FilterVm filterVm)
         {
-            throw new NotImplementedException();
+           return _query.List(filterVm);
         }
 
-        public Task Update(Document entity)
+        public async Task Update(Document entity)
         {
-            throw new NotImplementedException();
+           await _command.Update(entity);
         }
     }
 }

@@ -1,5 +1,5 @@
 using Chms.Domain.Entities;
-
+using Chms.Domain.ViewModels.Documents;
 namespace Chms.Application.Common.Interface.Repositories
 {
     public interface IDocumentCommandRepository
@@ -12,8 +12,8 @@ namespace Chms.Application.Common.Interface.Repositories
 
     public interface IDocumentQueryRepository
     {
-        public List<Document> List();
+        public List<Document> List(FilterVm query);
         public Document Get(string id);
-        public int GetTotalData();
+        public int GetTotalData(FilterVm query);
     }
 }

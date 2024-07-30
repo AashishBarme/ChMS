@@ -4,13 +4,13 @@ using ChMS.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Dapper.SqlMapper;
-using Chms.Domain.ViewModels.Inventories;
+using Chms.Domain.ViewModels.Documents;
 
 namespace ChMS.Web.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
+//[Authorize]
 public class DocumentController : ControllerBase
 {
     public readonly IDocumentService _service;
@@ -22,42 +22,42 @@ public class DocumentController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<int>> Create([FromForm] CreateInventoryVM request)
-    {
-        // var entity = new Inventory
-        // {
-        //     Name = request.Name,
-        //     Description = request.Description,
-        //     Code = request.Code,
-        //     Quantity = request.Quantity
-        // };
-        // if (request.ImageFile!= null)
-        // {
-        //     entity.Image = await _fileUploadService.UploadFile(request.ImageFile);
-        // }
-        // Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(entity));
-        // var response = await _service.Create(entity);
-        return Ok();
+    public async Task<ActionResult<string>> Create([FromForm] CreateDocumentVm request)
+    {      
+        var entity = new Document
+        {
+            Name = request.Name,
+            Description = request.Description,
+            Type = request.File.ContentType,
+            Size = request.File.Length.ToString()
+        };
+        if (request.File!= null)
+        {
+            entity.Path = await _fileUploadService.UploadFile(request.File);
+        }
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(entity));
+        var response = await _service.Create(entity);
+        return Ok(response);
     }
 
 
     [HttpPut]
-    public async Task<ActionResult> Update([FromForm] EditInventoryVM request)
+    public async Task<ActionResult> Update([FromForm] EditDocumentVm request)
     {
-        // var entity = new Inventory
-        // {
-        //     Id = request.Id,
-        //     Name = request.Name,
-        //     Description = request.Description,
-        //     Code = request.Code,
-        //     Quantity = request.Quantity,
-        //     Image = request.Image
-        // };
-        // if (request.ImageFile != null)
-        // {
-        //     entity.Image = await _fileUploadService.UploadFile(request.ImageFile);
-        // }
-        // await _service.Update(entity);
+        var entity = new Document
+        {
+            Id = request.Id,
+            Name = request.Name,
+            Description = request.Description,
+        };
+        if (request.File != null)
+        {
+            entity.Path = await _fileUploadService.UploadFile(request.File);
+            entity.Type = request.File.ContentType;
+            entity.Size = request.File.Length.ToString();
+        }
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(entity));
+        await _service.Update(entity);
         return Ok();
     }
 
@@ -75,20 +75,22 @@ public class DocumentController : ControllerBase
     }
 
     [HttpGet("list")]
-    public ActionResult List([FromQuery] FilterQueryVm filterQuery)
+    public ActionResult List([FromQuery] DocFilterQueryVm filterQuery)
     {
-        // FilterVm filterVm = new FilterVm(){
-        //     Name = filterQuery.Name,
-        //     Code = filterQuery.Code,
-        //     Offset = filterQuery.Offset,
-        //     Limit = filterQuery.Limit,
-        // };
+        FilterVm filterVm = new()
+        {
+            Name = filterQuery.Name,
+            CreatedDate = filterQuery.CreatedDate,
+            Offset = filterQuery.Offset,
+            Limit = filterQuery.Limit,
+        };
 
 
-        // InventoryListResponseVm response = new(){
-        //     Items = _service.List(filterVm),
-        //     TotalDataCount = _service.TotalDataCount(filterVm)
-        // };
-        return Ok();
+        DocListResponseVm response = new()
+        {
+            Items = _service.List(filterVm),
+            TotalDataCount = _service.TotalDataCount(filterVm)
+        };
+        return Ok(response);
     }
 }

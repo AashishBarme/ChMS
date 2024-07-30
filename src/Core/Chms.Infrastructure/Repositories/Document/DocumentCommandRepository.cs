@@ -1,21 +1,36 @@
 using Chms.Application.Common.Interface.Repositories;
+using Chms.Domain.Entities;
+using Chms.Infrastructure.DataAccess;
+using Chms.Infrastructure.Persistence;
 
 namespace Chms.Infrastructure.Repositories.Document;
 
 public class DocumentCommandRepository : IDocumentCommandRepository
 {
-    public Task<Guid> Create(Domain.Entities.Document entity)
+    public readonly ChMSDbContext _dbContext;
+    public readonly BaseRepository _baseRepository;
+    public DocumentCommandRepository(ChMSDbContext dbContext, BaseRepository baseRepository)
     {
-        throw new NotImplementedException();
+        _dbContext = dbContext;
+        _baseRepository = baseRepository;
+    }
+
+    public async Task<Guid> Create(Domain.Entities.Document entity)
+    {
+        _dbContext.Documents.Add(entity);
+        await _dbContext.SaveChangesAsync();
+        return entity.Id;
     }
 
     public void Delete(string id)
     {
-        throw new NotImplementedException();
+        string sql = "delete from `documents` where Id = @Id";
+        _baseRepository.LoadData<string, object>(sql, new { Id = id }).GetAwaiter().GetResult();
     }
 
-    public Task Update(Domain.Entities.Document entity)
+    public async Task Update(Domain.Entities.Document entity)
     {
-        throw new NotImplementedException();
+         _dbContext.Documents.Update(entity);
+        await _dbContext.SaveChangesAsync();
     }
 }

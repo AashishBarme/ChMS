@@ -324,9 +324,10 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[document
 BEGIN
     CREATE TABLE [documents] (
         [Id] UNIQUEIDENTIFIER NOT NULL,
-        [Name] NVARCHAR(256) NULL,
+        [Name] NVARCHAR(256) NOT NULL,
         [Type] NVARCHAR(256) NULL,
         [Size] NVARCHAR(50) NULL,
+        [Path] NVARCHAR(256) NOT NULL,
         [Description] NVARCHAR(MAX) NULL,
         [CreatedDate] NVARCHAR(50) NOT NULL,
         [UpdatedDate] NVARCHAR(50),

@@ -60,6 +60,17 @@ namespace Chms.Infrastructure.Persistence.Configurations
         }
     }
 
+    public class DocumentConfiguration : IEntityTypeConfiguration<Document>
+    {
+        public void Configure(EntityTypeBuilder<Document> builder)
+        {
+            builder.HasKey(t => t.Id);
+            builder.ToTable("documents");
+            builder.Property(t => t.Name).HasColumnType("varchar").HasMaxLength(255).IsRequired();
+            builder.Property(t => t.Path).HasColumnType("varchar").HasMaxLength(255).IsRequired();
+        }
+    }
+
     // public class GroupsConfiguration : IEntityTypeConfiguration<Family>
     // {
     //     public void Configure(EntityTypeBuilder<Family> builder)
