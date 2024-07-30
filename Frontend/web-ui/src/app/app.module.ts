@@ -14,6 +14,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
+import { DocumentModule } from './modules/document/document.module';
 
 
 
@@ -32,6 +33,7 @@ export function init_app(appLoadService: AppConfigInitService) {
     MemberModule,
     LayoutModule,
     DashboardModule,
+    DocumentModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
   ],
