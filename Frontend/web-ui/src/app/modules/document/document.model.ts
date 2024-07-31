@@ -1,5 +1,5 @@
 // src/app/models/inventory.model.ts
-export interface Document {
+export interface Documents {
   id: number;
   name: string;
   size: string;
@@ -7,7 +7,7 @@ export interface Document {
   description?: string;
   file?: string;
   type?: string;
-  createdDate?: string;
+  createdDate?: string | null | undefined ;
 }
 
 export class FilterVm {

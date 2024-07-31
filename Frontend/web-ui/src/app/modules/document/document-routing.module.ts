@@ -6,7 +6,7 @@ import { ListComponent } from './list/list.component';
 import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [{
-  "path" : "inventory",
+  "path" : "document",
   "children" :
   [
       {"path" : "" , component:ListComponent},
@@ -19,4 +19,4 @@ const routes: Routes = [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class InventoryRoutingModule { }
+export class DocumentRoutingModule { }

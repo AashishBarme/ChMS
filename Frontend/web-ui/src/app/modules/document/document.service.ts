@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { FilterVm, Document } from './document.model';
+import { FilterVm, Documents } from './document.model';
 import { Helpers } from 'src/app/helpers/Helpers';
 @Injectable({
   providedIn: 'root'
@@ -15,32 +15,32 @@ export class DocumentService {
   constructor(private http: HttpClient) { }
 
   // Create
-  create(model: FormData): Observable<Document> {
-    return this.http.post<Document>(this.baseUrl, model).pipe(
+  create(model: FormData): Observable<Documents> {
+    return this.http.post<Documents>(this.baseUrl, model).pipe(
       catchError(this.handleError)
     );
   }
 
   // Read
-  list(filter: FilterVm): Observable<Document[]> {
+  list(filter: FilterVm): Observable<Documents[]> {
     let searchQuery = Helpers.ParseFilterVmToUrl(filter);
     const url = `${this.baseUrl}/list/${searchQuery}`;
-    return this.http.get<Document[]>(url).pipe(
+    return this.http.get<Documents[]>(url).pipe(
       catchError(this.handleError)
     );
   }
 
-  get(id: number): Observable<Document> {
+  get(id: number): Observable<Documents> {
     const url = `${this.baseUrl}/${id}`;
-    return this.http.get<Document>(url).pipe(
+    return this.http.get<Documents>(url).pipe(
       catchError(this.handleError)
     );
   }
 
   // Update
-  update(model: FormData): Observable<Document> {
+  update(model: FormData): Observable<Documents> {
     const url = `${this.baseUrl}`;
-    return this.http.put<Document>(url, model).pipe(
+    return this.http.put<Documents>(url, model).pipe(
       catchError(this.handleError)
     );
   }
@@ -51,6 +51,14 @@ export class DocumentService {
     return this.http.delete<void>(url).pipe(
       catchError(this.handleError)
     );
+  }
+
+
+  download(id: number): Observable<Object> {
+    const url = `${this.baseUrl}/download/${id}`;
+    return this.http.get(url, {
+      responseType: 'blob' as 'json'
+    });
   }
   // Error Handling
   private handleError(error: HttpErrorResponse) {
