@@ -15,10 +15,14 @@ public class DocumentController : ControllerBase
 {
     public readonly IDocumentService _service;
     private readonly IFileUploadService _fileUploadService;
-    public DocumentController(IDocumentService service, IFileUploadService fileUploadService)
+     private readonly IWebHostEnvironment _env;
+
+
+    public DocumentController(IDocumentService service, IFileUploadService fileUploadService, IWebHostEnvironment env)
     {
         _service = service;
         _fileUploadService = fileUploadService;
+        _env = env;
     }
 
     [HttpPost]
@@ -49,13 +53,10 @@ public class DocumentController : ControllerBase
             Id = request.Id,
             Name = request.Name,
             Description = request.Description,
+            Path = request.Path,
+            Type = request.Type,
+            Size = request.Size
         };
-        if (request.File != null)
-        {
-            entity.Path = await _fileUploadService.UploadFile(request.File);
-            entity.Type = request.File.ContentType;
-            entity.Size = request.File.Length.ToString();
-        }
         Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(entity));
         await _service.Update(entity);
         return Ok();
@@ -72,6 +73,33 @@ public class DocumentController : ControllerBase
     public ActionResult Get(string id)
     {
         return Ok(_service.Get(id));
+    }
+
+
+    [HttpGet("download/{id}")]
+    public IActionResult DownloadFile(string id)
+    {
+        Document document= _service.Get(id);
+
+        var filePath = document.Path; // Specify the path to your file
+        if (!System.IO.File.Exists(_env.WebRootPath + filePath) || String.IsNullOrEmpty(filePath))
+        {
+            return NotFound(); // Return a 404 if the file doesn't exist
+        }
+
+        var extension  = filePath?.Split(".")[1];
+        var fileName = string.Concat(document.Name,".", extension); // The name the file will have when downloaded
+        var memory = new MemoryStream();
+        using (var stream = new FileStream(_env.WebRootPath + filePath, FileMode.Open))
+        {
+            stream.CopyTo(memory);
+        }
+        memory.Position = 0;
+        if(document.Type != null)
+        {
+            return File(memory, document.Type, fileName);
+        }
+         return NotFound(); 
     }
 
     [HttpGet("list")]
