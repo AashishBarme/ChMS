@@ -24,7 +24,7 @@ public class DocumentCommandRepository : IDocumentCommandRepository
 
     public void Delete(string id)
     {
-        string sql = "delete from `documents` where Id = @Id";
+        string sql = "delete from documents where Id = @Id";
         _baseRepository.LoadData<string, object>(sql, new { Id = id }).GetAwaiter().GetResult();
     }
 
