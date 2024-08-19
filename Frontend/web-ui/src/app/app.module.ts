@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
 import { DocumentModule } from './modules/document/document.module';
+import { FinanceModule } from './modules/finance/finance.module';
 
 
 
@@ -34,6 +35,7 @@ export function init_app(appLoadService: AppConfigInitService) {
     LayoutModule,
     DashboardModule,
     DocumentModule,
+    FinanceModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
   ],

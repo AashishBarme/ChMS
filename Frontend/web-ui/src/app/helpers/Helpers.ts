@@ -27,4 +27,10 @@ export class Helpers
         return  date.toLocaleDateString()+" "+ date.toLocaleTimeString();
     }
 
+    static GetTodayDate()
+    {
+      let date = new Date();
+      return date.toLocaleDateString();
+    }
+
 }
