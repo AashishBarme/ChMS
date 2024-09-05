@@ -9,7 +9,7 @@ namespace Chms.Domain.Entities;
     {
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime? UpdatedDate { get; set; } = null;
-        public long CreatedBy { get; set; }
-        public long UpdatedBy { get; set; }
+    public long CreatedBy { get; set; } = 0;
+    public long UpdatedBy { get; set; } = 0;
 
     }
