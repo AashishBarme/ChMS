@@ -31,6 +31,9 @@ public static class DependecyInjection
         services.AddScoped<IDocumentCommandRepository, DocumentCommandRepository>();
         services.AddScoped<IDocumentQueryRepository, DocumentQueryRepository>();
 
+        services.AddScoped<IIncomeRepository, IncomeRepository>();
+        services.AddScoped<IExpenseRepository, ExpenseRepository>();
+
 
         var settings = new ConnectionSettings{
             ReadConnection = configuration.GetConnectionString("DefaultConnection"),
