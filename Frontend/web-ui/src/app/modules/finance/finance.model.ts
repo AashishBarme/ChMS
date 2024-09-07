@@ -7,7 +7,7 @@ export class Income {
   amount: number = 0;
   description?: string;
   date: string = "";
-  memberId: number = 0;
+  memberId: string = "9fd74d48-c045-4a48-81e2-70ee9316e71f";
 }
 
 export class FilterVm {

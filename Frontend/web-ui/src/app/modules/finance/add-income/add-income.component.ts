@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AddIncome, Income } from '../finance.model';
+import { FinanceService } from '../finance.service';
 
 @Component({
   selector: 'app-add-income',
@@ -15,10 +16,11 @@ export class AddIncomeComponent {
   income: Income = new Income;
   categories: string[] = ["Offering","Bonus","Interest","Personal Help","Mission","Others"];
   tithes: Income[] = [];
-
+  isLoading: boolean = false;
   constructor(
     private _router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _service: FinanceService
   ){
     for(let i = 0; i< this.categories.length; i++)
     {
@@ -53,6 +55,18 @@ export class AddIncomeComponent {
     {
       this.model.income.push(this.tithes[i])
     }
-    console.log(this.model);
+    this.isLoading = true;
+
+    this._service.createIncome(this.model).subscribe({
+      next: (data) => {
+        this.toastr.success('Income Added Successfully');
+        this._router.navigate(['/finance/income']);
+      },
+      error: (err) => {
+        this.toastr.error('Something went wrong');
+        console.error('Error creating member', err);
+        this.isLoading = false;
+      }
+    });
   }
 }

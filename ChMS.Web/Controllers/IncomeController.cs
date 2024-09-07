@@ -66,7 +66,7 @@ namespace ChMS.Web.Controllers
         {
             if (request.Income.Count == 0 || String.IsNullOrEmpty(request.Date.ToString()))
             {
-                return Ok("Nothing found");
+                return BadRequest("Invalid Input Data");
             }
             try
             {
