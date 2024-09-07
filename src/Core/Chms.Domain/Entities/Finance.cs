@@ -2,19 +2,19 @@ namespace Chms.Domain.Entities;
 
 public class Income : BaseModel
 {
-    public int Id { get; set; }
+    public long Id { get; set; } = 0;
     public string? Category { get; set; }
     public int Amount { get; set; }
-    public DateTime Date { get; set; }
-    public int MemberId { get; set; }
+    public string? IncomeDate { get; set; }
+    public Guid MemberId { get; set; }
     public string? Description { get; set; }
 }
 
 public class Expense : BaseModel
 {
-    public int Id { get; set; }
+    public long Id { get; set; } = 0;
     public string? Category { get; set; }
     public int Amount { get; set; }
-    public DateTime Date { get; set; }
+    public DateTime ExpenseDate { get; set; }
     public string? Description { get; set; }
 }

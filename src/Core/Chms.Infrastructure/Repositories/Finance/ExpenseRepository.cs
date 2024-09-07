@@ -22,7 +22,7 @@ public class ExpenseRepository : IExpenseRepository
         return entity.Id;
     }
 
-    public Task<Guid> Create(Expense entity)
+    public Task<int> Create(Expense entity)
     {
         throw new NotImplementedException();
     }

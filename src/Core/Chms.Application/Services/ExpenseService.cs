@@ -1,6 +1,6 @@
 using Chms.Application.Common.Interface;
 using Chms.Domain.Entities;
-using Chms.Domain.ViewModels.Members;
+using Chms.Domain.ViewModels.IncomeExpense;
 
 namespace Chms.Application.Services;
 
@@ -8,7 +8,7 @@ public class ExpenseService : IExpenseService
 {
    
 
-    public Task<Guid> Create(Expense entity)
+    public Task<int> Create(Expense entity)
     {
         throw new NotImplementedException();
     }
@@ -17,9 +17,6 @@ public class ExpenseService : IExpenseService
     {
         throw new NotImplementedException();
     }
-
-
-
 
 
     public Task Update(Expense entity)

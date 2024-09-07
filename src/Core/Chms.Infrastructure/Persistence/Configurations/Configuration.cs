@@ -71,6 +71,17 @@ namespace Chms.Infrastructure.Persistence.Configurations
         }
     }
 
+    public class IncomeConfiguration : IEntityTypeConfiguration<Income>
+    {
+        public void Configure(EntityTypeBuilder<Income> builder)
+        {
+            builder.HasKey(t => t.Id);
+            builder.ToTable("incomes");
+            builder.Property(t => t.Category).HasColumnType("varchar");
+        }
+    }
+
+
     // public class GroupsConfiguration : IEntityTypeConfiguration<Family>
     // {
     //     public void Configure(EntityTypeBuilder<Family> builder)

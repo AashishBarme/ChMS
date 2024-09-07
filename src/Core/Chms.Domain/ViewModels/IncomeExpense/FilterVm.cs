@@ -4,8 +4,13 @@ namespace Chms.Domain.ViewModels.IncomeExpense
 {
     public class FilterVm : BaseVm
     {
-        public DateTime? DateTime {get; set;}
-        public string? PhoneNumber {get; set;}
-        public string? Gender {get; set;}
+        public string? StartDate {get; set;}
+        public string? EndDate { get; set; }
+    }
+
+    public class ListVm
+    {
+        public string? Category { get; set; }
+        public long TotalAmount { get; set; } = 0;
     }
 }

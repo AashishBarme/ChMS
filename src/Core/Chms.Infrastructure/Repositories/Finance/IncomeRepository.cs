@@ -15,32 +15,41 @@ public class IncomeRepository : IIncomeRepository
         _dbContext = dbContext;
         _baseRepository = baseRepository;
     }
-    public async Task<int> Create(Inventory entity)
+
+    private const string TABLE_NAME = "incomes";
+
+    public async Task<long> Create(Income entity)
     {
-        _dbContext.Inventories.Add(entity);
+        _dbContext.Incomes.Add(entity);
         await _dbContext.SaveChangesAsync();
         return entity.Id;
     }
 
-    public Task<Guid> Create(Income entity)
+    public void Delete(string incomeDate)
     {
-        throw new NotImplementedException();
+        string sql = $"delete from {TABLE_NAME} where IncomeDate = @date";
+        _baseRepository.LoadData<string, object>(sql, new { date = incomeDate }).GetAwaiter().GetResult();
     }
 
-    public void Delete(int id)
+    public List<Income> Get(string incomeDate)
     {
-        string sql = "delete from `inventories` where Id = @Id";
-        _baseRepository.LoadData<string, object>(sql, new { Id = id }).GetAwaiter().GetResult();
+        string sql = $"select * from {TABLE_NAME} where IncomeDate = @date";
+        return _baseRepository.LoadData<Income, object>(sql, new { date = incomeDate}).GetAwaiter().GetResult();
     }
 
-    public Income Get(int id)
+    public List<ListVm> List(FilterVm query)
     {
-        throw new NotImplementedException();
-    }
 
-    public List<Income> List(FilterVm query)
-    {
-        throw new NotImplementedException();
+        string sql = $"select Distinct Category, SUM(Amount) as TotalAmount from {TABLE_NAME} where 1 = 1 ";
+        var whereSql = " and CAST(IncomeDate as DateTime) between CAST(@startdate as DateTime) and CAST (@enddate as DateTime)";
+        sql += whereSql;
+        sql += $" group by Category";
+        object where = new
+        {
+            startdate = query.StartDate,
+            enddate =  query.EndDate
+        };
+        return _baseRepository.LoadData<ListVm, object>(sql, where).GetAwaiter().GetResult();
     }
 
     public int TotalDataCount(FilterVm query)
@@ -48,14 +57,10 @@ public class IncomeRepository : IIncomeRepository
         throw new NotImplementedException();
     }
 
-    public async Task<int> Update(Inventory entity)
-    {
-        _dbContext.Inventories.Update(entity);
-        return await _dbContext.SaveChangesAsync();
-    }
 
-    public Task Update(Income entity)
+    public async Task Update(Income entity)
     {
-        throw new NotImplementedException();
+        _dbContext.Incomes.Update(entity);
+        await _dbContext.SaveChangesAsync();
     }
 }

@@ -1,42 +1,48 @@
 using Chms.Application.Common.Interface;
+using Chms.Application.Common.Interface.Repositories;
 using Chms.Domain.Entities;
-using Chms.Domain.ViewModels.Members;
+using Chms.Domain.ViewModels.IncomeExpense;
 
 namespace Chms.Application.Services;
 
 public class IncomeService : IIncomeService
 {
+    private readonly IIncomeRepository  _incomeRepository;
+    public IncomeService(IIncomeRepository incomeRepository)
+    {
+        _incomeRepository = incomeRepository; 
+    }
    
-    public Task<Guid> Create(Income entity)
+    public async Task<long> Create(Income entity)
     {
-        throw new NotImplementedException();
+        return await _incomeRepository.Create(entity);
     }
 
-   
-
-    public void Delete(int id)
+    public void Delete(string incomeDate)
     {
-        throw new NotImplementedException();
+        _incomeRepository.Delete(incomeDate);
     }
 
-    public Income Get(int id)
+    public List<Income> Get(string incomeDate)
     {
-        throw new NotImplementedException();
+        return _incomeRepository.Get(incomeDate);
     }
 
 
-    public List<Income> List(FilterVm query)
+    public List<ListVm> List(FilterVm query)
     {
-        throw new NotImplementedException();
+        return _incomeRepository.List(query);
     }
+
 
     public int TotalDataCount(FilterVm query)
     {
         throw new NotImplementedException();
     }
 
-    public Task Update(Income entity)
+
+    public async Task Update(Income entity)
     {
-        throw new NotImplementedException();
+        await _incomeRepository.Update(entity);
     }
 }
