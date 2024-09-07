@@ -336,3 +336,38 @@ BEGIN
         CONSTRAINT [PK_documents] PRIMARY KEY ([Id])
     );
 END;
+
+-- Check if the table roles exists, if not create it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[incomes]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [incomes] (
+        [Id] BIGINT IDENTITY(1,1) NOT NULL,
+        [Category] NVARCHAR(256) NOT NULL,
+        [Amount] BIGINT NULL,
+        [IncomeDate] NVARCHAR(50) NULL,
+        [MemberId] UNIQUEIDENTIFIER NULL,
+        [Description] NVARCHAR(MAX) NULL,
+        [CreatedDate] NVARCHAR(50) NOT NULL,
+        [UpdatedDate] NVARCHAR(50),
+        [CreatedBy] INT NOT NULL,
+        [UpdatedBy] INT,
+        CONSTRAINT [PK_income] PRIMARY KEY ([Id])
+    );
+END;
+
+-- Check if the table roles exists, if not create it
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[expenses]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [expenses] (
+        [Id] BIGINT IDENTITY(1,1) NOT NULL,
+        [Category] NVARCHAR(256) NOT NULL,
+        [Amount] BIGINT NULL,
+        [ExpenseDate] NVARCHAR(50) NULL,
+        [Description] NVARCHAR(MAX) NULL,
+        [CreatedDate] NVARCHAR(50) NOT NULL,
+        [UpdatedDate] NVARCHAR(50),
+        [CreatedBy] INT NOT NULL,
+        [UpdatedBy] INT,
+        CONSTRAINT [PK_expenses] PRIMARY KEY ([Id])
+    );
+END;
