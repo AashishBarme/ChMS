@@ -30,9 +30,9 @@ export class FinanceService {
     );
   }
 
-  getIncome(id: number): Observable<Income> {
+  getIncome(id: any): Observable<AddIncome> {
     const url = `${this.baseUrl}/${id}`;
-    return this.http.get<Income>(url).pipe(
+    return this.http.get<AddIncome>(url).pipe(
       catchError(this.handleError)
     );
   }

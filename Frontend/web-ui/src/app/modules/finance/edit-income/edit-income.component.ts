@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AddIncome, Income } from '../finance.model';
+import { FinanceService } from '../finance.service';
 @Component({
   selector: 'app-edit-income',
   templateUrl: './edit-income.component.html',
@@ -17,7 +18,9 @@ export class EditIncomeComponent {
 
   constructor(
     private _router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: ActivatedRoute,
+    private _service: FinanceService
   ){
     for(let i = 0; i< this.categories.length; i++)
     {
@@ -44,6 +47,12 @@ export class EditIncomeComponent {
   }
 
   ngOnInit(): void {
+    const date = this.route.snapshot.paramMap.get('id');
+    console.log(date);
+    this._service.getIncome(date).subscribe((data: any) => {
+      console.log(data);
+    })
+    // window.location.reload();
     // this.incomeForm = this.fb.group
   }
 

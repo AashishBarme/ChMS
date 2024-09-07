@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FinanceService } from '../finance.service';
 import { ToastrService } from 'ngx-toastr';
 import { FilterVm, ListIncome } from '../finance.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-income',
@@ -9,7 +10,7 @@ import { FilterVm, ListIncome } from '../finance.model';
   styleUrls: ['./list-income.component.css']
 })
 export class ListIncomeComponent {
-  constructor(private _service: FinanceService, private toastr: ToastrService) { }
+  constructor(private _service: FinanceService, private toastr: ToastrService, private _router: Router) { }
   pageParentLink = 'Member';
   pageTitle = 'List Income Finance';
   items: any[] = [];
@@ -19,6 +20,7 @@ export class ListIncomeComponent {
   filterModel = new FilterVm();
   totalAmount: number = 0;
   SearchFormDisplay = "";
+  editDate : any = "";
 
   ngOnInit(): void {
     this.loadData();
@@ -41,5 +43,17 @@ export class ListIncomeComponent {
         this.isLoading = false
       }
     });
+  }
+
+  validateEditLink(editDate : string)
+  {
+    if(editDate == "")
+    {
+      alert("Edit Date is not selected");
+      return false;
+    }
+
+    window.location.href = `/finance/income/edit/${editDate}`;
+    return true;
   }
 }
