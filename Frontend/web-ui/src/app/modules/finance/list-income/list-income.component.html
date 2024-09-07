@@ -1,6 +1,6 @@
 <div class="row mb-2 mb-xl-3">
   <div class="col-auto d-none d-sm-block">
-    <h3><strong>Total Income</strong></h3>
+    <h3><strong>Total Income</strong>: {{totalAmount}}</h3>
   </div>
 
   <div class="col-auto ms-auto text-end mt-n1">
@@ -13,10 +13,14 @@
   </div>
 
 
-
-<div class="row">
+  <app-loader class="loader-outer"  *ngIf="isLoading"></app-loader>
+  <div class="row" *ngIf="!isLoading">
 <div class="col-12">
     <div class="card">
+      <div *ngIf="items == undefined; else listTable">
+        <p><em>Loading...</em></p>
+      </div>
+      <ng-template #listTable>
         <div class="card-header">
             <h6 class="card-subtitle text-muted">Only current month total income is shown by default.  </h6>
         </div>
@@ -28,44 +32,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Windows</td>
-                    <td class="text-end">8.232</td>
+                <tr *ngFor="let item of data; let i = index">
+                    <td>{{item.category}}</td>
+                    <td class="text-end">{{item.totalAmount}}</td>
                 </tr>
                 <tr>
-                    <td>Mac OS</td>
-                    <td class="text-end">3.322</td>
+                  <td><b>Total Amount</b></td>
+                  <td class="text-end"><b>{{totalAmount}}</b></td>
                 </tr>
-                <tr>
-                    <td>Linux</td>
-                    <td class="text-end">4.232</td>
-                </tr>
-                <tr>
-                    <td>FreeBSD</td>
-                    <td class="text-end">1.121</td>
-                </tr>
-                <tr>
-                    <td>Chrome OS</td>
-                    <td class="text-end">1.331</td>
-                </tr>
-                <tr>
-                    <td>Android</td>
-                    <td class="text-end">2.301</td>
-                </tr>
-                <tr>
-                    <td>iOS</td>
-                    <td class="text-end">1.162</td>
-                </tr>
-                <tr>
-                    <td>Windows Phone</td>
-                    <td class="text-end">562</td>
-                </tr>
-                <tr>
-                    <td>Other</td>
-                    <td class="text-end">1.181</td>
-                </tr>
+
             </tbody>
         </table>
+      </ng-template>
     </div>
 </div>
 </div>

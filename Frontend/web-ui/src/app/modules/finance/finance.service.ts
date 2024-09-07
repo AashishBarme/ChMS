@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AddIncome, FilterVm, Income } from './finance.model';
+import { AddIncome, FilterVm, Income, ListIncome } from './finance.model';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Helpers } from 'src/app/helpers/Helpers';
 
@@ -22,10 +22,10 @@ export class FinanceService {
   }
 
   // Read
-  listIncome(filter: FilterVm): Observable<Income[]> {
+  listIncome(filter: FilterVm): Observable<ListIncome[]> {
     let searchQuery = Helpers.ParseFilterVmToUrl(filter);
     const url = `${this.baseUrl}/list/${searchQuery}`;
-    return this.http.get<Income[]>(url).pipe(
+    return this.http.get<ListIncome[]>(url).pipe(
       catchError(this.handleError)
     );
   }

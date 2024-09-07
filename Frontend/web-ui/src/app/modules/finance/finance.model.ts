@@ -10,11 +10,17 @@ export class Income {
   memberId: string = "9fd74d48-c045-4a48-81e2-70ee9316e71f";
 }
 
+export class ListIncome
+{
+  category : string = "";
+  totalAmount: number = 0;
+}
+
 export class FilterVm {
   limit: number = 20;
   offset: number = 0;
-  name: string | null = "";
-  code: string | null = "";
+  startDate: string | null = "";
+  endDate: string | null = "";
 }
 
 export class AddIncome
