@@ -3,10 +3,9 @@ using Chms.Application.Common.Interface;
 using Chms.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using ChMS.Web.ViewModels;
-using Income = Chms.Domain.Entities.Income;
+using Expense = Chms.Domain.Entities.Expense;
 using Chms.Domain.ViewModels.IncomeExpense;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualBasic;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,16 +26,16 @@ namespace ChMS.Web.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] AddIncome request)
+        public async Task<ActionResult<int>> Create([FromBody] AddExpense request)
         {
             try
             {
-                if (request.Income.Count == 0 || String.IsNullOrEmpty(request.Date.ToString()))
+                if (request.Expense.Count == 0 || String.IsNullOrEmpty(request.Date.ToString()))
                 {
                     return Ok("Nothing found");
                 }
 
-                foreach (var income in request.Income)
+                foreach (var income in request.Expense)
                 {
                     Expense entity = new()
                     {
@@ -61,15 +60,15 @@ namespace ChMS.Web.Controllers
 
 
         [HttpPut]
-        public async Task<ActionResult> Update([FromBody] EditIncome request)
+        public async Task<ActionResult> Update([FromBody] AddExpense request)
         {
-            if (request.Income.Count == 0 || String.IsNullOrEmpty(request.Date.ToString()))
+            if (request.Expense.Count == 0 || String.IsNullOrEmpty(request.Date.ToString()))
             {
                 return BadRequest("Invalid Input Data");
             }
             try
             {
-                foreach (var income in request.Income)
+                foreach (var income in request.Expense)
                 {
                     Expense entity = new()
                     {

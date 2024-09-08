@@ -12,6 +12,21 @@ namespace ChMS.Web.ViewModels
         public string? Description { get; set; }
     }
 
+    public class Expense
+    {
+        public long Id { get; set; } = 0;
+        public string? Category { get; set; }
+        public int Amount { get; set; }
+        public string? ExpenseDate { get; set; }
+        public string? Description { get; set; }
+    }
+
+    public class AddExpense
+    {
+        public string? Date { get; set; }
+        public List<Expense> Expense { get; set; } = new();
+    }
+
     public class AddIncome
     {
         public string? Date { get; set; }
