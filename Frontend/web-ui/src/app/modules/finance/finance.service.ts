@@ -46,7 +46,7 @@ export class FinanceService {
   }
 
   // Delete
-  deleteIncome(id: number): Observable<void> {
+  deleteIncome(id: any): Observable<void> {
     const url = `${this.baseUrl}/${id}`;
     return this.http.delete<void>(url).pipe(
       catchError(this.handleError)

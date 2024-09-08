@@ -21,6 +21,7 @@ export class ListIncomeComponent {
   totalAmount: number = 0;
   SearchFormDisplay = "";
   editDate : any = "";
+  deleteDate: any = "";
 
   ngOnInit(): void {
     this.loadData();
@@ -28,10 +29,12 @@ export class ListIncomeComponent {
 
   loadData(page: number = 0): void {
     this.isLoading = true;
+    this.totalAmount = 0;
     this.filterModel.offset = page * this.filterModel.limit;
     this._service.listIncome(this.filterModel).subscribe({
       next: (res: any) => {
         this.data = res
+
         this.data.forEach((item:any) => {
             this.totalAmount += item.totalAmount
         });
@@ -54,6 +57,24 @@ export class ListIncomeComponent {
     }
 
     window.location.href = `/finance/income/edit/${editDate}`;
+    return true;
+  }
+
+  deleteData(date: string)
+  {
+    if(date == "")
+      {
+        alert("Date is not selected");
+        return false;
+      }
+    let res = confirm("Do you really want to delete this date income data?");
+    if(res){
+      this._service.deleteIncome(date).subscribe(() => {
+       this.loadData();
+       this.toastr.success(`${date} Data deleted successfully`);
+       return true;
+      });
+    }
     return true;
   }
 }
