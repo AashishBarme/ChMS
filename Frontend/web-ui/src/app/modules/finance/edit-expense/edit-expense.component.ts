@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AddIncome, Income } from '../finance.model';
+import { AddExpense, AddIncome, Expense, Income } from '../finance.model';
 import { FinanceService } from '../finance.service';
 @Component({
   selector: 'app-edit-expense',
@@ -11,8 +11,8 @@ import { FinanceService } from '../finance.service';
 export class EditExpenseComponent {
   pageParentLink = 'Inventory';
   pageTitle = 'Add Item';
-  model: AddIncome = new AddIncome;
-  income: Income = new Income;
+  model: AddExpense = new AddExpense;
+  expense: Expense = new Expense;
   categories: string[] = ["Offering","Bonus","Interest","Personal Help","Mission","Others"];
   tithes: Income[] = [];
 
@@ -24,30 +24,22 @@ export class EditExpenseComponent {
   ){
     for(let i = 0; i< this.categories.length; i++)
     {
-      let income = new Income;
-      income.category = this.categories[i];
-      this.model.income.push(income);
+      let expense = new Expense;
+      expense.category = this.categories[i];
+      this.model.expense.push(expense);
     }
   }
   ngOnInit(): void {
     const date = this.route.snapshot.paramMap.get('id');
-    this._service.getIncome(date).subscribe((data: any) => {
+    this._service.getExpense(date).subscribe((data: any) => {
       // this.model.income = data;
-      this.model.income = data.filter((x : Income) => x.category != "Tithe")
-      this.tithes = data.filter( (x: Income) => x.category == "Tithe");
-      this.model.date = this.model.income[0].incomeDate;
+      this.model.expense = data
+      this.model.date = this.model.expense[0].expenseDate;
     })
   }
 
   onSubmit():void{
-    for(let i = 0; i< this.tithes.length; i++)
-    {
-      if(this.tithes[i].amount > 0)
-      {
-        this.model.income.push(this.tithes[i])
-      }
-    }
-    this._service.updateIncome(this.model).subscribe({
+    this._service.updateExpense(this.model).subscribe({
       next: () => {
         this.toastr.success('Data Updated Successfully');
         this._router.navigate(['/finance/expense']);

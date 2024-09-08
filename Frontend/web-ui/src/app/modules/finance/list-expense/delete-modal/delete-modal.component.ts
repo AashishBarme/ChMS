@@ -21,7 +21,7 @@ export class ExpenseDeleteModalComponent {
       }
     let res = confirm("Do you really want to delete this date expense data?");
     if(res){
-      this._service.deleteIncome(date).subscribe(() => {
+      this._service.deleteExpense(date).subscribe(() => {
         this.reloadCurrentRoute();
        this.toastr.success(`${date} Data deleted successfully`);
        return true;
