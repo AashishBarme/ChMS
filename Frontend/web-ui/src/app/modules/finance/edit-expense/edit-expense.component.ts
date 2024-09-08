@@ -15,6 +15,7 @@ export class EditExpenseComponent {
   expense: Expense = new Expense;
   categories: string[] = ["Offering","Bonus","Interest","Personal Help","Mission","Others"];
   tithes: Income[] = [];
+  totalAmount: number= 0;
 
   constructor(
     private _router: Router,
@@ -35,6 +36,9 @@ export class EditExpenseComponent {
       // this.model.income = data;
       this.model.expense = data
       this.model.date = this.model.expense[0].expenseDate;
+      data.forEach((element : Expense) => {
+        this.totalAmount += element.amount
+    });
     })
   }
 

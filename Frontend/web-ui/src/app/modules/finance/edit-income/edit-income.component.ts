@@ -18,6 +18,7 @@ export class EditIncomeComponent {
   tithes: Income[] = [];
   isButtonLoading : boolean = false;
   members:ActiveMembers[] = [];
+  totalAmount: number= 0;
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -56,6 +57,9 @@ export class EditIncomeComponent {
       this.model.income = data.filter((x : Income) => x.category != "Tithe")
       this.tithes = data.filter( (x: Income) => x.category == "Tithe");
       this.model.date = this.model.income[0].incomeDate;
+      data.forEach((element : Income) => {
+          this.totalAmount += element.amount
+      });
     })
   }
 
