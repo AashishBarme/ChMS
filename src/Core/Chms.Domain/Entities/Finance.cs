@@ -15,6 +15,6 @@ public class Expense : BaseModel
     public long Id { get; set; } = 0;
     public string? Category { get; set; }
     public int Amount { get; set; }
-    public DateTime ExpenseDate { get; set; }
+    public string? ExpenseDate { get; set; }
     public string? Description { get; set; }
 }

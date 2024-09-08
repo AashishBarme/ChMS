@@ -28,6 +28,7 @@ namespace Chms.Infrastructure.Persistence
         public DbSet<Inventory> Inventories {get; set;}
         public DbSet<Document> Documents {get; set;}
         public DbSet<Income> Incomes { get; set;}
+        public DbSet<Expense> Expenses { get; set;}
  
 
         public Task<int> SaveChangesAsync()

@@ -81,6 +81,16 @@ namespace Chms.Infrastructure.Persistence.Configurations
         }
     }
 
+    public class ExpenseConfiguration : IEntityTypeConfiguration<Expense>
+    {
+        public void Configure(EntityTypeBuilder<Expense> builder)
+        {
+            builder.HasKey(t => t.Id);
+            builder.ToTable("expenses");
+            builder.Property(t => t.Category).HasColumnType("varchar");
+        }
+    }
+
 
     // public class GroupsConfiguration : IEntityTypeConfiguration<Family>
     // {

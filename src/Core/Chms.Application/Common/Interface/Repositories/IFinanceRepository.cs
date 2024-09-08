@@ -16,11 +16,11 @@ public interface IIncomeRepository
 
 public interface IExpenseRepository
 {
-    public Task<int> Create(Expense entity);
+    public Task<long> Create(Expense entity);
     public Task Update(Expense entity);
-    public Expense Get(int id);
-    public void Delete(int id);
-    public List<Expense> List(FilterVm query);
+    public List<Expense> Get(string expenseDate);
+    public void Delete(string expenseDate);
+    public List<ListVm> List(FilterVm query);
     public int TotalDataCount(FilterVm query);
 
 }

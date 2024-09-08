@@ -15,32 +15,41 @@ public class ExpenseRepository : IExpenseRepository
         _dbContext = dbContext;
         _baseRepository = baseRepository;
     }
-    public async Task<int> Create(Inventory entity)
+
+    public const string TABLE_NAME = "expenses";
+
+    public async Task<long> Create(Expense entity)
     {
-        _dbContext.Inventories.Add(entity);
+        _dbContext.Expenses.Add(entity);
         await _dbContext.SaveChangesAsync();
         return entity.Id;
     }
 
-    public Task<int> Create(Expense entity)
+    public void Delete(string expenseDate)
     {
-        throw new NotImplementedException();
+        string sql = $"delete from {TABLE_NAME} where ExpenseDate = @Id";
+        _baseRepository.LoadData<string, object>(sql, new { Id = expenseDate }).GetAwaiter().GetResult();
     }
 
-    public void Delete(int id)
-    {
-        string sql = "delete from `inventories` where Id = @Id";
-        _baseRepository.LoadData<string, object>(sql, new { Id = id }).GetAwaiter().GetResult();
+
+    public List<Expense> Get(string expenseDate)
+    { 
+        string sql = $"select * from {TABLE_NAME} where ExpenseDate = @date";
+        return _baseRepository.LoadData<Expense, object>(sql, new { date = expenseDate }).GetAwaiter().GetResult();
     }
 
-    public Expense Get(int id)
+    public List<ListVm> List(FilterVm query)
     {
-        throw new NotImplementedException();
-    }
-
-    public List<Expense> List(FilterVm query)
-    {
-        throw new NotImplementedException();
+        string sql = $"select Distinct Category, SUM(Amount) as TotalAmount from {TABLE_NAME} where 1 = 1 ";
+        var whereSql = " and CAST(ExpenseDate as DateTime) between CAST(@startdate as DateTime) and CAST (@enddate as DateTime)";
+        sql += whereSql;
+        sql += $" group by Category";
+        object where = new
+        {
+            startdate = query.StartDate,
+            enddate = query.EndDate
+        };
+        return _baseRepository.LoadData<ListVm, object>(sql, where).GetAwaiter().GetResult();
     }
 
     public int TotalDataCount(FilterVm query)
@@ -48,14 +57,10 @@ public class ExpenseRepository : IExpenseRepository
         throw new NotImplementedException();
     }
 
-    public async Task<int> Update(Inventory entity)
-    {
-        _dbContext.Inventories.Update(entity);
-        return await _dbContext.SaveChangesAsync();
-    }
 
-    public Task Update(Expense entity)
+    public async Task Update(Expense entity)
     {
-        throw new NotImplementedException();
+        _dbContext.Expenses.Update(entity);
+        await _dbContext.SaveChangesAsync();
     }
 }
