@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FinanceService } from '../finance.service';
 import { ToastrService } from 'ngx-toastr';
-import { FilterVm, ListIncome } from '../finance.model';
+import { FilterVm, ListFinance } from '../finance.model';
 import { Router } from '@angular/router';
 import { Helpers } from 'src/app/helpers/Helpers';
 
@@ -17,7 +17,7 @@ export class ListIncomeComponent {
   items: any[] = [];
   errorMessage: string = '';
   isLoading: Boolean = false;
-  data: ListIncome[] = [];
+  data: ListFinance[] = [];
   filterModel = new FilterVm();
   totalAmount: number = 0;
   firstDayOfMonth: string | null = Helpers.GetFirstDayOfMonth()

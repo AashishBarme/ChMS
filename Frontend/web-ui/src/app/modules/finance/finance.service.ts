@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AddIncome, FilterVm, Income, ListIncome } from './finance.model';
+import { AddExpense, AddIncome, Expense, FilterVm, Income, ListFinance } from './finance.model';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Helpers } from 'src/app/helpers/Helpers';
 
@@ -10,7 +10,8 @@ import { Helpers } from 'src/app/helpers/Helpers';
 })
 export class FinanceService {
 
-  private baseUrl = `${environment.ApiUrl}/income`; // replace with your API base URL
+  private baseUrl = `${environment.ApiUrl}/income`;
+  private expenseBaseUrl = `${environment.ApiUrl}/expense`;
 
   constructor(private http: HttpClient) { }
 
@@ -22,10 +23,10 @@ export class FinanceService {
   }
 
   // Read
-  listIncome(filter: FilterVm): Observable<ListIncome[]> {
+  listIncome(filter: FilterVm): Observable<ListFinance[]> {
     let searchQuery = Helpers.ParseFilterVmToUrl(filter);
     const url = `${this.baseUrl}/list/${searchQuery}`;
-    return this.http.get<ListIncome[]>(url).pipe(
+    return this.http.get<ListFinance[]>(url).pipe(
       catchError(this.handleError)
     );
   }
@@ -52,6 +53,47 @@ export class FinanceService {
       catchError(this.handleError)
     );
   }
+
+
+// Create
+createExpense(model: any): Observable<AddExpense> {
+  return this.http.post<AddExpense>(this.baseUrl, model).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// Read
+listExpense(filter: FilterVm): Observable<ListFinance[]> {
+  let searchQuery = Helpers.ParseFilterVmToUrl(filter);
+  const url = `${this.baseUrl}/list/${searchQuery}`;
+  return this.http.get<ListFinance[]>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+
+getExpense(id: any): Observable<AddExpense> {
+  const url = `${this.baseUrl}/${id}`;
+  return this.http.get<AddExpense>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// Update
+updateExpense(model: any): Observable<Expense[]> {
+  const url = `${this.baseUrl}`;
+  return this.http.put<Expense[]>(url, model).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// Delete
+deleteExpense(id: any): Observable<void> {
+  const url = `${this.baseUrl}/${id}`;
+  return this.http.delete<void>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+
   // Error Handling
   private handleError(error: HttpErrorResponse) {
     let errorMessage = '';
