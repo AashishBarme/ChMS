@@ -38,9 +38,9 @@ export class FinanceService {
   }
 
   // Update
-  updateIncome(model: FormData): Observable<Income> {
+  updateIncome(model: any): Observable<Income[]> {
     const url = `${this.baseUrl}`;
-    return this.http.put<Income>(url, model).pipe(
+    return this.http.put<Income[]>(url, model).pipe(
       catchError(this.handleError)
     );
   }

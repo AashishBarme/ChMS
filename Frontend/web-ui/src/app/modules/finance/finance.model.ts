@@ -6,7 +6,7 @@ export class Income {
   category: string = "";
   amount: number = 0;
   description?: string;
-  date: string = "";
+  incomeDate: string = "";
   memberId: string = "9fd74d48-c045-4a48-81e2-70ee9316e71f";
 }
 

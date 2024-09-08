@@ -15,9 +15,10 @@ export class EditIncomeComponent {
   income: Income = new Income;
   categories: string[] = ["Offering","Bonus","Interest","Personal Help","Mission","Others"];
   tithes: Income[] = [];
+  isButtonLoading : boolean = false;
 
   constructor(
-    private _router: Router,
+    private router: Router,
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private _service: FinanceService
@@ -36,7 +37,6 @@ export class EditIncomeComponent {
     let titheIncome = new Income;
     titheIncome.category = "Tithe"
     this.tithes.push(titheIncome);
-    console.log(this.tithes);
   }
 
   removeTithe(index:number):void
@@ -50,10 +50,11 @@ export class EditIncomeComponent {
     const date = this.route.snapshot.paramMap.get('id');
     console.log(date);
     this._service.getIncome(date).subscribe((data: any) => {
-      console.log(data);
+      // this.model.income = data;
+      this.model.income = data.filter((x : Income) => x.category != "Tithe")
+      this.tithes = data.filter( (x: Income) => x.category == "Tithe");
+      this.model.date = this.model.income[0].incomeDate;
     })
-    // window.location.reload();
-    // this.incomeForm = this.fb.group
   }
 
   onSubmit():void{
@@ -61,6 +62,16 @@ export class EditIncomeComponent {
     {
       this.model.income.push(this.tithes[i])
     }
-    console.log(this.model);
+    this._service.updateIncome(this.model).subscribe({
+      next: () => {
+        this.toastr.success('Data Updated Successfully');
+        this.router.navigate(['/finance/income']);
+      },
+      error: (error) => {
+        this.toastr.error('Something went wrong');
+        console.error('Error updating data', error);
+        this.isButtonLoading = false;
+      }
+    });
   }
 }
