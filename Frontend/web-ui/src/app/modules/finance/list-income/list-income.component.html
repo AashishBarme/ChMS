@@ -4,60 +4,10 @@
   </div>
 
   <div class="col-auto ms-auto text-end mt-n1">
-    <button type="button"
-    class="btn-shadow btn btn-info mr-2">
-     Filter
-   </button>
+   <app-filter  (filterModelData) = 'updateFilter($event)' />
    <a href="/finance/income/add" class="btn btn-primary mr-2 ">Add Income</a>
-   <!-- Button trigger modal -->
-<button type="button" class="btn btn-secondary mr-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Edit Data
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Particular Date Data</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <input type="date" class="form-control" [(ngModel)]="editDate" >
-        Selected Date: {{editDate}}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button"  class="btn btn-primary" (click)="validateEditLink(editDate)">Edit Now</button>
-      </div>
-    </div>
-  </div>
-</div>
-   <!-- Button trigger modal -->
-   <button type="button" class="btn btn-danger mr-2" data-bs-toggle="modal" data-bs-target="#deleteModel">
-    Delete Data
-  </button>
-
-  <!-- Modal -->
-  <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Particular Date Data</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <input type="date" class="form-control" [(ngModel)]="deleteDate" >
-          Selected Date: {{deleteDate}}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button"  class="btn btn-danger"  data-bs-dismiss="modal" (click)="deleteData(deleteDate)">Delete Now</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
+   <app-edit-modal />
+    <app-delete-modal />
   </div>
   </div>
 
@@ -71,7 +21,7 @@
       </div>
       <ng-template #listTable>
         <div class="card-header">
-            <h6 class="card-subtitle text-muted">Only current month total income is shown by default.  </h6>
+            <h6 class="card-subtitle text-muted">Showing Data from <b>{{firstDayOfMonth}}</b> to <b>{{lastDayOfMonth}}</b> </h6>
         </div>
         <table class="table table-striped table-sm">
             <thead>

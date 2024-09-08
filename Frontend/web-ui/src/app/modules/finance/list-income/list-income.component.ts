@@ -3,6 +3,7 @@ import { FinanceService } from '../finance.service';
 import { ToastrService } from 'ngx-toastr';
 import { FilterVm, ListIncome } from '../finance.model';
 import { Router } from '@angular/router';
+import { Helpers } from 'src/app/helpers/Helpers';
 
 @Component({
   selector: 'app-list-income',
@@ -19,9 +20,8 @@ export class ListIncomeComponent {
   data: ListIncome[] = [];
   filterModel = new FilterVm();
   totalAmount: number = 0;
-  SearchFormDisplay = "";
-  editDate : any = "";
-  deleteDate: any = "";
+  firstDayOfMonth: string | null = Helpers.GetFirstDayOfMonth()
+  lastDayOfMonth: string | null = Helpers.GetLastDayOfMonth()
 
   ngOnInit(): void {
     this.loadData();
@@ -48,33 +48,11 @@ export class ListIncomeComponent {
     });
   }
 
-  validateEditLink(editDate : string)
+  updateFilter(data: any)
   {
-    if(editDate == "")
-    {
-      alert("Edit Date is not selected");
-      return false;
-    }
-
-    window.location.href = `/finance/income/edit/${editDate}`;
-    return true;
-  }
-
-  deleteData(date: string)
-  {
-    if(date == "")
-      {
-        alert("Date is not selected");
-        return false;
-      }
-    let res = confirm("Do you really want to delete this date income data?");
-    if(res){
-      this._service.deleteIncome(date).subscribe(() => {
-       this.loadData();
-       this.toastr.success(`${date} Data deleted successfully`);
-       return true;
-      });
-    }
-    return true;
+    this.filterModel = data;
+    this.firstDayOfMonth = (this.filterModel.startDate) ?  this.filterModel.startDate  : this.firstDayOfMonth
+    this.lastDayOfMonth = (this.filterModel.endDate) ? this.filterModel.endDate: this.lastDayOfMonth
+    this.loadData();
   }
 }

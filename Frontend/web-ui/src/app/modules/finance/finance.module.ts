@@ -9,6 +9,9 @@ import { ListExpenseComponent } from './list-expense/list-expense.component';
 import { FinanceRoutingModule } from './finance-routing.module';
 import { LayoutModule } from '../layout/layout.module';
 import { FormsModule } from '@angular/forms';
+import { FilterComponent } from './list-income/filter/filter.component';
+import { EditModalComponent } from './list-income/edit-modal/edit-modal.component';
+import { DeleteModalComponent } from './list-income/delete-modal/delete-modal.component';
 
 
 
@@ -19,7 +22,10 @@ import { FormsModule } from '@angular/forms';
     ListIncomeComponent,
     AddExpenseComponent,
     EditExpenseComponent,
-    ListExpenseComponent
+    ListExpenseComponent,
+    FilterComponent,
+    EditModalComponent,
+    DeleteModalComponent
   ],
   imports: [
     CommonModule,
