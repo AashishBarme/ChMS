@@ -22,6 +22,7 @@ export interface ListMember {
   id: number;
   firstName: string;
   lastName: string;
+  middleName: string;
   email: string;
   gender: string;
   phoneNumber: string;

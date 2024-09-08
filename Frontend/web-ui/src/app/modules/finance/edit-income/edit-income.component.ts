@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AddIncome, Income } from '../finance.model';
+import { ActiveMembers, AddIncome, Income } from '../finance.model';
 import { FinanceService } from '../finance.service';
+import { MemberService } from '../../member/member.service';
 @Component({
   selector: 'app-edit-income',
   templateUrl: './edit-income.component.html',
@@ -16,12 +17,13 @@ export class EditIncomeComponent {
   categories: string[] = ["Offering","Bonus","Interest","Personal Help","Mission","Others"];
   tithes: Income[] = [];
   isButtonLoading : boolean = false;
-
+  members:ActiveMembers[] = [];
   constructor(
     private router: Router,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private _service: FinanceService
+    private _service: FinanceService,
+    private _memberService: MemberService
   ){
     for(let i = 0; i< this.categories.length; i++)
     {
@@ -48,7 +50,7 @@ export class EditIncomeComponent {
 
   ngOnInit(): void {
     const date = this.route.snapshot.paramMap.get('id');
-    console.log(date);
+    this.loadActiveMembers();
     this._service.getIncome(date).subscribe((data: any) => {
       // this.model.income = data;
       this.model.income = data.filter((x : Income) => x.category != "Tithe")
@@ -60,7 +62,10 @@ export class EditIncomeComponent {
   onSubmit():void{
     for(let i = 0; i< this.tithes.length; i++)
     {
-      this.model.income.push(this.tithes[i])
+      if(this.tithes[i].amount > 0)
+      {
+        this.model.income.push(this.tithes[i])
+      }
     }
     this._service.updateIncome(this.model).subscribe({
       next: () => {
@@ -73,5 +78,26 @@ export class EditIncomeComponent {
         this.isButtonLoading = false;
       }
     });
+  }
+
+  loadActiveMembers(): void{
+    this._memberService.listActiveMember().subscribe({
+      next: (data) => {
+        this.members = data.map((member: any) => {
+          let activeMember = new ActiveMembers();
+          activeMember.id = member.id;
+          activeMember.firstname = member.firstName;
+          activeMember.middlename = member.middleName;
+          activeMember.lastname = member.lastName;
+          return activeMember;
+        });
+
+        console.log(this.members);
+      }, error: (err) => {
+        this.toastr.error('Something went wrong');
+        console.error('Error retriving member', err);
+        this.isButtonLoading = false;
+      }
+    })
   }
 }

@@ -58,7 +58,16 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of tithes; index as i">
-              <td>{{item.memberId}}</td>
+              <td>
+                <select class="form-control" [(ngModel)]="item.memberId">
+                  <option value="9fd74d48-c045-4a48-81e2-70ee9316e71f">
+                    Choose Members
+                </option>
+                  <option *ngFor="let member of members;" [value]="member.id">
+                      {{member.fullname}}
+                  </option>
+                </select>
+              </td>
               <td class="d-none d-md-table-cell">
                 <input type="number" class="form-control" [(ngModel)]="item.amount">
               </td>

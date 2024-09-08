@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AddIncome, Income } from '../finance.model';
+import { ActiveMembers, AddIncome, Income } from '../finance.model';
 import { FinanceService } from '../finance.service';
+import { MemberService } from '../../member/member.service';
 
 @Component({
   selector: 'app-add-income',
@@ -17,10 +18,12 @@ export class AddIncomeComponent {
   categories: string[] = ["Offering","Bonus","Interest","Personal Help","Mission","Others"];
   tithes: Income[] = [];
   isLoading: boolean = false;
+  members:ActiveMembers[] = [];
   constructor(
     private _router: Router,
     private toastr: ToastrService,
-    private _service: FinanceService
+    private _service: FinanceService,
+    private _memberService: MemberService
   ){
     for(let i = 0; i< this.categories.length; i++)
     {
@@ -36,7 +39,6 @@ export class AddIncomeComponent {
     let titheIncome = new Income;
     titheIncome.category = "Tithe"
     this.tithes.push(titheIncome);
-    console.log(this.tithes);
   }
 
   removeTithe(index:number):void
@@ -47,13 +49,38 @@ export class AddIncomeComponent {
   }
 
   ngOnInit(): void {
+    this.loadActiveMembers();
     // this.incomeForm = this.fb.group
+  }
+
+  loadActiveMembers(): void{
+    this._memberService.listActiveMember().subscribe({
+      next: (data) => {
+        this.members = data.map((member: any) => {
+          let activeMember = new ActiveMembers();
+          activeMember.id = member.id;
+          activeMember.firstname = member.firstName;
+          activeMember.middlename = member.middleName;
+          activeMember.lastname = member.lastName;
+          return activeMember;
+        });
+
+        console.log(this.members);
+      }, error: (err) => {
+        this.toastr.error('Something went wrong');
+        console.error('Error retriving member', err);
+        this.isLoading = false;
+      }
+    })
   }
 
   onSubmit():void{
     for(let i = 0; i< this.tithes.length; i++)
     {
-      this.model.income.push(this.tithes[i])
+      if(this.tithes[i].amount > 0)
+      {
+        this.model.income.push(this.tithes[i])
+      }
     }
     this.isLoading = true;
 

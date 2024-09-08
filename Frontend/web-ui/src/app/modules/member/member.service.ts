@@ -52,6 +52,13 @@ export class MemberService {
       catchError(this.handleError)
     );
   }
+
+  listActiveMember(): Observable<any[]>{
+    const url = `${this.baseUrl}/active-member`;
+    return this.http.get<any[]>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
   // Error Handling
   private handleError(error: HttpErrorResponse) {
     let errorMessage = '';

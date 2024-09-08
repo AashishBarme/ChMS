@@ -29,4 +29,16 @@ export class AddIncome
   income: Income[] = [];
 }
 
+export class ActiveMembers {
+  id: string = "";
+  firstname: string = "";
+  middlename: string = "";
+  lastname: string = "";
+
+  get fullname(): string {
+    // If middlename is optional, handle the concatenation accordingly
+    return `${this.firstname} ${this.middlename ? this.middlename + ' ' : ''}${this.lastname}`;
+  }
+}
+
 
