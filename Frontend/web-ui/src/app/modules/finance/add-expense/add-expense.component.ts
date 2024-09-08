@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AddIncome, Income } from '../finance.model';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { FinanceService } from '../finance.service';
 
 @Component({
   selector: 'app-add-expense',
@@ -13,12 +14,14 @@ export class AddExpenseComponent {
   pageTitle = 'Add Item';
   model: AddIncome = new AddIncome;
   income: Income = new Income;
-  categories: string[] = ["Offering","Bonus","Interest","Personal Help","Mission","Others"];
+  categories: string[] = ["Programs","Rent/Building","Food","Maintenance","Others"];
   tithes: Income[] = [];
+  isLoading: boolean = false;
 
   constructor(
     private _router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _service: FinanceService
   ){
     for(let i = 0; i< this.categories.length; i++)
     {
@@ -39,6 +42,18 @@ export class AddExpenseComponent {
     {
       this.model.income.push(this.tithes[i])
     }
-    console.log(this.model);
+    this.isLoading = true;
+
+    this._service.createExpense(this.model).subscribe({
+      next: (data) => {
+        this.toastr.success('Expense Added Successfully');
+        this._router.navigate(['/finance/expense']);
+      },
+      error: (err) => {
+        this.toastr.error('Something went wrong');
+        console.error('Error creating data', err);
+        this.isLoading = false;
+      }
+    });
   }
 }

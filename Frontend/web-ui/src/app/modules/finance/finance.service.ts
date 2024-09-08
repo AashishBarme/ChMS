@@ -10,14 +10,14 @@ import { Helpers } from 'src/app/helpers/Helpers';
 })
 export class FinanceService {
 
-  private baseUrl = `${environment.ApiUrl}/income`;
+  private incomeBaseUrl = `${environment.ApiUrl}/income`;
   private expenseBaseUrl = `${environment.ApiUrl}/expense`;
 
   constructor(private http: HttpClient) { }
 
   // Create
   createIncome(model: any): Observable<AddIncome> {
-    return this.http.post<AddIncome>(this.baseUrl, model).pipe(
+    return this.http.post<AddIncome>(this.incomeBaseUrl, model).pipe(
       catchError(this.handleError)
     );
   }
@@ -25,14 +25,14 @@ export class FinanceService {
   // Read
   listIncome(filter: FilterVm): Observable<ListFinance[]> {
     let searchQuery = Helpers.ParseFilterVmToUrl(filter);
-    const url = `${this.baseUrl}/list/${searchQuery}`;
+    const url = `${this.incomeBaseUrl}/list/${searchQuery}`;
     return this.http.get<ListFinance[]>(url).pipe(
       catchError(this.handleError)
     );
   }
 
   getIncome(id: any): Observable<AddIncome> {
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${this.incomeBaseUrl}/${id}`;
     return this.http.get<AddIncome>(url).pipe(
       catchError(this.handleError)
     );
@@ -40,7 +40,7 @@ export class FinanceService {
 
   // Update
   updateIncome(model: any): Observable<Income[]> {
-    const url = `${this.baseUrl}`;
+    const url = `${this.incomeBaseUrl}`;
     return this.http.put<Income[]>(url, model).pipe(
       catchError(this.handleError)
     );
@@ -48,7 +48,7 @@ export class FinanceService {
 
   // Delete
   deleteIncome(id: any): Observable<void> {
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${this.incomeBaseUrl}/${id}`;
     return this.http.delete<void>(url).pipe(
       catchError(this.handleError)
     );
@@ -57,7 +57,7 @@ export class FinanceService {
 
 // Create
 createExpense(model: any): Observable<AddExpense> {
-  return this.http.post<AddExpense>(this.baseUrl, model).pipe(
+  return this.http.post<AddExpense>(this.expenseBaseUrl, model).pipe(
     catchError(this.handleError)
   );
 }
@@ -65,14 +65,14 @@ createExpense(model: any): Observable<AddExpense> {
 // Read
 listExpense(filter: FilterVm): Observable<ListFinance[]> {
   let searchQuery = Helpers.ParseFilterVmToUrl(filter);
-  const url = `${this.baseUrl}/list/${searchQuery}`;
+  const url = `${this.expenseBaseUrl}/list/${searchQuery}`;
   return this.http.get<ListFinance[]>(url).pipe(
     catchError(this.handleError)
   );
 }
 
 getExpense(id: any): Observable<AddExpense> {
-  const url = `${this.baseUrl}/${id}`;
+  const url = `${this.expenseBaseUrl}/${id}`;
   return this.http.get<AddExpense>(url).pipe(
     catchError(this.handleError)
   );
@@ -80,7 +80,7 @@ getExpense(id: any): Observable<AddExpense> {
 
 // Update
 updateExpense(model: any): Observable<Expense[]> {
-  const url = `${this.baseUrl}`;
+  const url = `${this.expenseBaseUrl}`;
   return this.http.put<Expense[]>(url, model).pipe(
     catchError(this.handleError)
   );
@@ -88,7 +88,7 @@ updateExpense(model: any): Observable<Expense[]> {
 
 // Delete
 deleteExpense(id: any): Observable<void> {
-  const url = `${this.baseUrl}/${id}`;
+  const url = `${this.expenseBaseUrl}/${id}`;
   return this.http.delete<void>(url).pipe(
     catchError(this.handleError)
   );

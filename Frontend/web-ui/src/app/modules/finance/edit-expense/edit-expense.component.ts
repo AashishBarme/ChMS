@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AddIncome, Income } from '../finance.model';
+import { FinanceService } from '../finance.service';
 @Component({
   selector: 'app-edit-expense',
   templateUrl: './edit-expense.component.html',
@@ -17,7 +18,9 @@ export class EditExpenseComponent {
 
   constructor(
     private _router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _service: FinanceService,
+    private route: ActivatedRoute
   ){
     for(let i = 0; i< this.categories.length; i++)
     {
@@ -26,18 +29,36 @@ export class EditExpenseComponent {
       this.model.income.push(income);
     }
   }
-
-
-
   ngOnInit(): void {
-    // this.incomeForm = this.fb.group
+    const date = this.route.snapshot.paramMap.get('id');
+    this._service.getIncome(date).subscribe((data: any) => {
+      // this.model.income = data;
+      this.model.income = data.filter((x : Income) => x.category != "Tithe")
+      this.tithes = data.filter( (x: Income) => x.category == "Tithe");
+      this.model.date = this.model.income[0].incomeDate;
+    })
   }
 
   onSubmit():void{
     for(let i = 0; i< this.tithes.length; i++)
     {
-      this.model.income.push(this.tithes[i])
+      if(this.tithes[i].amount > 0)
+      {
+        this.model.income.push(this.tithes[i])
+      }
     }
-    console.log(this.model);
+    this._service.updateIncome(this.model).subscribe({
+      next: () => {
+        this.toastr.success('Data Updated Successfully');
+        this._router.navigate(['/finance/expense']);
+      },
+      error: (error) => {
+        this.toastr.error('Something went wrong');
+        console.error('Error updating data', error);
+        // this.isButtonLoading = false;
+      }
+    });
   }
+
+
 }

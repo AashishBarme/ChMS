@@ -12,7 +12,9 @@ import { FormsModule } from '@angular/forms';
 import { FilterComponent } from './list-income/filter/filter.component';
 import { EditModalComponent } from './list-income/edit-modal/edit-modal.component';
 import { DeleteModalComponent } from './list-income/delete-modal/delete-modal.component';
-
+import { ExpenseEditModalComponent } from './list-expense/edit-modal/edit-modal.component';
+import {ExpenseFilterModalComponent } from './list-expense/filter-modal/filter-modal.component';
+import {ExpenseDeleteModalComponent} from './list-expense/delete-modal/delete-modal.component';
 
 
 @NgModule({
@@ -25,7 +27,10 @@ import { DeleteModalComponent } from './list-income/delete-modal/delete-modal.co
     ListExpenseComponent,
     FilterComponent,
     EditModalComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+    ExpenseEditModalComponent,
+    ExpenseFilterModalComponent,
+    ExpenseDeleteModalComponent
   ],
   imports: [
     CommonModule,
