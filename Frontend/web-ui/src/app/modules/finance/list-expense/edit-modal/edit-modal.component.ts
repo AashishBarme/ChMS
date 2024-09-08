@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./edit-modal.component.css']
 })
 export class ExpenseEditModalComponent {
+  editDate : any = "";
+  validateEditLink(editDate : string)
+  {
+    if(editDate == "")
+    {
+      alert("Edit Date is not selected");
+      return false;
+    }
+
+    window.location.href = `/finance/expense/edit/${editDate}`;
+    return true;
+  }
 
 }
