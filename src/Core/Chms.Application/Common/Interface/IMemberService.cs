@@ -11,6 +11,7 @@ namespace Chms.Application.Common.Interface;
         public void Delete(Guid id);
         public List<MemberListVM> List(FilterVm query); 
         public int TotalDataCount(FilterVm query);
+        public List<MemberListVM> ListActiveMember();
 
 
-    }
+}

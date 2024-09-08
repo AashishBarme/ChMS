@@ -34,6 +34,11 @@ public class MemberService : IMemberService
         return _query.List(query);
     }
 
+    public List<MemberListVM> ListActiveMember()
+    {
+        return _query.ListActiveMember();
+    }
+
     public int TotalDataCount(FilterVm query)
     {
         return _query.TotalDataCount(query);

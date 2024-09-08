@@ -58,5 +58,11 @@ namespace Chms.Infrastructure.Repositories.Member
             };
             return _baseRepository.LoadSingleData<int, object>(totalDataSql, where).GetAwaiter().GetResult();
         }
+
+        public List<MemberListVM> ListActiveMember()
+        {
+            string sql = $"select Id, FirstName, LastName, MiddleName from {TABLE_NAME}";
+            return _baseRepository.LoadData<MemberListVM, object>(sql, new { }).GetAwaiter().GetResult();
+        }
     }
 }

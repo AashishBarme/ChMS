@@ -113,5 +113,19 @@ namespace ChMS.Web.Controllers
             };
             return Ok(response);
         }
+
+        [HttpGet("active-member")]
+        public ActionResult ListKeyPair()
+        {
+            try
+            {
+                List<MemberListVM> members = _service.ListActiveMember();
+                return Ok(members);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

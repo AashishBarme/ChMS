@@ -16,4 +16,5 @@ public interface IMemberQueryRepository
     public Member Get(Guid id);
     public List<MemberListVM> List(FilterVm filterQuery);
     public int TotalDataCount(FilterVm filterQuery);
+    public List<MemberListVM> ListActiveMember();
 }
