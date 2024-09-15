@@ -52,9 +52,11 @@ public class ExpenseRepository : IExpenseRepository
         return _baseRepository.LoadData<ListVm, object>(sql, where).GetAwaiter().GetResult();
     }
 
-    public int TotalDataCount(FilterVm query)
+    public List<ListVm> TotalDataCount(FilterVm query)
     {
-        throw new NotImplementedException();
+        string sql = $"select Distinct Category, SUM(Amount) as TotalAmount from {TABLE_NAME} where 1 = 1 ";
+        sql += $" group by Category";
+        return _baseRepository.LoadData<ListVm, object>(sql,new {}).GetAwaiter().GetResult();
     }
 
 

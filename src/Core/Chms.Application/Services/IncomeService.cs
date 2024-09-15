@@ -35,9 +35,9 @@ public class IncomeService : IIncomeService
     }
 
 
-    public int TotalDataCount(FilterVm query)
+    public List<ListVm> TotalDataCount(FilterVm query)
     {
-        throw new NotImplementedException();
+        return _incomeRepository.TotalDataCount(query);
     }
 
 

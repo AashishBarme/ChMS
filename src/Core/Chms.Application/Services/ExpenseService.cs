@@ -33,9 +33,9 @@ public class ExpenseService : IExpenseService
         return _repository.List(query);
     }
 
-    public int TotalDataCount(FilterVm query)
+    public List<ListVm> TotalDataCount(FilterVm query)
     {
-        throw new NotImplementedException();
+        return _repository.TotalDataCount(query);
     }
 
     public async Task Update(Expense entity)

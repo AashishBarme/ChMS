@@ -10,7 +10,7 @@ namespace Chms.Application.Common.Interface;
         public List<Income> Get(string incomeDate);
         public void Delete(string incomeDate);
         public List<ListVm> List(FilterVm query); 
-        public int TotalDataCount(FilterVm query);
+        public List<ListVm> TotalDataCount(FilterVm query);
 
 
     }
@@ -23,6 +23,6 @@ public interface IExpenseService
     public List<Expense> Get(string expenseDate);
     public void Delete(string expenseDate);
     public List<ListVm> List(FilterVm query);
-    public int TotalDataCount(FilterVm query);
+    public List<ListVm> TotalDataCount(FilterVm query);
 
 }

@@ -142,5 +142,21 @@ namespace ChMS.Web.Controllers
             };
             return Ok(_service.List(filterVm));
         }
+
+        [HttpGet("total-data")]
+        public ActionResult TotalData([FromQuery] IncomeFilterQueryVm filterQuery)
+        {
+            var date = DateTime.Now;
+            var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            filterQuery.StartDate ??= firstDayOfMonth.ToString("yyyy-MM-dd");
+            filterQuery.EndDate ??= lastDayOfMonth.ToString("yyyy-MM-dd");
+
+            FilterVm filterVm = new(){
+                StartDate = filterQuery.StartDate,
+                EndDate = filterQuery.EndDate,
+            };
+            return Ok(_service.TotalDataCount(filterVm));
+        }
     }
 }
