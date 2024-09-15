@@ -14,4 +14,11 @@ export class DynamicEnvironment {
       return window.config.MediaUploadUrl;
     }
 
+    public get IncomeCategory(){
+      return window.config.IncomeCategory;
+    }
+
+    public get ExpenseCategory(){
+      return window.config.ExpenseCategory;
+    }
 }

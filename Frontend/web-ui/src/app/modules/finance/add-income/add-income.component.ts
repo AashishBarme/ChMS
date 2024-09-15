@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActiveMembers, AddIncome, Income } from '../finance.model';
 import { FinanceService } from '../finance.service';
 import { MemberService } from '../../member/member.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-income',
@@ -15,7 +16,7 @@ export class AddIncomeComponent {
   pageTitle = 'Add Item';
   model: AddIncome = new AddIncome;
   income: Income = new Income;
-  categories: string[] = ["Offering","Bonus","Interest","Personal Help","Mission","Others"];
+  categories: string[] = environment.IncomeCategory.split(',');
   tithes: Income[] = [];
   isLoading: boolean = false;
   members:ActiveMembers[] = [];
@@ -25,6 +26,7 @@ export class AddIncomeComponent {
     private _service: FinanceService,
     private _memberService: MemberService
   ){
+
     for(let i = 0; i< this.categories.length; i++)
     {
       let income = new Income;
@@ -50,7 +52,6 @@ export class AddIncomeComponent {
 
   ngOnInit(): void {
     this.loadActiveMembers();
-    // this.incomeForm = this.fb.group
   }
 
   loadActiveMembers(): void{
@@ -65,8 +66,7 @@ export class AddIncomeComponent {
           return activeMember;
         });
 
-        console.log(this.members);
-      }, error: (err) => {
+     }, error: (err) => {
         this.toastr.error('Something went wrong');
         console.error('Error retriving member', err);
         this.isLoading = false;

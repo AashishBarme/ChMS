@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActiveMembers, AddIncome, Income } from '../finance.model';
 import { FinanceService } from '../finance.service';
 import { MemberService } from '../../member/member.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-edit-income',
   templateUrl: './edit-income.component.html',
@@ -14,7 +15,7 @@ export class EditIncomeComponent {
   pageTitle = 'Add Item';
   model: AddIncome = new AddIncome;
   income: Income = new Income;
-  categories: string[] = ["Offering","Bonus","Interest","Personal Help","Mission","Others"];
+  categories: string[] = environment.IncomeCategory.split(',');
   tithes: Income[] = [];
   isButtonLoading : boolean = false;
   members:ActiveMembers[] = [];

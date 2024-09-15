@@ -3,6 +3,7 @@ import { AddIncome, Income } from '../finance.model';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FinanceService } from '../finance.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-expense',
@@ -14,7 +15,7 @@ export class AddExpenseComponent {
   pageTitle = 'Add Item';
   model: AddIncome = new AddIncome;
   income: Income = new Income;
-  categories: string[] = ["Programs","Rent/Building","Food","Maintenance","Others"];
+  categories: string[] = environment.ExpenseCategory.split(',');
   tithes: Income[] = [];
   isLoading: boolean = false;
 

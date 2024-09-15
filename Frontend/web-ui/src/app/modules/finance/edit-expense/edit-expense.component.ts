@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AddExpense, AddIncome, Expense, Income } from '../finance.model';
 import { FinanceService } from '../finance.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-edit-expense',
   templateUrl: './edit-expense.component.html',
@@ -13,7 +14,7 @@ export class EditExpenseComponent {
   pageTitle = 'Add Item';
   model: AddExpense = new AddExpense;
   expense: Expense = new Expense;
-  categories: string[] = ["Offering","Bonus","Interest","Personal Help","Mission","Others"];
+  categories: string[] = environment.ExpenseCategory.split(',');
   tithes: Income[] = [];
   totalAmount: number= 0;
 
