@@ -16,10 +16,8 @@
         <div class="mb-10 fv-row fv-plugins-icon-container col-4">
           <label class="required form-label">First Name</label>
           <input type="text" formControlName="firstName" class="form-control mb-2" placeholder="First name">
-          <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-            <div *ngIf="memberForm.get('firstName')?.invalid && (memberForm.get('firstName')?.dirty || memberForm.get('firstName')?.touched)">
-              <div *ngIf="memberForm.get('firstName')?.errors?.required">First Name is required.</div>
-            </div>
+          <div *ngIf="memberForm.controls['firstName'].invalid && memberForm.controls['firstName'].touched" class="text-danger text-sm">
+            FirstName is required.
           </div>
         </div>
         <!--end::Input group-->
@@ -35,10 +33,8 @@
         <div class="mb-10 fv-row fv-plugins-icon-container col-4">
           <label class="form-label">Last Name</label>
           <input type="text" formControlName="lastName" class="form-control mb-2" placeholder="Last name">
-          <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-            <div *ngIf="memberForm.get('lastName')?.invalid && (memberForm.get('lastName')?.dirty || memberForm.get('lastName')?.touched)">
-              <div *ngIf="memberForm.get('lastName')?.errors?.required">Last Name is required.</div>
-            </div>
+          <div *ngIf="memberForm.controls['lastName'].invalid && memberForm.controls['lastName'].touched" class="text-danger text-sm">
+            Last Name is required.
           </div>
         </div>
         <!--end::Input group-->
@@ -47,12 +43,6 @@
         <div class="mb-10 fv-row fv-plugins-icon-container col-4">
           <label class="required form-label">Email</label>
           <input type="text" formControlName="email" class="form-control mb-2" placeholder="Email">
-          <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-            <div *ngIf="memberForm.get('email')?.invalid && (memberForm.get('email')?.dirty || memberForm.get('email')?.touched)">
-              <div *ngIf="memberForm.get('email')?.errors?.required">Email is required.</div>
-              <div *ngIf="memberForm.get('email')?.errors?.email">Invalid email address.</div>
-            </div>
-          </div>
         </div>
         <!--end::Input group-->
 
@@ -60,6 +50,9 @@
         <div class="mb-10 fv-row fv-plugins-icon-container col-4">
           <label class="form-label">Phone Number</label>
           <input type="text" formControlName="phoneNumber" class="form-control mb-2" placeholder="Phone Number">
+          <div *ngIf="memberForm.controls['phoneNumber'].invalid && memberForm.controls['phoneNumber'].touched" class="text-danger text-sm">
+            Phone Number is required.
+          </div>
         </div>
         <!--end::Input group-->
 
@@ -74,10 +67,8 @@
         <div class="mb-10 fv-row fv-plugins-icon-container col-4">
           <label class="required form-label">Birth Date</label>
           <input type="date" formControlName="birthDate" class="form-control mb-2">
-          <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-            <div *ngIf="memberForm.get('birthDate')?.invalid && (memberForm.get('birthDate')?.dirty || memberForm.get('birthDate')?.touched)">
-              <div *ngIf="memberForm.get('birthDate')?.errors?.required">Birth Date is required.</div>
-            </div>
+          <div *ngIf="memberForm.controls['birthDate'].invalid && memberForm.controls['birthDate'].touched" class="text-danger text-sm">
+            Birth Date is required.
           </div>
         </div>
         <!--end::Input group-->
@@ -90,10 +81,8 @@
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
-          <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-            <div *ngIf="memberForm.get('gender')?.invalid && (memberForm.get('gender')?.dirty || memberForm.get('gender')?.touched)">
-              <div *ngIf="memberForm.get('gender')?.errors?.required">Gender is required.</div>
-            </div>
+          <div *ngIf="memberForm.controls['gender'].invalid && memberForm.controls['gender'].touched" class="text-danger text-sm">
+            Gender is required.
           </div>
         </div>
         <!--end::Input group-->
@@ -102,10 +91,8 @@
         <div class="mb-10 fv-row fv-plugins-icon-container col-4">
           <label class="required form-label">Occupation</label>
           <input type="text" formControlName="occupation" class="form-control mb-2" placeholder="Occupation">
-          <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-            <div *ngIf="memberForm.get('occupation')?.invalid && (memberForm.get('occupation')?.dirty || memberForm.get('occupation')?.touched)">
-              <div *ngIf="memberForm.get('occupation')?.errors?.required">Occupation is required.</div>
-            </div>
+          <div *ngIf="memberForm.controls['occupation'].invalid && memberForm.controls['occupation'].touched" class="text-danger text-sm">
+            Occupation is required.
           </div>
         </div>
         <!--end::Input group-->
@@ -114,11 +101,9 @@
         <div class="mb-10 fv-row fv-plugins-icon-container col-6">
           <label class="required form-label">Permanent Address</label>
           <input type="text" formControlName="permanentAddress" class="form-control mb-2" placeholder="Permanent Address">
-          <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
             <div *ngIf="memberForm.get('permanentAddress')?.invalid && (memberForm.get('permanentAddress')?.dirty || memberForm.get('permanentAddress')?.touched)">
-              <div *ngIf="memberForm.get('permanentAddress')?.errors?.required">Permanent Address is required.</div>
+              <div *ngIf="memberForm.get('permanentAddress')?.errors?.required" class="text-danger text-sm">Permanent Address is required.</div>
             </div>
-          </div>
         </div>
         <!--end::Input group-->
 
@@ -126,11 +111,9 @@
         <div class="mb-10 fv-row fv-plugins-icon-container col-6">
           <label class="required form-label">Temporary Address</label>
           <input type="text" formControlName="temporaryAddress" class="form-control mb-2" placeholder="Temporary Address">
-          <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
             <div *ngIf="memberForm.get('temporaryAddress')?.invalid && (memberForm.get('temporaryAddress')?.dirty || memberForm.get('temporaryAddress')?.touched)">
-              <div *ngIf="memberForm.get('temporaryAddress')?.errors?.required">Temporary Address is required.</div>
+              <div *ngIf="memberForm.get('temporaryAddress')?.errors?.required" class="text-danger text-sm text-sm">Temporary Address is required.</div>
             </div>
-          </div>
         </div>
         <!--end::Input group-->
       </div>
@@ -166,11 +149,6 @@
         <div class="mb-10 fv-row fv-plugins-icon-container col-6">
           <label class="required form-label">Baptized Date</label>
           <input type="date" formControlName="baptizedDate" class="form-control mb-2">
-          <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-            <div *ngIf="memberForm.get('baptizedDate')?.invalid && (memberForm.get('baptizedDate')?.dirty || memberForm.get('baptizedDate')?.touched)">
-              <div *ngIf="memberForm.get('baptizedDate')?.errors?.required">Baptized Date is required.</div>
-            </div>
-          </div>
         </div>
         <!--end::Input group-->
 
