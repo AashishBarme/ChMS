@@ -17,6 +17,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DocumentModule } from './modules/document/document.module';
 import { FinanceModule } from './modules/finance/finance.module';
 import { SettingModule } from './modules/setting/setting.module';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 
 
@@ -51,7 +52,8 @@ export function init_app(appLoadService: AppConfigInitService) {
     },
     {
       provide : HTTP_INTERCEPTORS, useClass : JwtInterceptor, multi : true
-    }
+    },
+    provideCharts(withDefaultRegisterables())
   ],
   bootstrap: [AppComponent]
 })
