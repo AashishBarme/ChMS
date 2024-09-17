@@ -1,10 +1,18 @@
 using Chms.Application.Common.Interface;
+using Chms.Application.Common.Interface.Repositories;
 using Chms.Domain.ViewModels.Users;
 
 namespace Chms.Application.Services;
 
 public class UserService : IUsersService
 {
+    private readonly IUserCommandRepository _command;
+    private readonly IUserQueryRepository _query;
+    public UserService(IUserCommandRepository command, IUserQueryRepository query)
+    {
+        _command = command;
+        _query  = query;
+    }
     public Task<long> Create(CreateUserVm entity)
     {
         throw new NotImplementedException();
