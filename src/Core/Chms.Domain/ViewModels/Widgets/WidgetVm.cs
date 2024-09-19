@@ -9,4 +9,10 @@ namespace Chms.Domain.ViewModels.Widgets
         public int TotalMembers { get; set; } = 0;
         public int TotalItems { get; set; } = 0;
     }
+
+    public class ChartVm
+    {
+        public string? Key { get; set; }
+        public int Value { get; set; } = 0;
+    }
 }
