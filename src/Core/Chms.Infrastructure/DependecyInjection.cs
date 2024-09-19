@@ -6,6 +6,7 @@ using Chms.Infrastructure.Persistence;
 using Chms.Infrastructure.Repositories.Document;
 using Chms.Infrastructure.Repositories.Member;
 using Chms.Infrastructure.Repositories.User;
+using Chms.Infrastructure.Repositories.Widgets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,8 @@ public static class DependecyInjection
 
         services.AddScoped<IIncomeRepository, IncomeRepository>();
         services.AddScoped<IExpenseRepository, ExpenseRepository>();
+
+        services.AddScoped<IWidgetRepository, WidgetRepository>();
 
 
         var settings = new ConnectionSettings{
