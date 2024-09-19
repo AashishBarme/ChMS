@@ -33,7 +33,6 @@ export class PieChartComponent implements OnChanges {
 
   // Method to update chart data based on input changes
   private updateChartData(): void {
-    console.log(this.yValue)
     this.pieChartLabels = [...this.xValue]; // Ensure labels are updated
     this.pieChartDatasets = [
       { data: [...this.yValue] } // Ensure datasets are updated

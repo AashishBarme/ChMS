@@ -50,7 +50,6 @@ export class IndexComponent implements OnInit {
     this.isLoading = true;
     this._service.getFinaceChartData().subscribe({
       next: (res: Array<any>) => {
-        console.log(res)
         res.forEach( (element: ChartData) =>{
           this.financeXData.push(element.value);
           this.financeYData.push(element.key);
