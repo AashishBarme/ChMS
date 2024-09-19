@@ -101,42 +101,31 @@
     </div>
 
     <div class="row">
-      <div class="col-12 col-lg-8 d-flex">
+      <div class="col-12 col-lg-4 d-flex">
         <div class="card flex-fill w-100">
           <div class="card-header">
-            <div class="float-end">
-              <form class="row g-2">
-                <div class="col-auto">
-                  <select class="form-select form-select-sm bg-light border-0">
-                    <option>Jan</option>
-                    <option value="1">Feb</option>
-                    <option value="2">Mar</option>
-                    <option value="3">Apr</option>
-                  </select>
-                </div>
-                <div class="col-auto">
-                  <input type="text" class="form-control form-control-sm bg-light rounded-2 border-0" style="width: 100px;" placeholder="Search..">
-                </div>
-              </form>
-            </div>
             <h5 class="card-title mb-0">Total Revenue</h5>
           </div>
           <div class="card-body pt-2 pb-3">
             <div class="chart chart-md"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-            <!-- <canvas baseChart width="400" height="400"
-            [type]="'line'"
-            [data]="lineChartData"
-            [options]="lineChartOptions"
-            [legend]="lineChartLegend">
-          </canvas> -->
 
-          <canvas baseChart
-        [data]="barChartData"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [legend]="barChartLegend"
-        [type]="'bar'">
-</canvas>
+
+             <app-bar-chart></app-bar-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4 d-flex">
+        <div class="card flex-fill w-100">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Total Revenue</h5>
+          </div>
+          <div class="card-body pt-2 pb-3">
+            <div class="chart chart-md"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+
+
+             <app-pie-chart></app-pie-chart>
             </div>
           </div>
         </div>
@@ -144,21 +133,6 @@
       <div class="col-12 col-lg-4 d-flex">
         <div class="card flex-fill w-100">
           <div class="card-header">
-            <div class="float-end">
-              <form class="row g-2">
-                <div class="col-auto">
-                  <select class="form-select form-select-sm bg-light border-0">
-                    <option>Jan</option>
-                    <option value="1">Feb</option>
-                    <option value="2">Mar</option>
-                    <option value="3">Apr</option>
-                  </select>
-                </div>
-                <div class="col-auto">
-                  <input type="text" class="form-control form-control-sm bg-light rounded-2 border-0" style="width: 100px;" placeholder="Search..">
-                </div>
-              </form>
-            </div>
             <h5 class="card-title mb-0">Sales by State</h5>
           </div>
           <div class="card-body px-4">

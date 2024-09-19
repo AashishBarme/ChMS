@@ -5,6 +5,10 @@ import { FooterComponent } from 'src/app/components/shared/footer/footer.compone
 import { BreadcrumbComponent } from 'src/app/components/shared/breadcrumb/breadcrumb.component';
 import { SidebarComponent } from 'src/app/components/shared/sidebar/sidebar.component';
 import { LoaderComponent } from 'src/app/components/shared/loader/loader.component';
+import { BaseChartDirective } from 'ng2-charts';
+import { LineChartComponent } from 'src/app/components/charts/line-chart/line-chart.component';
+import { PieChartComponent } from 'src/app/components/charts/pie-chart/pie-chart.component';
+import { BarChartComponent } from 'src/app/components/charts/bar-chart/bar-chart.component';
 
 
 
@@ -14,17 +18,24 @@ import { LoaderComponent } from 'src/app/components/shared/loader/loader.compone
     FooterComponent,
     BreadcrumbComponent,
     SidebarComponent,
-    LoaderComponent
+    LoaderComponent,
+    LineChartComponent,
+    PieChartComponent,
+    BarChartComponent
   ],
   exports:[
     HeaderComponent,
     FooterComponent,
     BreadcrumbComponent,
     SidebarComponent,
-    LoaderComponent
+    LoaderComponent,
+    LineChartComponent,
+    PieChartComponent,
+    BarChartComponent
   ],
   imports: [
     CommonModule,
+    BaseChartDirective
   ]
 })
 export class LayoutModule { }
