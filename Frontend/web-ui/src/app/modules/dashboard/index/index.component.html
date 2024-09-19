@@ -89,13 +89,13 @@
       <div class="col-12 col-lg-4 d-flex">
         <div class="card flex-fill w-100">
           <div class="card-header">
-            <h5 class="card-title mb-0">Total Revenue</h5>
+            <h5 class="card-title mb-0">Finance</h5>
           </div>
-          <div class="card-body pt-2 pb-3">
+          <div class="card-body pt-2 pb-3" *ngIf="this.financeXData.length > 0">
             <div class="chart chart-md"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 
 
-             <app-bar-chart></app-bar-chart>
+             <app-bar-chart [xValue]="this.financeXData" [yValue]="this.financeYData" label="Finance"></app-bar-chart>
             </div>
           </div>
         </div>
@@ -104,13 +104,11 @@
       <div class="col-12 col-lg-4 d-flex">
         <div class="card flex-fill w-100">
           <div class="card-header">
-            <h5 class="card-title mb-0">Total Revenue</h5>
+            <h5 class="card-title mb-0">Member</h5>
           </div>
-          <div class="card-body pt-2 pb-3">
+          <div class="card-body pt-2 pb-3" *ngIf="this.genderXData.length > 0">
             <div class="chart chart-md"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-
-
-             <app-pie-chart></app-pie-chart>
+             <app-pie-chart [xValue]="this.genderXData" [yValue]="this.genderYData"></app-pie-chart>
             </div>
           </div>
         </div>

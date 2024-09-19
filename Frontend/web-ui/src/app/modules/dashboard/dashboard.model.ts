@@ -4,3 +4,8 @@ export class SummaryData {
   totalMembers: number = 0;
   totalItems: number = 0;
 }
+
+export interface ChartData{
+  key : string ;
+  value: number;
+}

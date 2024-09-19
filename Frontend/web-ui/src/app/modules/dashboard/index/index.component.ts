@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { DashboardService } from '../dashboard.service';
-import { SummaryData } from '../dashboard.model';
+import { ChartData, SummaryData } from '../dashboard.model';
 
 @Component({
   selector: 'app-index',
@@ -11,6 +11,10 @@ import { SummaryData } from '../dashboard.model';
 export class IndexComponent implements OnInit {
   isLoading: boolean = false;
   summaryData =  new SummaryData();
+  financeXData : number[] = [];
+  financeYData : string[] = [];
+  genderXData : string[] = [];
+  genderYData : number[] = [];
 
   constructor(
     private _service: DashboardService,
@@ -18,6 +22,8 @@ export class IndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSummaryData();
+    this.loadFinaceData();
+    this.loadGenderData();
   }
 
 
@@ -37,6 +43,41 @@ export class IndexComponent implements OnInit {
           this.isLoading = false;
         }
       });
+  }
+
+
+  loadFinaceData(): void {
+    this.isLoading = true;
+    this._service.getFinaceChartData().subscribe({
+      next: (res: Array<any>) => {
+        console.log(res)
+        res.forEach( (element: ChartData) =>{
+          this.financeXData.push(element.value);
+          this.financeYData.push(element.key);
+        });
+        this.isLoading = false
+      },
+      error: (error) => {
+        this.isLoading = false
+      }
+    });
+  }
+
+
+  loadGenderData(): void {
+    this.isLoading = true;
+    this._service.getGenderChartData().subscribe({
+      next: (res: Array<any>) => {
+        res.forEach( (element: ChartData) =>{
+          this.genderXData.push(element.key);
+          this.genderYData.push(element.value);
+        });
+        this.isLoading = false
+      },
+      error: (error) => {
+        this.isLoading = false
+      }
+    });
   }
 
 }

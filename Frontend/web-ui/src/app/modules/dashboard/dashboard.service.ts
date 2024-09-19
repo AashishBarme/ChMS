@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { SummaryData } from './dashboard.model';
+import { ChartData, SummaryData } from './dashboard.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,21 @@ export class DashboardService {
   getSummaryData(): Observable<SummaryData> {
     const url = `${this.baseUrl}/summary`;
     return this.http.get<SummaryData>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getGenderChartData(): Observable<ChartData[]> {
+    const url = `${this.baseUrl}/gender-chart`;
+    return this.http.get<ChartData[]>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+
+  getFinaceChartData(): Observable<ChartData[]> {
+    const url = `${this.baseUrl}/finance-chart`;
+    return this.http.get<ChartData[]>(url).pipe(
       catchError(this.handleError)
     );
   }
