@@ -2,7 +2,7 @@ using Chms.Domain.ViewModels.Users;
 
 namespace Chms.Application.Common.Interface;
 
-    public interface IUsersService
+    public interface IUserService
     {
         Task<long> Create(CreateUserVm entity);
         Task Update(EditUserVm entity);
@@ -13,4 +13,5 @@ namespace Chms.Application.Common.Interface;
         // Task UpdateUserPassword(UserPasswordChangeViewModel request);
         Task<UserDetailsVm> Get(long id);
         Task<long> GetIdByUsername(string username);
+        Task<bool> UpdatePassword(long id, string? password);
     }

@@ -4,7 +4,7 @@ using Chms.Domain.ViewModels.Users;
 
 namespace Chms.Application.Services;
 
-public class UserService : IUsersService
+public class UserService : IUserService
 {
     private readonly IUserCommandRepository _command;
     private readonly IUserQueryRepository _query;
@@ -51,5 +51,10 @@ public class UserService : IUsersService
     public Task Update(EditUserVm entity)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<bool> UpdatePassword(long id, string password)
+    {
+        return await _command.UpdatePassword(id, password);
     }
 }

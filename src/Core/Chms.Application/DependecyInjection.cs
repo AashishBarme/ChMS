@@ -20,7 +20,7 @@ public static class DependencyInjection
         services.AddScoped<IIncomeService, IncomeService>();
         services.AddScoped<IExpenseService, ExpenseService>();
         services.AddScoped<IWidgetService, WidgetService>();
-        //services.AddScoped(IUsersService, UserService)();
+        services.AddScoped<IUserService, UserService>();
         services.AddTransient<ICurrentUserService, CurrentUserService>();
         return services;
     }
