@@ -35,9 +35,7 @@ public class UserController : ControllerBase
             {
                 return await _service.UpdatePassword(request.Id, request.Password);
             }
-            return false;
-
-           
+            return BadRequest("Something went wrong");
         }
         catch(Exception ex)
         {
