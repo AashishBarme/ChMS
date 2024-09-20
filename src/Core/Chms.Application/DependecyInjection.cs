@@ -21,6 +21,7 @@ public static class DependencyInjection
         services.AddScoped<IExpenseService, ExpenseService>();
         services.AddScoped<IWidgetService, WidgetService>();
         //services.AddScoped(IUsersService, UserService)();
+        services.AddTransient<ICurrentUserService, CurrentUserService>();
         return services;
     }
 }
