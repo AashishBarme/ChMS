@@ -5,6 +5,7 @@ import { SettingRoutingModule } from './setting-routing.module';
 import { PageSettingComponent } from './page-setting/page-setting.component';
 import { AccountComponent } from './page-setting/account/account.component';
 import { PasswordComponent } from './page-setting/password/password.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { PasswordComponent } from './page-setting/password/password.component';
   ],
   imports: [
     CommonModule,
-    SettingRoutingModule
+    SettingRoutingModule,
+    FormsModule
   ]
 })
 export class SettingModule { }
