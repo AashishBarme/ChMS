@@ -15,14 +15,16 @@ public class DocumentController : ControllerBase
 {
     public readonly IDocumentService _service;
     private readonly IFileUploadService _fileUploadService;
-     private readonly IWebHostEnvironment _env;
+    private readonly IWebHostEnvironment _env;
+    private readonly ICurrentUserService _currentUserService;
 
 
-    public DocumentController(IDocumentService service, IFileUploadService fileUploadService, IWebHostEnvironment env)
+    public DocumentController(IDocumentService service, IFileUploadService fileUploadService, IWebHostEnvironment env, ICurrentUserService currentUserService)
     {
         _service = service;
         _fileUploadService = fileUploadService;
         _env = env;
+        _currentUserService = currentUserService;
     }
 
     [HttpPost]
@@ -33,13 +35,14 @@ public class DocumentController : ControllerBase
             Name = request.Name,
             Description = request.Description,
             Type = request.File.ContentType,
-            Size = request.File.Length.ToString()
+            Size = request.File.Length.ToString(),
+            CreatedBy = _currentUserService.UserId
+            
         };
         if (request.File!= null)
         {
             entity.Path = await _fileUploadService.UploadFile(request.File);
         }
-        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(entity));
         var response = await _service.Create(entity);
         return Ok(response);
     }
@@ -55,9 +58,10 @@ public class DocumentController : ControllerBase
             Description = request.Description,
             Path = request.Path,
             Type = request.Type,
-            Size = request.Size
+            Size = request.Size,
+            UpdatedBy = _currentUserService.UserId,
+            UpdatedDate = DateTime.Now
         };
-        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(entity));
         await _service.Update(entity);
         return Ok();
     }

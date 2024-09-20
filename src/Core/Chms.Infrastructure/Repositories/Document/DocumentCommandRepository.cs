@@ -30,7 +30,15 @@ public class DocumentCommandRepository : IDocumentCommandRepository
 
     public async Task Update(Domain.Entities.Document entity)
     {
-         _dbContext.Documents.Update(entity);
+        List<string> constantField = new() { "Id", "CreatedBy", "CreatedDate" };
+        var entry = _dbContext.Documents.Attach(entity);
+        foreach (var property in entry.OriginalValues.Properties)
+        {
+            if (!constantField.Contains(property.Name))
+            {
+                entry.Property(property.Name).IsModified = true;
+            }
+        }
         await _dbContext.SaveChangesAsync();
     }
 }
