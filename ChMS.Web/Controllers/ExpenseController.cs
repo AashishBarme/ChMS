@@ -18,10 +18,12 @@ namespace ChMS.Web.Controllers
     {
         public readonly IExpenseService _service;
         public readonly IFileUploadService _uploadService;
-        public ExpenseController(IExpenseService service, IFileUploadService uploadService)
+        private readonly ICurrentUserService _currentUserService;
+        public ExpenseController(IExpenseService service, IFileUploadService uploadService, ICurrentUserService currentUserService)
         {
             _service = service;
             _uploadService = uploadService;
+            _currentUserService = currentUserService;
         }
 
 
@@ -43,7 +45,7 @@ namespace ChMS.Web.Controllers
                         Amount = income.Amount,
                         ExpenseDate = request.Date,
                         Description = income.Description,
-                        //CreatedBy = User.Identity.GetUserId()
+                        CreatedBy = _currentUserService.UserId
                     };
                     await _service.Create(entity);
                 }
@@ -78,6 +80,7 @@ namespace ChMS.Web.Controllers
                         ExpenseDate = request.Date,
                         Description = income.Description,
                         UpdatedDate = DateTime.Now,
+                        UpdatedBy = _currentUserService.UserId
                     };
                     await _service.Update(entity);
                 }

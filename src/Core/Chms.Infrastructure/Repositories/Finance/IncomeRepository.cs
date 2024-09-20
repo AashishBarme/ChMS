@@ -62,7 +62,15 @@ public class IncomeRepository : IIncomeRepository
 
     public async Task Update(Income entity)
     {
-        _dbContext.Incomes.Update(entity);
+        List<string> constantField = new() { "Id", "CreatedBy", "CreatedDate" };
+        var entry = _dbContext.Incomes.Attach(entity);
+        foreach (var property in entry.OriginalValues.Properties)
+        {
+            if (!constantField.Contains(property.Name))
+            {
+                entry.Property(property.Name).IsModified = true;
+            }
+        }
         await _dbContext.SaveChangesAsync();
     }
 }

@@ -62,7 +62,15 @@ public class ExpenseRepository : IExpenseRepository
 
     public async Task Update(Expense entity)
     {
-        _dbContext.Expenses.Update(entity);
+        List<string> constantField = new() { "Id", "CreatedBy", "CreatedDate" };
+        var entry = _dbContext.Expenses.Attach(entity);
+        foreach (var property in entry.OriginalValues.Properties)
+        {
+            if (!constantField.Contains(property.Name))
+            {
+                entry.Property(property.Name).IsModified = true;
+            }
+        }
         await _dbContext.SaveChangesAsync();
     }
 }
