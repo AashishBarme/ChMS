@@ -30,8 +30,16 @@ public class MemberCommandRepository : IMemberCommandRepository
 
     public async Task<Guid> Update(Domain.Entities.Member entity)
     {
-        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(entity));
-        _dbContext.Members.Update(entity);
+        List<string> constantField = new() { "Id", "CreatedBy", "CreatedDate" };
+        var entry = _dbContext.Members.Attach(entity);
+        foreach (var property in entry.OriginalValues.Properties)
+        {
+            if (!constantField.Contains(property.Name))
+            {
+                entry.Property(property.Name).IsModified = true;
+            }
+        }
+
         await _dbContext.SaveChangesAsync();
         return entity.Id;
     }

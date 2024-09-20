@@ -16,10 +16,12 @@ namespace ChMS.Web.Controllers
     {
         public readonly IMemberService _service;
         public readonly IFileUploadService _uploadService;
-        public MemberController(IMemberService service, IFileUploadService uploadService)
+        private readonly ICurrentUserService _currentUserService;
+        public MemberController(IMemberService service, IFileUploadService uploadService, ICurrentUserService currentUserService)
         {
             _service = service;
             _uploadService = uploadService;
+            _currentUserService = currentUserService;
         }
 
 
@@ -40,7 +42,8 @@ namespace ChMS.Web.Controllers
                 PhoneNumber = request.PhoneNumber,
                 SecondaryPhoneNumber = request.SecondaryPhoneNumber,
                 BirthDate  = request.BirthDate,
-                Occupation = request.Occupation
+                Occupation = request.Occupation,
+                CreatedBy = _currentUserService.UserId
             };
 
             if (request.PhotoFile != null)
@@ -72,7 +75,9 @@ namespace ChMS.Web.Controllers
                 SecondaryPhoneNumber = request.SecondaryPhoneNumber,
                 BirthDate = request.BirthDate,
                 Photo = request.Photo,
-                Occupation = request.Occupation
+                Occupation = request.Occupation,
+                UpdatedBy = _currentUserService.UserId,
+                UpdatedDate = DateTime.Now
             };
 
             if (request.PhotoFile != null)

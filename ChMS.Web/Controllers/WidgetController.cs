@@ -6,7 +6,7 @@ namespace ChMS.Web.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class WidgetController : ControllerBase
     {
         public readonly IWidgetService _service;
