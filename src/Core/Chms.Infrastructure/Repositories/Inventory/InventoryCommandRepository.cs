@@ -29,7 +29,16 @@ public class InventoryCommandRepository : IInventoryCommandRepository
 
     public async Task<int> Update(Inventory entity)
     {
-        _dbContext.Inventories.Update(entity);
+        //_dbContext.Inventories.Update(entity);
+        List<string> constantField = new() { "Id", "CreatedBy", "CreatedDate" };
+        var entry = _dbContext.Inventories.Attach(entity);
+        foreach (var property in entry.OriginalValues.Properties)
+        {
+            if (!constantField.Contains(property.Name))
+            {
+                entry.Property(property.Name).IsModified = true;
+            }
+        }
         return await _dbContext.SaveChangesAsync();
     }
 }

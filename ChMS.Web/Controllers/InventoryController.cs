@@ -15,10 +15,12 @@ public class InventoryController : ControllerBase
 {
     public readonly IInventoryService _service;
     private readonly IFileUploadService _fileUploadService;
-    public InventoryController(IInventoryService service, IFileUploadService fileUploadService)
+    private readonly ICurrentUserService _currentUserService;
+    public InventoryController(IInventoryService service, IFileUploadService fileUploadService, ICurrentUserService currentUserService)
     {
         _service = service;
         _fileUploadService = fileUploadService;
+        _currentUserService = currentUserService;
     }
 
     [HttpPost]
@@ -29,13 +31,13 @@ public class InventoryController : ControllerBase
             Name = request.Name,
             Description = request.Description,
             Code = request.Code,
-            Quantity = request.Quantity
+            Quantity = request.Quantity,
+            CreatedBy = _currentUserService.UserId,
         };
         if (request.ImageFile!= null)
         {
             entity.Image = await _fileUploadService.UploadFile(request.ImageFile);
         }
-        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(entity));
         var response = await _service.Create(entity);
         return Ok(response);
     }
@@ -51,7 +53,9 @@ public class InventoryController : ControllerBase
             Description = request.Description,
             Code = request.Code,
             Quantity = request.Quantity,
-            Image = request.Image
+            Image = request.Image,
+            UpdatedBy = _currentUserService.UserId,
+            UpdatedDate = DateTime.Now
         };
         if (request.ImageFile != null)
         {
