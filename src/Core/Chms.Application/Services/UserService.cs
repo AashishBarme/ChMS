@@ -1,5 +1,6 @@
 using Chms.Application.Common.Interface;
 using Chms.Application.Common.Interface.Repositories;
+using Chms.Domain.Entities;
 using Chms.Domain.ViewModels.Users;
 
 namespace Chms.Application.Services;
@@ -13,19 +14,33 @@ public class UserService : IUserService
         _command = command;
         _query  = query;
     }
-    public Task<long> Create(CreateUserVm entity)
+    public async Task<long> Create(CreateUserVm entity)
     {
-        throw new NotImplementedException();
+        return await _command.Create(entity);
     }
 
-    public Task<bool> Delete(long id)
+    public async Task<bool> Delete(long id)
     {
-        throw new NotImplementedException();
+        return await _command.Delete(id);
     }
 
-    public Task<UserDetailsVm> Get(long id)
+    public async Task<UserDetailsVm> Get(long id)
     {
-        throw new NotImplementedException();
+        User user = await  _query.Get(id);
+        UserDetailsVm userDetails = new();
+        if(user.Id > 0)
+        {
+                userDetails.Id = user.Id;
+                userDetails.FirstName = user.FirstName;
+                userDetails.LastName = user.LastName;
+                userDetails.UserName = user.UserName;
+                userDetails.UserGroup = user.UserGroup;
+                userDetails.Email = user.Email;
+                userDetails.MiddleName = user.MiddleName;
+                userDetails.IsActive = user.IsActive;
+            return userDetails;
+        }
+        return userDetails;
     }
 
     public Task<long> GetIdByUsername(string username)
@@ -38,9 +53,9 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
-    public Task<Dictionary<long, string>> ListAllUsers()
+    public List<User> ListAllUsers()
     {
-        throw new NotImplementedException();
+        return _query.List();
     }
 
     public Task<Dictionary<long, string>> ListUsersIdAndUsername()
@@ -50,7 +65,7 @@ public class UserService : IUserService
 
     public Task Update(EditUserVm entity)
     {
-        throw new NotImplementedException();
+        return _command.Update(entity);
     }
 
     public async Task<bool> UpdatePassword(long id, string password)

@@ -15,7 +15,6 @@ namespace Chms.Domain.ViewModels.Users
         public string MiddleName { get; set; } = null;
         public string LastName { get; set; }
         public ActiveStatus IsActive { get; set; }
-        public string UserImage { get; set; }
 
         public string FullName
         {
@@ -25,8 +24,6 @@ namespace Chms.Domain.ViewModels.Users
             }
 
         }
-        public string UserMetaData {get; set;}
-        public string UserImagePath {get; set;} = null;
     }
 
     public class EditUserVm 
@@ -42,11 +39,9 @@ namespace Chms.Domain.ViewModels.Users
         [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "User Group is required")]
-        public int UserGroup { get; set; }
+        public UserGroup UserGroup { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Active Status is required")]
-        public int IsActive { get; set; }
-        public string UserMetaData {get; set;}
-        public string UserImagePath {get; set;} = null;
+        public ActiveStatus IsActive { get; set; }
     }
 
     public class BioDataEditVm

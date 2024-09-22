@@ -16,7 +16,7 @@ namespace Chms.Domain.Entities;
 
         public string? MiddleName { get; set; } = null;
         public string? LastName { get; set; }
-        public ActiveStatus IsActive { get; set; }
+        public ActiveStatus IsActive { get; set; } = ActiveStatus.Active;
 
         public string FullName
         {
@@ -26,5 +26,10 @@ namespace Chms.Domain.Entities;
             }
 
         }
-    }
+        public string? Password { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public string? SecurityStamp { get; set; }
+
+}
 

@@ -1,4 +1,5 @@
 ﻿using Chms.Domain.Entities;
+using Chms.Domain.ViewModels.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace Chms.Application.Common.Interface.Repositories
 {
     public interface IUserCommandRepository
     {
-        public Task<Guid> Create(User entity);
-        public Task<Guid> Update(User entity);
-        public void Delete(Guid id);
+        public Task<long> Create(CreateUserVm entity);
+        public Task<long> Update(EditUserVm entity);
+        public Task<bool> Delete(long id);
         public Task<bool> UpdatePassword(long id, string password);
 
     }
@@ -19,7 +20,7 @@ namespace Chms.Application.Common.Interface.Repositories
     public interface IUserQueryRepository
     {
         public Task<User> GetByUserName(string userName);
-        public User Get(Guid id);
+        public Task<User> Get(long id);
         public List<User> List();
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace ChMS.Web.ViewModels
+﻿using Chms.Domain.Common.Enums;
+
+namespace ChMS.Web.ViewModels
 {
     public class UpdatePassword
     {
@@ -7,5 +9,6 @@
         public string? ConfirmPassword { get; set; }
 
     }
+
 
 }

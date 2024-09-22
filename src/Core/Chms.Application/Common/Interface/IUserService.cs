@@ -1,3 +1,4 @@
+using Chms.Domain.Entities;
 using Chms.Domain.ViewModels.Users;
 
 namespace Chms.Application.Common.Interface;
@@ -8,7 +9,7 @@ namespace Chms.Application.Common.Interface;
         Task Update(EditUserVm entity);
         Task<bool> Delete(long id);
         Task<GetUsersQueryVm> GetUsers(GetUsersQueryDto query);
-        Task<Dictionary<long, string>> ListAllUsers();
+        List<User> ListAllUsers();
         Task<Dictionary<long, string>> ListUsersIdAndUsername();
         // Task UpdateUserPassword(UserPasswordChangeViewModel request);
         Task<UserDetailsVm> Get(long id);

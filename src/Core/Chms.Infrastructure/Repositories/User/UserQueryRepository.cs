@@ -1,5 +1,6 @@
 ﻿using Chms.Application.Common.Interface.Repositories;
 using Chms.Domain.Entities;
+using Chms.Domain.ViewModels.Users;
 using Chms.Infrastructure.DataAccess;
 using Chms.Infrastructure.Identity;
 using Chms.Infrastructure.Persistence;
@@ -26,10 +27,25 @@ namespace Chms.Infrastructure.Repositories.User
             _baseRepository = baseRepository;
         }
 
-        public Domain.Entities.User Get(Guid id)
+        public async Task<Domain.Entities.User> Get(long id)
         {
-
-            throw new NotImplementedException();
+            var entity = new Domain.Entities.User();
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user != null)
+            {
+                entity.UserName = user.UserName;
+                entity.Id = user.Id;
+                entity.Email = user.Email;
+                entity.UserGroup = user.UserGroup;
+                entity.FirstName = user.FirstName;
+                entity.MiddleName = user.MiddleName;
+                entity.LastName = user.LastName;
+                entity.IsActive = user.IsActive;
+                entity.CreatedAt = user.CreatedAt;
+                entity.UpdatedAt = user.UpdatedAt;
+                entity.SecurityStamp = user.SecurityStamp;
+            }
+            return await Task.FromResult(entity);
         }
 
         public async Task<Domain.Entities.User> GetByUserName(string userName)
@@ -53,7 +69,7 @@ namespace Chms.Infrastructure.Repositories.User
 
         public List<Domain.Entities.User> List()
         {
-             var sql = @$"select Username, Email,Status,UserType,Id from `{TABLE_NAME}`";
+             var sql = @$"select Username, Email,IsActive,UserGroup,Id from `{TABLE_NAME}`";
             var where = new { };
             var result = _baseRepository.LoadData<Domain.Entities.User, object>(sql, where).GetAwaiter().GetResult();
             return result;
